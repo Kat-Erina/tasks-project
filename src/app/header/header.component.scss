@@ -1,0 +1,60 @@
+header{
+    padding: 5px 10px;
+    display: flex;
+    flex-direction: column;
+    img{
+        width:120px;
+        height: 25px;
+    }
+    .btn-div{
+        margin-top: 5px;
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
+
+    }
+    .add-employee{
+        border:1px solid #8338EC;
+        background-color: white;
+        font-size: 10px;
+        letter-spacing: 0.2px;
+        margin-right: 10px;
+        padding: 5px;
+        border-radius: 5px;
+        text-decoration: none;
+    }
+    .add-employee:hover, .add-task:hover{
+        cursor: pointer;
+    }
+    .add-task{
+        background-color: #8338EC;
+        color: white;
+        font-size: 10px;
+        letter-spacing: 0.2px; 
+        padding:5px;
+        display: flex;
+        align-items: center;
+        border-radius: 5px;
+        text-align: center;
+        gap:2px;
+        text-decoration: none;
+        span{
+            align-items: center;
+            text-align: center;
+            display: flex;
+        }
+    }
+}
+
+
+@media screen and (min-width:500px) {
+    header{
+        flex-direction: row;
+        justify-content: space-between;
+        img{
+            width:150px;
+            height: 25px;
+        }
+    }
+    
+}
