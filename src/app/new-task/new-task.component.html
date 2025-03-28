@@ -1,1 +1,41 @@
-<p>new-task works!</p>
+<div class="task-container">
+    <h1>შექმენი ახალი დავალება</h1>
+    <form (submit)="handleSubmit($event)">
+
+        <!-- pirveli div -->
+       <div class="first-sub-container">
+       <!-- name fileds -->
+        <div class="title-div">
+<app-input [label]="'სახელი*'" [value]="titleValue()" (valueEmit)="handleNameChange($event)" [minimumRequirement]="'მინიმუმ 2 სიმბოლო'" 
+[maximumRequirement]="'მაქსიმუმ 255 სიმბოლო'" [minimumLengthIsValid]="minimumLengthValid()"  [maxiumLengthIsValid]="maximumLengthValid()">
+</app-input>
+        </div>
+
+        <!-- desc div -->
+        
+        <div class="desc-div">
+            <label for="description"> აღწერა</label>
+            <textarea [value]="description()" name="description" (input)="handleDescriptionChange($event)" [value]="description()"></textarea>
+            <div class="span-container">
+            <span [ngClass]="{
+                'valid':description().length>0 && descMinimumValidation(),
+                'invalid':description().length>0 && !descMinimumValidation()
+            }">მინიმუმ 2 სიმბოლო</span>
+            <span [ngClass]="{
+                'valid':description().length>0 && !regexForMaximumLength.test(description()),
+                'invalid':description().length>0 && regexForMaximumLength.test(description())
+            }">მაქსიმუმ 255 სიმბოლო</span>
+            </div>
+           </div>
+       </div>
+
+       <!-- meore div -->
+
+      
+
+       <!-- //მესამე დივ -->
+        <div>
+            <button type="submit">დასსაბმითე</button>
+        </div>
+    </form>
+</div>

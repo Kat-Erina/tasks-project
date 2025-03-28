@@ -1,0 +1,49 @@
+.task-container{
+    padding: 5px 10px;
+    display: flex;
+    flex-direction: column;
+    background-color: #DDD2FF;
+    border-radius: 4px;
+    gap:15px;
+    h1{
+        font-size: 16px;
+    }
+    form{
+        display: flex;
+        flex-direction: column;
+        .first-sub-container{
+            display: flex;
+    flex-direction: column;
+    gap:15px;
+   
+    .desc-div{
+        display: flex;
+        flex-direction: column;
+        gap:4px;
+        label{
+            font-size: 12px;
+            font-weight: bold;
+        };
+        textarea{
+            outline: none;
+            padding: 8px;
+            border-radius: 5px;
+            border:1px solid #DEE2E6;
+            min-height: 100px;
+        }
+        .span-container{
+            display: flex;
+            flex-direction: column;
+            span{
+            color: #6C757D;
+            font-size: 8px;
+            }
+            
+        }
+
+        
+
+    }
+        }
+    }
+}
