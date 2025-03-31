@@ -3,10 +3,10 @@
 <div class="span-container">
     <span [ngClass]="{
     'valid': value().length>0 && minimumLengthIsValid,
-    'invalid':value().length>0 && !minimumLengthIsValid
+    'invalid':value().length>0 && !minimumLengthIsValid || formSubmitted && !minimumLengthIsValid
 }">{{minimumRequirement}}</span>
 <span [ngClass]="{
     'valid': value().length>0 && !maxiumLengthIsValid,
-    'invalid':value().length>0 && maxiumLengthIsValid
+    'invalid':value().length>0 && maxiumLengthIsValid 
 }">{{maximumRequirement}}</span>
 </div>

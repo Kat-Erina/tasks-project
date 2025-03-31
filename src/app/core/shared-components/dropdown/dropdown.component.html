@@ -1,0 +1,23 @@
+<p class="title"></p>
+<div class="selected-option" (click)="toggleOpen()">
+    
+    <img alt={{initialValue.icon}}>
+    <p>{{initialValue.name}}</p>
+    <i class="fa-solid fa-angle-up"></i>
+</div>
+@if(openList()){
+<ul>
+    @for(item of data; track item.id){
+        <li (click)="setValue(item)">
+            @if(item.icon){<img [alt]="item.name" [src]="item.icon">
+            <p>{{item.name}}</p>}
+        @else{  <p>{{item.name}}</p>}  
+            <!-- <i class="fa-solid fa-angle-up"></i> -->
+            <!-- <i class="fa-solid fa-angle-down"></i> -->
+        </li>
+    }
+    
+</ul>
+}
+
+

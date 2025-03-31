@@ -14,6 +14,7 @@ value=input<string>('')
 @Input() maxiumLengthIsValid!:boolean
 @Input() minimumRequirement=""
 @Input() maximumRequirement=""
+@Input() formSubmitted!:boolean
 @Output() valueEmit=new EventEmitter<string>();
 
 

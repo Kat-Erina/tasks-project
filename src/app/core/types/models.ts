@@ -7,6 +7,7 @@ export type Priority= {
   export type Status= {
     id: number,
     name: string,
+    icon?:string
   }
   
   export type Department= {
