@@ -1,14 +1,16 @@
-import { Component, EventEmitter, Input, OnInit, Output, signal } from '@angular/core';
-import { Priority, Status } from '../../types/models';
+import { Component, EventEmitter, Input, Output, signal } from '@angular/core';
+import { Department, Priority, Status } from '../../types/models';
+import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-dropdown',
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './dropdown.component.html',
   styleUrl: './dropdown.component.scss'
 })
 export class DropdownComponent {
+  @Input() title!:string
 @Input() data!:Priority[] | Status[];
-@Input() initialValue!:Priority| Status;
+@Input() chosenValue!:Priority| Status |Department;
 @Input() classifier!:string
 @Output() getchosenValue=new EventEmitter();
 openList=signal(false);
@@ -19,15 +21,17 @@ toggleOpen(){
 }
 
 setValue(value:any){
-  console.log(this.data)
-  console.log(this.classifier)
+this.openList.set(false)
   this.chosenItem.set(value)
-  console.log(value)
-  if(this.classifier==='priorities'){
+  console.log(this.chosenItem())
+  if(this.classifier==='priority'){
     this.getchosenValue.emit({name:'priority',obj:value })
   }
   if(this.classifier==='statuses'){
     this.getchosenValue.emit({name:'status',obj:value })
+  }
+  if(this.classifier==='department'){
+    this.getchosenValue.emit({name:'department',obj:value })
   }
 }
 }

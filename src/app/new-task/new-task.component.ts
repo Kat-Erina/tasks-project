@@ -2,8 +2,9 @@ import { Component, effect, inject, OnInit, signal, WritableSignal } from '@angu
 import { InputComponent } from '../core/shared-components/input/input.component';
 import { CommonModule } from '@angular/common';
 import { ApiService } from '../core/services/api.service';
-import { Priority, Status } from '../core/types/models';
+import { Department, Priority, Status } from '../core/types/models';
 import { DropdownComponent } from '../core/shared-components/dropdown/dropdown.component';
+import { debounceTime } from 'rxjs';
 
 @Component({
   selector: 'app-new-task',
@@ -15,9 +16,7 @@ export class NewTaskComponent implements OnInit{
  data={
     name:"", 
     description:"", 
-    // status:{id:0, name:''}, 
     department:"", 
-    // priority:{id:0,name:'', icon:'' }, 
     employee:"", 
     deadline:""
   }
@@ -35,28 +34,16 @@ formSubmitted=signal(false)
 apiService=inject(ApiService)
 priorities=signal<Priority[]>([])
 statuses=signal<Status[]>([])
-initialPriority=signal<Priority>({id:-1, name:"", icon: ''})
-initialStatus=signal<Status>({id:-1, name:''})
+chosenPriority=signal<Priority>({id:0, name:"", icon: ''})
+chosenstatus=signal<Status>({id:0, name:''})
+departments=signal<Department[]>([])
+chosenDepartment=signal<Department>({id:0, name:''})
 
-// constructor(){
-//   effect(() => {
-//     console.log('effect is run')
-//     if (this.priorities().length > 0 && this.status().length > 0) {
-//       this.data = { 
-//         ...this.data, 
-//         priority: this.priorities()[0], 
-//         status: this.status()[0] 
-//       };
-//       localStorage.setItem('taskData', JSON.stringify(this.data));
-//     }
-//   });
-  
-// }
+
 
 
 handleNameChange(value:string){
     this.titleValue.set(value)
-    // localStorage.setItem('taskData',JSON.stringify( {...this.data, name:this.titleValue()}));
    this.minimumLengthValid.set(this.regexforMinimumLength.test(this.titleValue()));
    this.maximumLengthValid.set(this.regexForMaximumLength.test(this.titleValue()));
    this.data = { ...this.data, name: this.titleValue() };
@@ -72,67 +59,82 @@ handleNameChange(value:string){
     localStorage.setItem('taskData',JSON.stringify(this.data));
   }
  
-  getPriorities(){
-this.apiService.getPriorities('priorities').subscribe({
-  next:(response)=>{console.log(response),this.priorities.set(response)
-    let data={...this.data, priority:response[0]}
-    console.log(data)
-    this.data=data;
-    this.initialPriority.set(response[1])
-    localStorage.setItem('taskData',JSON.stringify(this.data))
-  },
-  error:(error)=>{console.log(error, "oops, error")}
-})
-  }
-
-
-  getStatus(){
-    this.apiService.getStatuses('statuses').subscribe({
-      next:(response)=>{console.log(response),this.statuses.set(response)
-        let data={...this.data, status:response[1]}
-        this.data=data
-        console.log(data)
-        this.initialStatus.set(response[0])
-        localStorage.setItem('taskData',JSON.stringify(this.data))
-      },
-      error:(error)=>{console.log(error, "oops, error")}
-    })
-      }
-
     
 
       handleDropDownChange(val:any){
 let {name, obj}=val;
 this.data = { ...this.data, [name]: obj };
+if(name==="status"){
+  this.chosenstatus.set(obj)
+}
+if(name==="priority"){
+  this.chosenPriority.set(obj)
+}
+if(name==="department"){
+  this.chosenDepartment.set(obj)
+}
 localStorage.setItem('taskData',JSON.stringify(this.data))
+      }
+
+      getAllDepartments(){
+        this.apiService.getDepartments('departments').subscribe({
+          next:(response)=>{console.log(response)
+            this.departments.set(response)
+          },
+          error:(error)=>{console.log(error)}
+        })
+      }
+
+      getEmployees(){
+        this.apiService.getEmployees('employees').subscribe({
+          next:(response)=>{console.log(response)
+            // this.departments.set(response)
+          },
+          error:(error)=>{console.log(error)}
+        })
       }
          
 
   ngOnInit(): void {
-    localStorage.setItem('taskData', JSON.stringify(this.data));
     // localStorage.clear()
     let fetchedData=localStorage.getItem('taskData');
     if(!fetchedData){
       localStorage.setItem('taskData', JSON.stringify(this.data));
-      this.getPriorities()
-    this.getStatus()
     }
-    else{
+    else {
       let data=JSON.parse(fetchedData);
-      console.log(data)
       this.data=data;
       this.titleValue.set(data.name);
       this.minimumLengthValid.set(this.regexforMinimumLength.test(this.titleValue()));
       this.maximumLengthValid.set(this.regexForMaximumLength.test(this.titleValue()));
       this.description.set(data.description)
       this.descMinimumValidation.set(this.regexforMinimumLength.test(this.description()));
-      this.initialPriority.set(data.priority)
-      this.initialStatus.set(data.status);
-      localStorage.setItem('taskData', JSON.stringify(this.data));
+      this.chosenDepartment.set(data.department)
+         }
 
+    this.apiService.getStatuses('statuses').subscribe({
+      next:(response)=>{
+        this.statuses.set(response);
+        if(fetchedData){
+          let data=JSON.parse(fetchedData);
+            data.status? this.chosenstatus.set(data.status): this.chosenstatus.set(response[0])
+        } 
+      },
+      error:(error)=>{console.log(error, "oops, error")}
+    })
 
-    }
-
+    this.apiService.getPriorities('priorities').subscribe({
+      next:(response)=>{
+        this.priorities.set(response);
+        if(fetchedData){
+          let data=JSON.parse(fetchedData);
+            data.priority? this.chosenPriority.set(data.priority): this.chosenPriority.set(response[0])
+        } 
+      },
+        error:(error)=>{console.log(error, "oops, error")}
+      })
+      this.getAllDepartments()
+      this.getEmployees()
   }
 
   

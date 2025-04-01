@@ -13,6 +13,7 @@ export type Priority= {
   export type Department= {
     id: number,
     name: string,
+    icon?:string
   }
 
   export interface CreateEmployee {

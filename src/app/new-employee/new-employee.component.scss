@@ -1,0 +1,68 @@
+/* Overlay */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5); 
+    backdrop-filter: blur(2px); 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+  
+  
+  /* Modal */
+  .modal {
+    background-color: #fff;
+    width: 400px;
+    max-width: 90%; //needs to be changed
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+    gap: 15px;
+    .img-container{
+        display: flex;
+justify-content: end;
+.close-btn {
+    height: 25px;
+    width: 25px;
+    cursor: pointer;
+  }
+    }
+    form{
+
+        //btn container
+        .modal-footer{
+            display: flex;
+            justify-content: flex-end;
+            gap:12px;
+            button{
+                cursor: pointer;
+                padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 10px 
+            }
+            .add-btn{
+background-color:#8338EC ;
+color: white
+            }
+            .close-btn{
+                color: #343A40;
+                border:1px solid #8338EC;
+                background-color: white;
+            }
+        }
+    }
+   
+  }
+}
+  
+
+  

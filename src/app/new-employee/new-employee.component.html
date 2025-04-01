@@ -1,0 +1,19 @@
+<div class="overlay" (click)="closeModal($event)">
+    <div class="modal" (click)="$event.stopPropagation()">
+      <div class="img-container">  <img class="close-btn" alt="close"  src="/images/Cancel.svg"/></div>
+    <form>
+        <h2>თანამშრომლის დამატება</h2>
+        <div class="personal-info-content">
+        <app-input [label]="'სახელი*'"  [minimumRequirement]="'✔ მინიმუმ 2 სიმბოლო'" [maximumRequirement]="'✔ მაქსიმუმ 255 სიმბოლო'"></app-input>
+        <app-input [label]="'გვარი*'"  [minimumRequirement]="'✔ მინიმუმ 2 სიმბოლო'" [maximumRequirement]="'✔ მაქსიმუმ 255 სიმბოლო'"></app-input>
+        </div>
+        <div class="avatar-container"></div>
+        <app-dropdown></app-dropdown>
+        <div class="modal-footer">
+          <button class="close-btn"(click)="closeModal($event)" >გაუქმება</button>
+          <button class="add-btn" >დაამატე თანამშრომელი</button>
+        </div>
+    </form>
+    </div>
+  </div>
+  

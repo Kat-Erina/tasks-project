@@ -31,10 +31,12 @@
 
            <div class="status-priority-container">
 <div class="priority">
-    <app-dropdown [data]="priorities()" [initialValue]="initialPriority()" [classifier]="'priorities'" (getchosenValue)="handleDropDownChange($event)"></app-dropdown>
+    <app-dropdown [data]="priorities()" [chosenValue]="chosenPriority()" [classifier]="'priority'" (getchosenValue)="handleDropDownChange($event)"
+    [title]="'პრიორიტეტი*'"></app-dropdown>
 </div>
 <div class="status">
-    <app-dropdown [data]="statuses()" [initialValue]="initialStatus()" [classifier]="'statuses'" (getchosenValue)="handleDropDownChange($event)"></app-dropdown>
+    <app-dropdown [data]="statuses()" [chosenValue]="chosenstatus()" [classifier]="'statuses'" (getchosenValue)="handleDropDownChange($event)"
+    [title]="'სტატუსი*'"></app-dropdown>
 </div>
            </div>
 
@@ -42,7 +44,22 @@
        </div>
 
        <!-- meore div -->
-
+<div class="second-sub-container">
+   <div class="department-employee-container">
+    <div class="department-container">
+        <app-dropdown [data]="departments()" [chosenValue]="chosenDepartment()" [classifier]="'department'" (getchosenValue)="handleDropDownChange($event)"
+        [title]="'დეპარტამენტი*'"></app-dropdown>
+    </div>
+    @if(chosenDepartment()){
+        <div class="employees-container">
+            <app-dropdown [data]="priorities()" [chosenValue]="chosenPriority()" [classifier]="'priority'" (getchosenValue)="handleDropDownChange($event)"
+            [title]="'თანამშრომელი*'"></app-dropdown>
+        </div>
+    }
+   
+   </div>
+    <div class="deadline-container"></div>
+</div>
       
 
        <!-- //მესამე დივ -->

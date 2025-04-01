@@ -1,19 +1,21 @@
-<p class="title"></p>
+<p class="title">{{title}}</p>
 <div class="selected-option" (click)="toggleOpen()">
-    
-    <img alt={{initialValue.icon}}>
-    <p>{{initialValue.name}}</p>
-    <i class="fa-solid fa-angle-up"></i>
+    <div class="img-container">
+        @if(chosenValue.icon)
+  {
+    <img alt={{chosenValue.icon}} 
+  [src]="chosenValue.icon">
+}
+    <p>{{chosenValue.name}}</p>
+    </div>
+    <i class="fa-solid" [ngClass]="openList()?'fa-angle-up':'fa-angle-down'"></i>
 </div>
 @if(openList()){
 <ul>
     @for(item of data; track item.id){
         <li (click)="setValue(item)">
-            @if(item.icon){<img [alt]="item.name" [src]="item.icon">
-            <p>{{item.name}}</p>}
-        @else{  <p>{{item.name}}</p>}  
-            <!-- <i class="fa-solid fa-angle-up"></i> -->
-            <!-- <i class="fa-solid fa-angle-down"></i> -->
+            @if(item.icon){<img [alt]="item.name" [src]="item.icon">}
+            <p>{{item.name}}</p>
         </li>
     }
     

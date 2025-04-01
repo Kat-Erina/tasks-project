@@ -5,12 +5,14 @@
     background-color: #DDD2FF;
     border-radius: 4px;
     gap:15px;
+    // height: 100vh;
     h1{
         font-size: 16px;
     }
     form{
         display: flex;
         flex-direction: column;
+        gap:15px;
         .first-sub-container{
             display: flex;
     flex-direction: column;
@@ -38,12 +40,33 @@
             color: #6C757D;
             font-size: 8px;
             }
-            
         }
-
-        
-
     }
+    .status-priority-container{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        gap:20px;
+     
+        .priority, .status{
+            width: 50%;
+        }
+    }
+        }
+        .second-sub-container{
+            display: flex;
+            flex-direction: column;
+            gap:15px;
+            .department-employee-container{
+                display: flex;
+                flex-direction: row; 
+                justify-content: space-between;
+                gap:20px;
+            }
+            .department-container,.employees-container{
+                width: 50%;
+            }
+           
         }
     }
 }
