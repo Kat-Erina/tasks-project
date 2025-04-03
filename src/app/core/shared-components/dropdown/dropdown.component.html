@@ -1,17 +1,17 @@
 <p class="title">{{title}}</p>
-<div class="selected-option" (click)="toggleOpen()">
-    <div class="img-container">
-        @if(chosenValue.icon)
+<div [ngClass]="{'invalid-border':formSubmitted() && !chosenValue}" class="selected-option" (click)="toggleOpen()">
+    <section class="img-container">
+        @if(chosenValue?.icon)
   {
-    <img alt={{chosenValue.icon}} 
-  [src]="chosenValue.icon">
+    <img alt={{chosenValue?.icon}} 
+  [src]="chosenValue?.icon">
 }
-    <p>{{chosenValue.name}}</p>
-    </div>
+    <p>{{chosenValue?.name}}</p>
+    </section>
     <i class="fa-solid" [ngClass]="openList()?'fa-angle-up':'fa-angle-down'"></i>
 </div>
 @if(openList()){
-<ul>
+<ul >
     @for(item of data; track item.id){
         <li (click)="setValue(item)">
             @if(item.icon){<img [alt]="item.name" [src]="item.icon">}

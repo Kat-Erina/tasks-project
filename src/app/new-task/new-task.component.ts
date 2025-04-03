@@ -34,10 +34,9 @@ formSubmitted=signal(false)
 apiService=inject(ApiService)
 priorities=signal<Priority[]>([])
 statuses=signal<Status[]>([])
-chosenPriority=signal<Priority>({id:0, name:"", icon: ''})
-chosenstatus=signal<Status>({id:0, name:''})
-departments=signal<Department[]>([])
-chosenDepartment=signal<Department>({id:0, name:''})
+chosenPriority=signal<Priority | undefined>(undefined)
+chosenstatus=signal<Status | undefined>(undefined)
+chosenDepartment=signal<Department|undefined>(undefined)
 
 
 
@@ -61,7 +60,7 @@ handleNameChange(value:string){
  
     
 
-      handleDropDownChange(val:any){
+      handleDropDownChange(val:{name:string, obj:{name:string, id:number, icon:string}}){
 let {name, obj}=val;
 this.data = { ...this.data, [name]: obj };
 if(name==="status"){
@@ -76,14 +75,6 @@ if(name==="department"){
 localStorage.setItem('taskData',JSON.stringify(this.data))
       }
 
-      getAllDepartments(){
-        this.apiService.getDepartments('departments').subscribe({
-          next:(response)=>{console.log(response)
-            this.departments.set(response)
-          },
-          error:(error)=>{console.log(error)}
-        })
-      }
 
       getEmployees(){
         this.apiService.getEmployees('employees').subscribe({
@@ -133,7 +124,7 @@ localStorage.setItem('taskData',JSON.stringify(this.data))
       },
         error:(error)=>{console.log(error, "oops, error")}
       })
-      this.getAllDepartments()
+      this.apiService.getAllDepartments()
       this.getEmployees()
   }
 

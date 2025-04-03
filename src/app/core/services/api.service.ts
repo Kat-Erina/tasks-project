@@ -1,13 +1,15 @@
 import { HttpClient, HttpHeaders } from "@angular/common/http";
-import { inject, Injectable } from "@angular/core";
-import { Department, Employee, Priority, Status } from "../types/models";
+import { inject, Injectable, signal } from "@angular/core";
+import { CreateEmployee, Department, Employee, Priority, Status } from "../types/models";
 
 @Injectable({
     'providedIn':"root"
 })
+
 export class ApiService{
     url="https://momentum.redberryinternship.ge/api"
     http=inject(HttpClient)
+    departments=signal<Department[]|undefined>([])
 
  getPriorities(part:string){
   return  this.http.get<Priority[]>(`${this.url}/${part}`)
@@ -23,9 +25,28 @@ export class ApiService{
 
    getEmployees(part:string){
     const header=new HttpHeaders({
-        Authorization: 'Bearer 9e902db0-6dbe-4dc2-9830-71358f9248f5' 
+        Authorization: 'Bearer ' 
     })
     return  this.http.get<Employee[]>(`${this.url}/${part}`, {headers:header})
    }
+
+
+   getAllDepartments(){
+    this.getDepartments('departments').subscribe({
+      next:(response)=>{console.log(response)
+        this.departments.set(response)
+      },
+      error:(error)=>{console.log(error)}
+    })
+  }
+
+  postData(destination:string, data:any){
+    const header=new HttpHeaders({
+      Authorization: 'Bearer' 
+  })
+
+  return  this.http.post<Employee[]>(`${this.url}/${destination}`,data, {headers:header})
+
+  }
 
 }

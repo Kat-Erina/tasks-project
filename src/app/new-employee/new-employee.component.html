@@ -1,17 +1,44 @@
 <div class="overlay" (click)="closeModal($event)">
     <div class="modal" (click)="$event.stopPropagation()">
-      <div class="img-container">  <img class="close-btn" alt="close"  src="/images/Cancel.svg"/></div>
-    <form>
+      <div class="img-container" >  <img (click)="closeModal($event)" class="close-btn" alt="close"  src="/images/Cancel.svg"/></div>
+    <form (submit)="handleSubmit($event)">
         <h2>თანამშრომლის დამატება</h2>
         <div class="personal-info-content">
-        <app-input [label]="'სახელი*'"  [minimumRequirement]="'✔ მინიმუმ 2 სიმბოლო'" [maximumRequirement]="'✔ მაქსიმუმ 255 სიმბოლო'"></app-input>
-        <app-input [label]="'გვარი*'"  [minimumRequirement]="'✔ მინიმუმ 2 სიმბოლო'" [maximumRequirement]="'✔ მაქსიმუმ 255 სიმბოლო'"></app-input>
+        <app-input [label]="'სახელი*'"  [minimumRequirement]="'✔ მინიმუმ 2 სიმბოლო'" [maximumRequirement]="'✔ მაქსიმუმ 255 სიმბოლო'"
+        (valueEmit)="handleNameChange($event)" [value]="nameValue()" [minimumLengthIsValid]="minimumLengthValid()"
+        [maxiumLengthIsValid]="maximumLengthValid()" [formSubmitted]="formSubmitted()"></app-input>
+        <app-input [label]="'გვარი*'"  [minimumRequirement]="'✔ მინიმუმ 2 სიმბოლო'" [maximumRequirement]="'✔ მაქსიმუმ 255 სიმბოლო'"
+        (valueEmit)="handleSurnameChange($event)" [value]="surnameValue()"   [maxiumLengthIsValid]="maximumSurnameLengthValid()"
+        [minimumLengthIsValid]="minimumSurnameLengthValid()" [formSubmitted]="formSubmitted()"></app-input>
         </div>
-        <div class="avatar-container"></div>
-        <app-dropdown></app-dropdown>
+
+        <!-- // img container -->
+        <div class="img-container">
+          <p style="font-weight: bold;">ავატარი*</p>
+          <div class="upload-container" [ngClass]="{'invalid-dashed-boarder':formSubmitted() && !imageSrc()}" (click)="triggerFileInput()">
+            <input id="fileInput" type="file" accept="image/*" (change)="onFileChange($event)" />
+       @if(imageSrc()){<div  class="image-preview">
+        <img [src]="imageSrc()"  alt="Image preview"  />
+        <i class="fa-solid fa-trash" (click)="removeImg($event)"></i>
+      </div>} 
+      
+      @if(!imageSrc()){
+        <div  class="upload-text">
+          <i class="fa-solid fa-image"></i>
+          <p [ngClass]="{'invalid':formSubmitted() && !imageSrc()}"> ატვირთე ფოტო</p>
+        </div>
+      }
+            
+          </div>
+         </div>
+
+        <app-dropdown [title]="'დეპარტამენტი*'" [classifier]="'department'" [data]="apiService.departments()"  [chosenValue]="chosenDepartment()" (getchosenValue)="handleDepartmentChange($event)"
+        [formSubmitted]="formSubmitted"></app-dropdown>
+      
+      <!-- //btn containr -->
         <div class="modal-footer">
           <button class="close-btn"(click)="closeModal($event)" >გაუქმება</button>
-          <button class="add-btn" >დაამატე თანამშრომელი</button>
+          <button class="add-btn" type="submit" >დაამატე თანამშრომელი</button>
         </div>
     </form>
     </div>

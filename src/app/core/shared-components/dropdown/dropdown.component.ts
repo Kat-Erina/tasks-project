@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output, signal } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, Output, signal, ViewChild, viewChild } from '@angular/core';
 import { Department, Priority, Status } from '../../types/models';
 import { CommonModule } from '@angular/common';
 @Component({
@@ -8,16 +8,19 @@ import { CommonModule } from '@angular/common';
   styleUrl: './dropdown.component.scss'
 })
 export class DropdownComponent {
-  @Input() title!:string
-@Input() data!:Priority[] | Status[];
-@Input() chosenValue!:Priority| Status |Department;
+@Input() title!:string
+@Input() data!:Priority[] | Status[] | Department[] |undefined;
+@Input() chosenValue!:Priority| Status |Department |undefined;
 @Input() classifier!:string
+@Input() formSubmitted=signal(false)
 @Output() getchosenValue=new EventEmitter();
 openList=signal(false);
 chosenItem=signal({})
 
+
 toggleOpen(){
   this.openList.set(!this.openList())
+
 }
 
 setValue(value:any){
