@@ -21,10 +21,20 @@ export type Priority= {
     avatar: string
     surname:string
     department_id: number
+    
   }
 
+  export interface ReceivedEmployee {
+    id:number,
+    name: string,
+    avatar: string,
+    surname:string,
+department:Department,
+icon?:string
+  }
   export interface Employee extends CreateEmployee{
     id:number
+    department?:{id:number, name:string}
   }
 
   export interface Comment

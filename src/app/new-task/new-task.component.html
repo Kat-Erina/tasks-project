@@ -39,11 +39,9 @@
     [title]="'სტატუსი*'" ></app-dropdown>
 </div>
            </div>
-
-
        </div>
 
-       <!-- meore div -->
+       <!-- second div -->
 <div class="second-sub-container">
    <div class="department-employee-container">
     <div class="department-container">
@@ -52,8 +50,8 @@
     </div>
     @if(chosenDepartment()){
         <div class="employees-container">
-            <app-dropdown [data]="priorities()" [chosenValue]="chosenPriority()" [classifier]="'priority'" (getchosenValue)="handleDropDownChange($event)"
-            [title]="'თანამშრომელი*'"></app-dropdown>
+            <app-dropdown  [data]="filteredEmployees()" [chosenValue]="chosenEmployee()" [classifier]="'employee'" (getchosenValue)="handleDropDownChange($event)"
+            [title]="'თანამშრომელი*'" [formSubmitted]="formSubmitted"></app-dropdown>
         </div>
     }
    
@@ -62,7 +60,7 @@
 </div>
       
 
-       <!-- //მესამე დივ -->
+       <!-- //third დივ -->
         <div>
             <button type="submit">დასსაბმითე</button>
         </div>

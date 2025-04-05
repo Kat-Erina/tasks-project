@@ -5,5 +5,5 @@ import { Injectable, signal } from "@angular/core";
 })
 
 export class SharedStates{
-    openEmployeeModal=signal(true)
+    openEmployeeModal=signal(false)
 }

@@ -101,6 +101,7 @@ handleDepartmentChange(value:{name:string, obj:{name:string, id:number}}){
   let {name, obj}=value;
     this.chosenDepartment.set(obj);
   this.data = { ...this.data, [name]: obj };
+  console.log(this.data)
   localStorage.setItem('employeeData', JSON.stringify(this.data));
 }
 
@@ -138,10 +139,7 @@ handleSubmit(event:Event){
 
   
   if(this.nameValue() && this.imageSrc()&&this.surnameValue() &&this.chosenDepartment()){
-   
-  }
-
-  else {
+    console.log('vasubmiteb')
     const formData = new FormData();
     formData.append('avatar', this.photo(), this.photo().name);
     formData.append('name', this.nameValue());
@@ -152,6 +150,7 @@ handleSubmit(event:Event){
     this.apiService.postData('employees', formData).subscribe({
       next:response=>{
         if(response){
+          console.log(response)
           this.sharedState.openEmployeeModal.set(false);
           localStorage.removeItem('employeeData')
         }
@@ -159,5 +158,9 @@ handleSubmit(event:Event){
       error:error=>console.log(error)
     })
   }
+  
+
+  else {
+
 }
-}
+}}

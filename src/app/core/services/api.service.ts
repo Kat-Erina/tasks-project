@@ -10,6 +10,7 @@ export class ApiService{
     url="https://momentum.redberryinternship.ge/api"
     http=inject(HttpClient)
     departments=signal<Department[]|undefined>([])
+    
 
  getPriorities(part:string){
   return  this.http.get<Priority[]>(`${this.url}/${part}`)
@@ -40,9 +41,11 @@ export class ApiService{
     })
   }
 
+ 
+
   postData(destination:string, data:any){
     const header=new HttpHeaders({
-      Authorization: 'Bearer' 
+      Authorization: 'Bearer ' 
   })
 
   return  this.http.post<Employee[]>(`${this.url}/${destination}`,data, {headers:header})

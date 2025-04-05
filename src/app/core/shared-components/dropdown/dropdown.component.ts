@@ -1,6 +1,7 @@
-import { Component, ElementRef, EventEmitter, Input, Output, signal, ViewChild, viewChild } from '@angular/core';
-import { Department, Priority, Status } from '../../types/models';
+import { Component, ElementRef, EventEmitter, inject, Input, Output, signal, ViewChild, viewChild } from '@angular/core';
+import { Department, Priority, ReceivedEmployee, Status } from '../../types/models';
 import { CommonModule } from '@angular/common';
+import { SharedStates } from '../../services/sharedStates.service';
 @Component({
   selector: 'app-dropdown',
   imports: [CommonModule],
@@ -9,13 +10,14 @@ import { CommonModule } from '@angular/common';
 })
 export class DropdownComponent {
 @Input() title!:string
-@Input() data!:Priority[] | Status[] | Department[] |undefined;
-@Input() chosenValue!:Priority| Status |Department |undefined;
+@Input() data!:Priority[] | Status[] | Department[] |ReceivedEmployee[] |undefined;
+@Input() chosenValue!:Priority| Status |Department |ReceivedEmployee |undefined;
 @Input() classifier!:string
 @Input() formSubmitted=signal(false)
 @Output() getchosenValue=new EventEmitter();
 openList=signal(false);
 chosenItem=signal({})
+SharedStates=inject(SharedStates)
 
 
 toggleOpen(){
@@ -23,10 +25,9 @@ toggleOpen(){
 
 }
 
-setValue(value:any){
+setValue(value:{id:number, name:string, icon?:string, surname?:string, avatar?:string, department?:Department}){
 this.openList.set(false)
   this.chosenItem.set(value)
-  console.log(this.chosenItem())
   if(this.classifier==='priority'){
     this.getchosenValue.emit({name:'priority',obj:value })
   }
@@ -35,6 +36,10 @@ this.openList.set(false)
   }
   if(this.classifier==='department'){
     this.getchosenValue.emit({name:'department',obj:value })
+  }
+  if(this.classifier==='employee'){
+  
+    this.getchosenValue.emit({name:'employee',obj:value })
   }
 }
 }
