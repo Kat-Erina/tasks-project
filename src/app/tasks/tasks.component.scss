@@ -1,0 +1,31 @@
+:host{
+    position: relative;
+    h1{
+        font-size: 20px;
+        color: #212529
+        }
+        .filters{
+            margin-top: 20px;
+            border:1px solid #DEE2E6;
+            border-radius: 10px;
+            ul{
+                padding: 10px;
+                list-style: none;
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                gap:20px;
+            }
+        }
+        .chosen-criterias{
+            margin-top: 10px;
+            margin-bottom: 10px;
+            ul{
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                gap:10px;
+            }
+        }
+}
+

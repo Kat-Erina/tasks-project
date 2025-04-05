@@ -1,1 +1,22 @@
-<p>tasks works!</p>
+<h1>დავალებების გვერდი</h1>
+<div class="filters">
+    <ul>
+        <li (click)="toggle()" appLi [title]="'დეპარტამენტი'"></li>
+        <li (click)="toggle()"  appLi [title]="'პრიორიტეტი'"></li>
+        <li (click)="toggle()" appLi [title]="'თანამშრომელი'"></li>
+    </ul>
+
+</div>
+@if(sharedStatesService.openFilteringCriterias()){
+    <div>
+        <p>kdsvdkvkvvds</p>
+    </div>
+}
+<div class="chosen-criterias">
+<ul >
+    <li>გასუფთავება</li>
+</ul>
+</div>
+<div class="main-container">
+
+</div>

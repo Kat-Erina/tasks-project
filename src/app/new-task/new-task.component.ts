@@ -125,22 +125,30 @@ this.filteredEmployees.set(empls)
 
     this.apiService.getStatuses('statuses').subscribe({
       next:(response)=>{
+
         this.statuses.set(response);
+        console.log(response)
         if(fetchedData){
           let data=JSON.parse(fetchedData);
             data.status? this.chosenstatus.set(data.status): this.chosenstatus.set(response[0])
+            console.log(this.chosenstatus())
         } 
+        else{this.chosenstatus.set(response[0])}
+        
       },
       error:(error)=>{console.log(error, "oops, error")}
     })
 
     this.apiService.getPriorities('priorities').subscribe({
       next:(response)=>{
+        console.log(response)
         this.priorities.set(response);
         if(fetchedData){
           let data=JSON.parse(fetchedData);
-            data.priority? this.chosenPriority.set(data.priority): this.chosenPriority.set(response[0])
+            data.priority? this.chosenPriority.set(data.priority): this.chosenPriority.set(response[1])
+            console.log(this.chosenPriority())
         } 
+        else{this.chosenPriority.set(response[1])}
       },
         error:(error)=>{console.log(error, "oops, error")}
       })
@@ -166,7 +174,22 @@ let data={
 }
 
 console.log(data)
-this.apiService.postData('tasks', data).subscribe(response=>console.log(response))
+this.apiService.postData('tasks', data).subscribe(
+  { next:(response)=>{
+if(response){
+  this.titleValue.set('')
+this.description.set(''), 
+  this.chosenDepartment.set(undefined), 
+  this.chosenEmployee.set(undefined)
+  this.formSubmitted.set(false)
+console.log(this.chosenPriority(), this.chosenstatus())
+  localStorage.removeItem('taskData')
+  console.log(this.chosenPriority(), this.chosenstatus())
+
+}
+  
+  }}
+ )
 }
 
 else {console.log('arasworia')}

@@ -6,7 +6,7 @@
     <img alt={{chosenValue?.icon}} 
   [src]="chosenValue?.icon">
 }
-    <p>{{chosenValue?.name}}</p>
+    <p>{{chosenValue?.surname?( chosenValue?.name+' '+ chosenValue?.surname ): chosenValue?.name}}</p>
     </section>
     <i class="fa-solid" [ngClass]="openList()?'fa-angle-up':'fa-angle-down'"></i>
 </div>
@@ -16,7 +16,11 @@
     @for(item of data; track item.id){
         <li (click)="setValue(item)">
             @if(item?.icon){<img [alt]="item.name" [src]="item?.icon">}
-            <p>{{item.name}}</p>
+            @if(item.avatar){
+                <img [src]="item.avatar">
+                <p>{{item.name}} {{item.surname}}</p>
+            }
+            @else{<p>{{item.name}}</p>}
         </li>
     }
     

@@ -1,19 +1,25 @@
 export type Priority= {
     id: number,
     name: string,
-    icon: string
+    icon: string,
+    surname?:string,
+    avatar?: string
   }
 
   export type Status= {
     id: number,
     name: string,
-    icon?:string
+    icon?:string,
+    surname?:string,
+    avatar?: string
   }
   
   export type Department= {
     id: number,
     name: string,
-    icon?:string
+    icon?:string,
+    surname?:string,
+    avatar?: string
   }
 
   export interface CreateEmployee {
