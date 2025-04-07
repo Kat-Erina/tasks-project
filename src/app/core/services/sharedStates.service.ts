@@ -7,4 +7,5 @@ import { Injectable, signal } from "@angular/core";
 export class SharedStates{
     openEmployeeModal=signal(false)
     openFilteringCriterias=signal(false)
+    receivedVal=signal('')
 }

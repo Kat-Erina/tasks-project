@@ -26,7 +26,7 @@ export class ApiService{
 
    getEmployees(part:string){
     const header=new HttpHeaders({
-        Authorization: 'Bearer 9e96a874-0f36-4487-bf56-a254a0041569' 
+        Authorization: 'Bearer ' 
     })
     return  this.http.get<Employee[]>(`${this.url}/${part}`, {headers:header})
    }
@@ -45,7 +45,7 @@ export class ApiService{
 
   postData(destination:string, data:any){
     const header=new HttpHeaders({
-      Authorization: 'Bearer 9e96a874-0f36-4487-bf56-a254a0041569' 
+      Authorization: 'Bearer ' 
   })
 
   return  this.http.post<Employee[]>(`${this.url}/${destination}`,data, {headers:header})

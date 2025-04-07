@@ -10,7 +10,23 @@ import { CommonModule } from '@angular/common';
 })
 export class LiComponent {
 @Input() title!:string
+@Input() val!:string
 sharedStatesService=inject(SharedStates)
 
+toggle(){
+  if(this.sharedStatesService.receivedVal()===this.val){
+   this.sharedStatesService.openFilteringCriterias.set(!this.sharedStatesService.openFilteringCriterias())
+  }
+  else{
+    this.sharedStatesService.receivedVal.set(this.val)
+    this.sharedStatesService.openFilteringCriterias.set(true)
+}
+}
 
+up(): boolean {
+  return (
+    this.sharedStatesService.receivedVal() === this.val &&
+    this.sharedStatesService.openFilteringCriterias()
+  );
+}
 }
