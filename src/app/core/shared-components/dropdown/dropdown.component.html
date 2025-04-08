@@ -12,7 +12,10 @@
 </div>
 @if(openList()){
 <ul >
-    @if(classifier==='employee'){<li (click)="SharedStates.openEmployeeModal.set(true)">add employee</li>}
+    @if(classifier==='employee'){<li class="add-empl" (click)="SharedStates.openEmployeeModal.set(true)">
+        <img src="images/Frame 1000006008.svg" alt="symbol">
+        დაამატე თანამშრომელი
+    </li>}
     @for(item of data; track item.id){
         <li (click)="setValue(item)">
             @if(item?.icon){<img [alt]="item.name" [src]="item?.icon">}

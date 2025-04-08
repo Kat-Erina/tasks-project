@@ -1,10 +1,10 @@
-import { Component, effect, inject, OnInit, signal, WritableSignal } from '@angular/core';
+import { Component,  inject, OnInit, signal } from '@angular/core';
 import { InputComponent } from '../core/shared-components/input/input.component';
 import { CommonModule } from '@angular/common';
 import { ApiService } from '../core/services/api.service';
 import { Department, Employee, Priority, ReceivedEmployee, Status } from '../core/types/models';
 import { DropdownComponent } from '../core/shared-components/dropdown/dropdown.component';
-import { debounceTime } from 'rxjs';
+import { SharedStates } from '../core/services/sharedStates.service';
 
 @Component({
   selector: 'app-new-task',
@@ -31,11 +31,12 @@ descMinimumValidation=signal(false)
 descMaximumValidation=signal(false)
 formSubmitted=signal(false)
 apiService=inject(ApiService)
+sharedStates=inject(SharedStates)
 priorities=signal<Priority[]>([])
 statuses=signal<Status[]>([])
 chosenPriority=signal<Priority | undefined>(undefined)
 chosenstatus=signal<Status | undefined>(undefined)
-chosenDepartment=signal<Department|undefined>(undefined)
+chosenDepartment=this.sharedStates.chosenDepartment
 chosenEmployee=signal<ReceivedEmployee|undefined>(undefined)
 employees=signal<Employee[]>([])
 filteredEmployees=signal<Employee[]>([])
@@ -103,7 +104,7 @@ localStorage.setItem('taskData',JSON.stringify(this.data))
       this.chosenEmployee.set(data.employee)
          }
 
-    this.apiService.getEmployees('employees').subscribe({
+    this.apiService.getEmployees().subscribe({
         next:response=>{
 this.employees.set(response)
 if(fetchedData){
@@ -123,7 +124,7 @@ this.filteredEmployees.set(empls)
          })
 
 
-    this.apiService.getStatuses('statuses').subscribe({
+    this.apiService.getStatuses().subscribe({
       next:(response)=>{
 
         this.statuses.set(response);
@@ -139,7 +140,7 @@ this.filteredEmployees.set(empls)
       error:(error)=>{console.log(error, "oops, error")}
     })
 
-    this.apiService.getPriorities('priorities').subscribe({
+    this.apiService.getPriorities().subscribe({
       next:(response)=>{
         console.log(response)
         this.priorities.set(response);

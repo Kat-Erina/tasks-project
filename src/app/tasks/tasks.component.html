@@ -8,9 +8,7 @@
 
 </div>
 @if(sharedStatesService.openFilteringCriterias()){
-    <div>
-        <p>kdsvdkvkvvds</p>
-    </div>
+    <app-filtering-criterias/>
 }
 <div class="chosen-criterias">
 <ul >
@@ -19,4 +17,11 @@
 </div>
 <div class="main-container">
 
+    <div class="collapsible-section">
+        <h2 class="header" (click)="toggle($event)">Click me to toggle content</h2>
+        <div class="content">
+          <!-- <p>This is the hidden content. It will appear when the header is clicked.</p>
+          <p>You can put anything here — forms, lists, etc.</p> -->
+        </div>
+      </div>
 </div>

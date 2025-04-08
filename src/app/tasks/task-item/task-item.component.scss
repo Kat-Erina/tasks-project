@@ -1,0 +1,98 @@
+@import '../../../../styles/mixins.scss';
+
+.card-div{
+background-color: white;
+padding: 20px;
+border-radius: 15px;
+gap:28px;
+@include flex-container;
+.heading{
+   @include flex-row;
+   justify-content: space-between;
+   text-align: center;
+.status{
+    @include flex-row;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+    gap:10px;
+    .priority{
+        display: flex;
+        gap:4px;
+        border-radius: 4px;
+        padding: 4px;
+        font-size: 12px;
+        font-weight: 500;
+        text-align: center;
+        align-items: center;
+    }
+    .task-dep{
+text-align: center;
+padding: 5px 9px;
+font-weight: 400;
+height: 100%;
+align-items: center;
+display: flex;
+border-radius: 15px;
+p{font-size: 12px;
+    font-weight: 400;
+    text-align: center;
+color: white}
+    }
+}
+.date{
+    text-align: center;
+    display: flex;
+    align-items: center;
+    font-size: 12px;
+    font-weight: 400;
+    color: #212529
+}
+}
+.desc-container{
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    .desc-heading{
+        height: auto;   /* Allow height to expand if needed */
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  white-space: normal;
+  font-size: 15px;
+  font-weight: bold !important;
+  color: #212529;
+  text-align: center;
+    }.desc-text{
+        font-size: 14px;
+        color: #212529;
+        font-weight: 400;
+    }
+}
+.icons-container{
+    @include flex-row;
+    height: 31px;
+    justify-content: space-between;
+    align-items: center;
+    img{
+        width:31px;
+        height: 31px;
+        border-radius: 50%
+    }
+    .comments-icons{
+        @include flex-row;
+        gap:4px;
+        height: 100%;
+        align-items: center;
+        color: #212529;
+        .fa-message{
+            font-size: 20px;
+        }
+        span{
+            font-size: 14px;
+            font-weight: 400;
+        }
+       
+    }
+}
+}
+

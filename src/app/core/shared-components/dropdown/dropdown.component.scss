@@ -44,7 +44,17 @@
         background-color: white;
         list-style: none;
         border-radius: 4px;
-       
+       .add-empl{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    font-size: 12px;
+    color: #8338EC;
+    img{
+        height: 10px;
+        
+    }
+       }
         li{
             display: flex;
             flex-direction: row;
