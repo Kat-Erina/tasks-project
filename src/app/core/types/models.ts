@@ -22,12 +22,11 @@ export type Priority= {
     avatar?: string
   }
 
-  export interface CreateEmployee {
+  export interface Employee {
     name: string,
     avatar: string
     surname:string
-    department_id: number
-    
+    department_id: number,
   }
 
   export interface ReceivedEmployee {
@@ -38,10 +37,7 @@ export type Priority= {
 department:Department,
 icon?:string
   }
-  export interface Employee extends CreateEmployee{
-    id:number
-    department?:{id:number, name:string}
-  }
+
 
   export interface Comment
     {
@@ -59,6 +55,7 @@ icon?:string
         status: Status,
         priority:Priority
         department: Department,
-        employee:Employee
+        employee:Employee, 
+        total_comments:number
       }
   

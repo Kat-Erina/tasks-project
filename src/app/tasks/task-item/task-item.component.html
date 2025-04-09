@@ -2,24 +2,24 @@
     <div class="heading">
         <div class="status">
             <div class="priority">
-                <img alt="'priority'" >
-                <span ></span>
+                <img alt="'priority'" [src]="task.priority.icon">
+                <span>{{task.priority.name}}</span>
             </div>
             <div class="task-dep"><p>
-                <!-- {{task.department.name | shortenText }} -->
+                {{task.department.name }}
             </p></div>
         </div>
-        <!-- <span class="date">{{ task.due_date| date: 'dd MMM, yyyy' }}</span> -->
+        <span class="date">{{ task.due_date| date: 'dd MMM, yyyy' }}</span>
     </div>
     <div class="desc-container">
-        <!-- <p class="desc-heading">{{task.name}}</p>
-        <p class="desc-text">{{task.description | modifyLength}}</p> -->
+        <p class="desc-heading">{{task.name}}</p>
+        <p class="desc-text">{{task.description}}</p>
     </div>
     <div class="icons-container">
-        <!-- <img [src]="task.employee.avatar" alt="employee-photo"> -->
+        <img [src]="task.employee.avatar" alt="employee-photo">
         <p class="comments-icons">
             <i class="fa-regular fa-message"></i>
-            <!-- <span>{{task.total_comments}}</span> -->
+            <span>{{task.total_comments}}</span>
         </p>
     </div>
 </div>

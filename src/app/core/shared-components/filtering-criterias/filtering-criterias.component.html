@@ -1,41 +1,15 @@
 <div class="main-container">
 <ul>
-    <li>
-        <section class="checkbox-item"> 
-        <input type="checkbox" class="custom-checkbox" style=" border-bottom-color: #007bff;">
-        <label >  raghac </label>
-        </section>
-    </li>
-    <li>
-        <section class="checkbox-item"> 
-        <input type="checkbox" class="custom-checkbox" style=" border-bottom-color: #007bff;">
-        <label >  raghac </label>
-        </section>
-    </li>
-    <li>
-        <section class="checkbox-item"> 
-        <input type="checkbox" class="custom-checkbox" style=" border-bottom-color: #007bff;">
-        <label >  raghafffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffc </label>
-        </section>
-    </li>
-    <li>
-        <section class="checkbox-item"> 
-        <input type="checkbox" class="custom-checkbox" style=" border-bottom-color: #007bff;">
-        <label >  raghac </label>
-        </section>
-    </li>
-    <li>
-        <section class="checkbox-item"> 
-        <input type="checkbox" class="custom-checkbox" style=" border-bottom-color: #007bff;">
-        <label >  raghac </label>
-        </section>
-    </li>
-    <li>
-        <section class="checkbox-item"> 
-        <input type="checkbox" class="custom-checkbox" style=" border-bottom-color: #007bff;">
-        <label >  raghac </label>
-        </section>
-    </li>
+    @for(item of data; track item.id){
+        <li>
+            <section class="checkbox-item"> 
+            <input  [value]="item" type="checkbox" class="custom-checkbox"  (change)="handleChange(item)">
+            <label >  {{item.name}} </label>
+            </section>
+        </li>
+    }
+  
+    
 </ul>
 <section class="btn-sect">
     <button>არჩევა</button>

@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { Department, Employee, Priority, ReceivedEmployee } from '../../types/models';
 
 @Component({
   selector: 'app-filtering-criterias',
@@ -7,5 +8,9 @@ import { Component } from '@angular/core';
   styleUrl: './filtering-criterias.component.scss'
 })
 export class FilteringCriteriasComponent {
+@Input() data: Department[]| ReceivedEmployee[]| Priority[]|undefined=[]
 
+handleChange(item:any){
+  console.log(item)
+}
 }

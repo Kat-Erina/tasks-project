@@ -2,7 +2,7 @@ import { Component,  inject, OnInit, signal } from '@angular/core';
 import { InputComponent } from '../core/shared-components/input/input.component';
 import { CommonModule } from '@angular/common';
 import { ApiService } from '../core/services/api.service';
-import { Department, Employee, Priority, ReceivedEmployee, Status } from '../core/types/models';
+import {  Priority, ReceivedEmployee, Status } from '../core/types/models';
 import { DropdownComponent } from '../core/shared-components/dropdown/dropdown.component';
 import { SharedStates } from '../core/services/sharedStates.service';
 
@@ -38,8 +38,8 @@ chosenPriority=signal<Priority | undefined>(undefined)
 chosenstatus=signal<Status | undefined>(undefined)
 chosenDepartment=this.sharedStates.chosenDepartment
 chosenEmployee=signal<ReceivedEmployee|undefined>(undefined)
-employees=signal<Employee[]>([])
-filteredEmployees=signal<Employee[]>([])
+employees=this.sharedStates.employees
+filteredEmployees=this.sharedStates.filteredEmployees
 
 handleNameChange(value:string){
     this.titleValue.set(value)
@@ -126,28 +126,22 @@ this.filteredEmployees.set(empls)
 
     this.apiService.getStatuses().subscribe({
       next:(response)=>{
-
         this.statuses.set(response);
-        console.log(response)
         if(fetchedData){
           let data=JSON.parse(fetchedData);
             data.status? this.chosenstatus.set(data.status): this.chosenstatus.set(response[0])
-            console.log(this.chosenstatus())
         } 
         else{this.chosenstatus.set(response[0])}
-        
       },
       error:(error)=>{console.log(error, "oops, error")}
     })
 
     this.apiService.getPriorities().subscribe({
       next:(response)=>{
-        console.log(response)
         this.priorities.set(response);
         if(fetchedData){
           let data=JSON.parse(fetchedData);
             data.priority? this.chosenPriority.set(data.priority): this.chosenPriority.set(response[1])
-            console.log(this.chosenPriority())
         } 
         else{this.chosenPriority.set(response[1])}
       },
@@ -155,15 +149,20 @@ this.filteredEmployees.set(empls)
       })
       }
 
-  
+
+      get isDescriptionValid(): boolean {
+        const desc = this.description().trim();
+        const charCount = desc.replace(/\s+/g, '').length;
+        const wordCount = desc.split(/\s+/).filter(word => word.length > 0).length;
+        return charCount > 0 && wordCount >= 4 
+      }
 
   handleSubmit(event:Event){
     event.preventDefault();
 this.formSubmitted.set(true);
 
-if(this.description().length>0 && !this.descMaximumValidation() && this.descMinimumValidation() && this.minimumLengthValid() && !this.maximumLengthValid()
+if((this.description().length===0 || this.isDescriptionValid )&& this.minimumLengthValid() && !this.maximumLengthValid()
 && this.chosenDepartment() && this.chosenEmployee() && this.chosenstatus()&& this.chosenPriority()  ){
-console.log('sworia')
 let data={
   name:this.titleValue(), 
   description:this.description(), 
@@ -174,25 +173,20 @@ let data={
   employee_id:this.chosenEmployee()?.id, 
 }
 
-console.log(data)
 this.apiService.postData('tasks', data).subscribe(
   { next:(response)=>{
 if(response){
+this.apiService.getTasks()
   this.titleValue.set('')
 this.description.set(''), 
   this.chosenDepartment.set(undefined), 
   this.chosenEmployee.set(undefined)
   this.formSubmitted.set(false)
-console.log(this.chosenPriority(), this.chosenstatus())
   localStorage.removeItem('taskData')
-  console.log(this.chosenPriority(), this.chosenstatus())
-
 }
   
   }}
  )
 }
-
-else {console.log('arasworia')}
   }
 }

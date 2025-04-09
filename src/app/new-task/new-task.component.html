@@ -19,9 +19,9 @@
             <textarea [value]="description()" name="description" (input)="handleDescriptionChange($event)" [value]="description()"></textarea>
             <div class="span-container">
             <span [ngClass]="{
-                'valid':description().length>0 && descMinimumValidation(),
-                'invalid':description().length>0 && !descMinimumValidation()
-            }">მინიმუმ 2 სიმბოლო</span>
+                'valid':isDescriptionValid,
+                'invalid':description().length>0 && !isDescriptionValid
+            }">მინიმუმ 4 სიტყვა</span>
             <span [ngClass]="{
                 'valid':description().length>0 && !regexForMaximumLength.test(description()),
                 'invalid':description().length>0 && regexForMaximumLength.test(description())

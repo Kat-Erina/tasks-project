@@ -1,15 +1,21 @@
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { inject, Injectable, signal } from "@angular/core";
-import { CreateEmployee, Department, Employee, Priority, Status, Task } from "../types/models";
+import {  Department, Employee, Priority, ReceivedEmployee, Status, Task } from "../types/models";
 
 @Injectable({
     'providedIn':"root"
 })
 
 export class ApiService{
-    url="https://momentum.redberryinternship.ge/api"
-    http=inject(HttpClient)
-    departments=signal<Department[]|undefined>([])
+
+url="https://momentum.redberryinternship.ge/api"
+http=inject(HttpClient)
+departments=signal<Department[]|undefined>([])
+tasks=signal<Task[]>([])
+toBeStartedTasks=signal<Task[]>([])
+inProgressTasks=signal<Task[]>([])
+toBeTestedTasks=signal<Task[]>([])
+finishedTasks=signal<Task[]>([])
     
 
  getPriorities(){
@@ -28,7 +34,7 @@ export class ApiService{
     const header=new HttpHeaders({
         Authorization: 'Bearer ' 
     })
-    return  this.http.get<Employee[]>(`${this.url}/employees`, {headers:header})
+    return  this.http.get<ReceivedEmployee[]>(`${this.url}/employees`, {headers:header})
    }
 
 
@@ -36,6 +42,7 @@ export class ApiService{
     this.getDepartments('departments').subscribe({
       next:(response)=>{console.log(response)
         this.departments.set(response)
+        
       },
       error:(error)=>{console.log(error)}
     })
@@ -45,7 +52,17 @@ export class ApiService{
   const header=new HttpHeaders({
     Authorization: 'Bearer ' 
 })
-return  this.http.get<Task[]>(`${this.url}/tasks`, {headers:header})
+ this.http.get<Task[]>(`${this.url}/tasks`, {headers:header}).subscribe({
+  next:data=>{
+    this.tasks.set(data)
+    this.toBeStartedTasks.set(data.filter((task)=>{return task.status.name==="დასაწყები"}))
+    this.inProgressTasks.set(data.filter((task)=>{return task.status.name==="პროგრესში"}))
+    this.toBeTestedTasks.set(data.filter((task)=>{return task.status.name==="მზად ტესტირებისთვის"}))
+    this.finishedTasks.set(data.filter((task)=>{return task.status.name==="დასრულებული"}))
+
+  }, 
+  error:error=>console.log(error)
+ })
 
  }
 
@@ -54,7 +71,7 @@ return  this.http.get<Task[]>(`${this.url}/tasks`, {headers:header})
       Authorization: 'Bearer ' 
   })
 
-  return  this.http.post<Employee[]>(`${this.url}/${destination}`,data, {headers:header})
+  return  this.http.post<ReceivedEmployee>(`${this.url}/${destination}`,data, {headers:header})
 
   }
 

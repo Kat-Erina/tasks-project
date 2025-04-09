@@ -8,7 +8,7 @@
 
 </div>
 @if(sharedStatesService.openFilteringCriterias()){
-    <app-filtering-criterias/>
+    <app-filtering-criterias [data]="getDataForChild(sharedStatesService.receivedVal())"/>
 }
 <div class="chosen-criterias">
 <ul >
@@ -17,11 +17,7 @@
 </div>
 <div class="main-container">
 
-    <div class="collapsible-section">
-        <h2 class="header" (click)="toggle($event)">Click me to toggle content</h2>
-        <div class="content">
-          <!-- <p>This is the hidden content. It will appear when the header is clicked.</p>
-          <p>You can put anything here — forms, lists, etc.</p> -->
-        </div>
-      </div>
+  @for(status of statuses; track status){
+    <app-task-column [header]="status.name" [color]="status.color" [data]="getTasksByStatus(status.name)"></app-task-column>
+  }
 </div>

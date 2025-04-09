@@ -1,17 +1,21 @@
-@import '../../../../styles/mixins.scss';
+// @import '../../../../styles/mixins.scss';
 
 .card-div{
 background-color: white;
 padding: 20px;
 border-radius: 15px;
 gap:28px;
-@include flex-container;
+display: flex;
+flex-direction: column;
+margin: 10px 0px;
 .heading{
-   @include flex-row;
+    display: flex;
+flex-direction: row;
    justify-content: space-between;
    text-align: center;
 .status{
-    @include flex-row;
+    display: flex;
+    flex-direction: row;
     justify-content: space-between;
     align-items: center;
     text-align: center;
@@ -69,7 +73,8 @@ color: white}
     }
 }
 .icons-container{
-    @include flex-row;
+    display: flex;
+    flex-direction: row;
     height: 31px;
     justify-content: space-between;
     align-items: center;
@@ -79,7 +84,8 @@ color: white}
         border-radius: 50%
     }
     .comments-icons{
-        @include flex-row;
+        display: flex;
+        flex-direction: row;
         gap:4px;
         height: 100%;
         align-items: center;
