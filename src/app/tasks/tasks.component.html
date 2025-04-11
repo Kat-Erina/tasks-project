@@ -7,11 +7,20 @@
     </ul>
 
 </div>
-@if(sharedStatesService.openFilteringCriterias()){
-    <app-filtering-criterias [data]="getDataForChild(sharedStatesService.receivedVal())"/>
+@if(sharedStatesService.openFilteringCriterias() && sharedStatesService.receivedVal()==='departments'){
+    <app-filtering-criterias [data]="this.apiService.departments()"  [receivedVal]="sharedStatesService.receivedVal()"/>
+}
+@if(sharedStatesService.openFilteringCriterias() && sharedStatesService.receivedVal()==='priorities'){
+  <app-filtering-criterias [data]="priorities()"  [receivedVal]="sharedStatesService.receivedVal()"/>
+}
+@if(sharedStatesService.openFilteringCriterias() && sharedStatesService.receivedVal()==='employees'){
+  <app-filtering-criterias [data]="employees()"  [receivedVal]="sharedStatesService.receivedVal()"/>
 }
 <div class="chosen-criterias">
 <ul >
+ @for(item of sharedStatesService.getValues();track item.name){
+  <li (click)="removeItem(item)">{{item.name}} X</li>
+ }
     <li>გასუფთავება</li>
 </ul>
 </div>

@@ -4,14 +4,14 @@
         <li>
             <section class="checkbox-item"> 
             <input  [value]="item" type="checkbox" class="custom-checkbox"  (change)="handleChange(item)">
-            <label >  {{item.name}} </label>
+           @if(item.surname){
+            <label> {{item.name}} {{item.surname}} </label>
+           } @else{<label> {{item.name}}</label>}
             </section>
         </li>
-    }
-  
-    
+    }   
 </ul>
 <section class="btn-sect">
-    <button>არჩევა</button>
+    <button (click)="handleChoose($event)">არჩევა</button>
 </section>
 </div>

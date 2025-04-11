@@ -4,7 +4,8 @@ import { SharedStates } from '../core/services/sharedStates.service';
 import { FilteringCriteriasComponent } from '../core/shared-components/filtering-criterias/filtering-criterias.component';
 import { ApiService } from '../core/services/api.service';
 import { TaskColumnComponent } from '../core/shared-components/task-column/task-column.component';
-import { Employee, Priority, ReceivedEmployee, Task } from '../core/types/models';
+import { Department, Employee, Priority, ReceivedEmployee, Task } from '../core/types/models';
+import { DecimalPipe } from '@angular/common';
 
 @Component({
   selector: 'app-tasks',
@@ -17,7 +18,8 @@ sharedStatesService=inject(SharedStates)
 apiService=inject(ApiService)
 priorities=signal<Priority[]>([])
 employees=signal<ReceivedEmployee[]>([])
-
+chosenDepartment:Department[]|undefined=[]
+chosenFilteringCriterias=this.sharedStatesService.chosenFilteringCriterias
 
 statuses=[{name:'დასაწყები', 
   color: '#F7BC30'
@@ -30,6 +32,15 @@ statuses=[{name:'დასაწყები',
 }]
 
 isOpen=signal(false)
+chosenCriterias:{
+  departments:Department[],
+  priorities:Priority[],
+  employees:ReceivedEmployee[]
+}={departments:[],
+  priorities:[],
+  employees:[]
+}
+
 
 ngOnInit(): void {
   this.apiService.getAllDepartments()
@@ -46,6 +57,15 @@ ngOnInit(): void {
     },
     error:error=>console.log(error)
   })
+
+
+    let fetchedData=localStorage.getItem('criterias')
+    if(fetchedData){
+      let parsedCriterias=JSON.parse(fetchedData)
+      this.chosenFilteringCriterias.set(parsedCriterias)
+    }
+   console.log(this.chosenFilteringCriterias())
+  
 }
 
 getTasksByStatus(status: string): Task[] {
@@ -63,19 +83,23 @@ getTasksByStatus(status: string): Task[] {
   }
 }
 
-getDataForChild(criteria:string){
-  switch (criteria) {
-    case 'departments':
-      return this.apiService.departments();
-    case 'priorities':
-      return this.priorities();
-    case 'employees':
-      return this.employees();
-   
-    default:
-      return [];
-  }
+removeItem(item:Department|ReceivedEmployee| Priority){
 
 }
+
+// filterTasks(tasks: Task[], criteria: any): Task[] {
+//   return tasks.filter(task => {
+//     const matchesDepartment = !criteria.departments?.length || criteria.departments.some(dep => dep.id === task.department.id);
+//     const matchesPriority = !criteria.priorities?.length || criteria.priorities.some(pr => pr.id === task.priority.id);
+//     const matchesEmployee = !criteria.employees?.length || criteria.employees.some(emp => emp.id === task.assignedTo.id);
+//     return matchesDepartment && matchesPriority && matchesEmployee;
+//   });
+// }
+
+// loadFilteredData(){
+//   this.apiService.toBeStartedTasks().filter((item)=>{
+//     item.department.id
+//   })
+// }
 
 }
