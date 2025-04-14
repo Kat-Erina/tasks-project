@@ -19,9 +19,10 @@ chosenFilteringCriterias=signal<{
 }>({})
 
 getValues = computed< (Department | Priority | ReceivedEmployee)[] >(() => {
-    const valuesInarray = Object.values(this.chosenFilteringCriterias());
-    return valuesInarray.flat();
+    const { departments = [], priorities = [], employees = [] } = this.chosenFilteringCriterias();
+  return [...departments, ...priorities, ...employees];
   });
+
 
 
 }

@@ -1,6 +1,7 @@
 import { Component, EventEmitter, inject, Input, OnInit, Output, signal } from '@angular/core';
 import { Department, Employee, Priority, ReceivedEmployee } from '../../types/models';
 import { SharedStates } from '../../services/sharedStates.service';
+import { ApiService } from '../../services/api.service';
 
 @Component({
   selector: 'app-filtering-criterias',
@@ -14,10 +15,16 @@ export class FilteringCriteriasComponent {
 @Output() valueEmitter=new EventEmitter()
 @Input() receivedVal=''
 chosenCriterias=signal<(Department|ReceivedEmployee|Priority)[]>([])
+chosenFilteringCriterias=this.sharedStates.chosenFilteringCriterias
+apiService=inject(ApiService)
+filterTasks=this.apiService.filterTasks
+toBeStartedTasks=this.apiService.toBeStartedTasks
+inProgressTasks=this.apiService.inProgressTasks
+toBeTestedTasks=this.apiService.toBeTestedTasks
+finishedTasks=this.apiService.finishedTasks
 
 
 handleChange(value:Department|ReceivedEmployee|Priority){
-  console.log(value)
   if(this.receivedVal==='employees' && this.chosenCriterias().length>0){
     alert('აირჩიეთ მხოლოდ 1 თანამშრომელი')
     this.sharedStates.openFilteringCriterias.set(false)
@@ -32,7 +39,6 @@ handleChange(value:Department|ReceivedEmployee|Priority){
     }
   }
  
-console.log(this.chosenCriterias())
 }
 
 handleChoose(event:Event){
@@ -42,6 +48,9 @@ handleChoose(event:Event){
 this.sharedStates.chosenFilteringCriterias.set(newobject);
 this.sharedStates.openFilteringCriterias.set(false)
 localStorage.setItem('criterias', JSON.stringify(this.sharedStates.chosenFilteringCriterias()))
-// localStorage.clear()
+this.toBeStartedTasks.set(this.filterTasks(this.toBeStartedTasks(), this.chosenFilteringCriterias()))
+this.inProgressTasks.set(this.filterTasks(this.inProgressTasks(), this.chosenFilteringCriterias()))
+this.toBeTestedTasks.set(this.filterTasks(this.toBeTestedTasks(), this.chosenFilteringCriterias()))
+this.finishedTasks.set(this.filterTasks(this.finishedTasks(), this.chosenFilteringCriterias()))
 }
 }

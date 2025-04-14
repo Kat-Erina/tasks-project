@@ -1,12 +1,12 @@
 <div class="collapsible-section">
-    <h2 class="header" [style.background]="color" (click)="toggle($event)">{{header}}</h2>
-    <div class="content">
-     @for(task of data;track task.id){
-      <app-task-item [task]="task"></app-task-item>
-     }
-     @empty {
-        <!-- What to show when items is empty -->
-        <p>ამ სტატუსის მქონე დავალებები არ არსებობს</p>
-      }
+    <h2 class="header" [style.background]="color" >{{header}}</h2>
+    <div class="content" style="max-height: fit-content;">
+     @if(data.length===0) {
+      <p> დავალებები არ არსებობს</p>
+    }@else {
+      @for(task of data;track task.id){
+        <app-task-item [task]="task" (click)="navigateToItem(task.id)"></app-task-item>
+       }
+    }
     </div>
   </div>

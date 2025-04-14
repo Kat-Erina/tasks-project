@@ -6,6 +6,7 @@ import { ApiService } from '../core/services/api.service';
 import { TaskColumnComponent } from '../core/shared-components/task-column/task-column.component';
 import { Department, Employee, Priority, ReceivedEmployee, Task } from '../core/types/models';
 import { DecimalPipe } from '@angular/common';
+import { share } from 'rxjs';
 
 @Component({
   selector: 'app-tasks',
@@ -19,7 +20,10 @@ apiService=inject(ApiService)
 priorities=signal<Priority[]>([])
 employees=signal<ReceivedEmployee[]>([])
 chosenDepartment:Department[]|undefined=[]
-chosenFilteringCriterias=this.sharedStatesService.chosenFilteringCriterias
+toBeStartedTasks=this.apiService.toBeStartedTasks
+toBeTestedTasks=this.apiService.toBeTestedTasks
+inProgressTasks=this.apiService.inProgressTasks
+finishedTasks=this.apiService.finishedTasks
 
 statuses=[{name:'დასაწყები', 
   color: '#F7BC30'
@@ -43,6 +47,7 @@ chosenCriterias:{
 
 
 ngOnInit(): void {
+  // localStorage.clear()
   this.apiService.getAllDepartments()
   this.apiService.getTasks()
   this.apiService.getPriorities().subscribe({
@@ -62,9 +67,8 @@ ngOnInit(): void {
     let fetchedData=localStorage.getItem('criterias')
     if(fetchedData){
       let parsedCriterias=JSON.parse(fetchedData)
-      this.chosenFilteringCriterias.set(parsedCriterias)
+      this.apiService.chosenFilteringCriterias.set(parsedCriterias)
     }
-   console.log(this.chosenFilteringCriterias())
   
 }
 
@@ -84,22 +88,26 @@ getTasksByStatus(status: string): Task[] {
 }
 
 removeItem(item:Department|ReceivedEmployee| Priority){
+let updatedDepartments=this.apiService.chosenFilteringCriterias().departments?.filter((val)=>{return item.name!==val.name})
+let updatedPriorities=this.apiService.chosenFilteringCriterias().priorities?.filter((val)=>{return item.name!==val.name})
+let updatedPeople=this.apiService.chosenFilteringCriterias().employees?.filter((val)=>{return item.name!==val.name})
 
+this.apiService.chosenFilteringCriterias.set({
+  ...this.apiService.chosenFilteringCriterias(),
+  departments: updatedDepartments,
+  priorities: updatedPriorities,
+  employees: updatedPeople
+});
+
+this.apiService.sortData()
+localStorage.setItem('criterias', JSON.stringify(
+  this.apiService.chosenFilteringCriterias()))
 }
 
-// filterTasks(tasks: Task[], criteria: any): Task[] {
-//   return tasks.filter(task => {
-//     const matchesDepartment = !criteria.departments?.length || criteria.departments.some(dep => dep.id === task.department.id);
-//     const matchesPriority = !criteria.priorities?.length || criteria.priorities.some(pr => pr.id === task.priority.id);
-//     const matchesEmployee = !criteria.employees?.length || criteria.employees.some(emp => emp.id === task.assignedTo.id);
-//     return matchesDepartment && matchesPriority && matchesEmployee;
-//   });
-// }
-
-// loadFilteredData(){
-//   this.apiService.toBeStartedTasks().filter((item)=>{
-//     item.department.id
-//   })
-// }
+clearFilteringCriterias(){
+  localStorage.removeItem('criterias')
+  this.sharedStatesService.chosenFilteringCriterias.set({})
+  this.apiService.sortData()
+}
 
 }

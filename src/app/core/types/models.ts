@@ -55,7 +55,7 @@ icon?:string
         status: Status,
         priority:Priority
         department: Department,
-        employee:Employee, 
+        employee:ReceivedEmployee, 
         total_comments:number
       }
   

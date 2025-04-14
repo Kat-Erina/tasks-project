@@ -1,6 +1,8 @@
-import { Component, Input } from '@angular/core';
+import { Component, ElementRef, inject, Input, signal, ViewChild } from '@angular/core';
 import { Task } from '../../types/models';
 import { TaskItemComponent } from '../../../tasks/task-item/task-item.component';
+import { Router } from '@angular/router';
+import { ApiService } from '../../services/api.service';
 
 @Component({
   selector: 'app-task-column',
@@ -12,18 +14,13 @@ export class TaskColumnComponent {
 @Input() header=''
 @Input() color=''
 @Input() data:Task[]=[]
+apiService=inject(ApiService)
+router=inject(Router)
+ 
+navigateToItem(id:number){
+  this.router.navigate(['/task', id])
+}
 
 
-  toggle(event:Event){
-    const target=event.target as HTMLHeadingElement;
-    const sibling=target.nextSibling as HTMLDivElement;
-    if(sibling){
-      const isExpanded = sibling.style.maxHeight;
-      if (isExpanded) {
-        sibling.style.maxHeight = '';
-      } else {
-        sibling.style.maxHeight = sibling.scrollHeight + 'px';
-      }
-    }
-  }
+
 }

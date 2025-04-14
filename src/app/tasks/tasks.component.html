@@ -17,15 +17,19 @@
   <app-filtering-criterias [data]="employees()"  [receivedVal]="sharedStatesService.receivedVal()"/>
 }
 <div class="chosen-criterias">
-<ul >
- @for(item of sharedStatesService.getValues();track item.name){
-  <li (click)="removeItem(item)">{{item.name}} X</li>
- }
-    <li>გასუფთავება</li>
+<ul class="filters-list" >
+  @if(sharedStatesService.getValues().length>0){
+    @for(item of sharedStatesService.getValues();track item.name){
+      <li (click)="removeItem(item)">
+        {{item.name}} X
+      </li>
+     }
+        <li class="remove" (click)="clearFilteringCriterias()">გასუფთავება</li>
+  }
+
 </ul>
 </div>
 <div class="main-container">
-
   @for(status of statuses; track status){
     <app-task-column [header]="status.name" [color]="status.color" [data]="getTasksByStatus(status.name)"></app-task-column>
   }

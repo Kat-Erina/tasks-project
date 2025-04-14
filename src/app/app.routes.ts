@@ -7,5 +7,9 @@ export const routes: Routes = [
     {
 path:'new-task', 
 loadComponent:()=>import('./new-task/new-task.component').then(m=>m.NewTaskComponent)
+    },
+    {
+        path:'task/:id',
+        loadComponent:()=>import('./item/item.component').then(m=>m.ItemComponent)
     }
 ];

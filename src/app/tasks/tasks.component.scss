@@ -28,6 +28,25 @@
                 list-style: none;
             }
         }
+
+        .filters-list{
+            display: flex;
+            flex-direction: row;
+            gap:10px !important;
+            width:100%;
+            flex-wrap: wrap;
+            justify-content: start !important;
+            li{
+                border:1px solid black;
+                border-radius: 10px;
+                text-align: center;
+                padding: 2px 5px;
+                font-size: 12px;
+            }
+            .remove{
+                border: none;
+            }
+        }
         .main-container{
             width:100%;
         display: flex;

@@ -1,0 +1,57 @@
+<div *ngIf="item" class="header-div">
+    <div class="priority-container">
+     <img [src]="item.priority.icon" [alt]="item.priority.name">
+        <p>{{item.priority.name}}</p>
+    </div>
+    <p>{{item.department.name}}</p>
+</div>
+<div class="main-container">
+    <div class="item-desc-container">
+        <h1>{{item?.name}}</h1>
+        <p class="task-description">{{item?.description}}</p>
+    </div>
+    <div class="task-details">
+        <p>დავალების დეტალები</p>
+        <div class="task-status">
+            <div class="img-container">
+                <img src="images/pie-chart.svg">
+                <p>სტატუსი</p>
+            </div>
+
+            <div class="status">
+               <div class="chosen-status" (click)="isVisible.set(!isVisible())">
+                <p>{{chosenStatus()?.name}}</p>
+                <span><i class="fa-solid" [ngClass]="isVisible()?'fa-angle-up':'fa-angle-down'"></i></span>
+               </div>
+          @if(isVisible()){
+            <ul class="status-list">
+                @for(status of statuses(); track status.id){
+                    <li (click)="chooseStatus(status)">{{status.name}}</li>
+                }
+               </ul>
+          }    
+            </div>
+
+        </div>
+        <div class="task-employee">
+            <div class="img-container">
+                <img src="images/Frame 1000005864.svg">
+                <p>თანამშრომელი</p>
+            </div>
+            <div class="employee-details">
+                <p>{{item?.department?.name}}</p>
+                <div class="employee-img-container">
+                    <img [src]="item?.employee?.avatar" [alt]="'employee-avatar'">
+                    <p class="empoyee-name">{{item?.employee?.name}} {{item?.employee?.surname}}</p>
+                </div>
+            </div>
+        </div>
+        <div class="task-deadline">
+            <div class="img-container">
+                <img src="images/calendar.svg">
+                <p>დავალების ვადა</p>
+            </div>
+            <div class="deadline-details"></div>
+        </div>
+    </div>
+</div>

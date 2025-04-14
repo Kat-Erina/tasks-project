@@ -1,0 +1,123 @@
+.header-div{
+    display: flex;
+    flex-direction: row;
+    gap:20px;
+    font-size: 10px;
+    .priority-container{
+        display: flex;
+        flex-direction: row;
+        gap:2px
+        
+    }
+}
+
+.main-container{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap:30px;
+    .item-desc-container{
+        display: flex;
+        flex-direction: column;
+        gap:15px; 
+        h1{
+            font-size: 20px;
+        }
+        .task-description{
+            font-size: 14px;
+        }
+    }
+    .task-details{
+        display: flex;
+        flex-direction: column;
+        gap:10px;
+        .task-status, .task-employee, .task-deadline{
+            border: 1px solid black;
+            align-items: center;
+            display: flex;
+        flex-direction: row;
+        // gap:10px;
+        justify-content: space-between;
+        };
+        .task-status{
+            // border: 1px solid black;
+            .status{
+                // border: 1px solid red;
+                width: 50%;
+                .chosen-status{
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: space-between;
+                    padding: 5px;
+border: 1px solid #CED4DA;
+border-radius: 5px;
+                    p{
+                        font-size: 10px;
+                    }
+                    span{
+                        font-size: 10px;
+                    }
+                }
+            }
+            .status-list{
+                border: 1px solid #CED4DA;
+                border-radius: 5px;
+                margin-top: 5px;
+                gap:2px;
+                list-style: none;
+                position: absolute;
+                background-color: white;
+                // width:100%;
+                width: 50%;
+                min-width:auto;
+                li{
+                    // border: 1px solid black;
+                    padding: 5px ;
+                    font-size: 10px;
+                    margin-top: 2px;
+                }
+            }
+        }
+        .task-employee{
+            border: 1px solid black;
+            // background-color: yellow;
+            .employee-details{
+                display: flex;
+                flex-direction: column;
+                gap:3px;
+                p{
+                    font-size: 8px;
+                  
+                }
+                .employee-img-container{
+                    display: flex;
+                    flex-direction: row;
+                    gap:5px;
+
+                    img{width:16px;
+                    height: 16px;
+                border-radius: 50px;
+               }
+                }
+                .empoyee-name{
+                    // text-align: start;
+                    font-size: 9px;
+                    font-weight: bold;
+                }
+            }
+            
+        }
+    }
+}
+
+.img-container{
+    display: flex;
+    flex-direction: row;
+    gap:3px;
+    font-size: 10px;
+    align-items: center;
+    img{
+        width: 14px;
+        
+    }
+}
