@@ -5,14 +5,17 @@ import { ApiService } from '../core/services/api.service';
 import {  Priority, ReceivedEmployee, Status } from '../core/types/models';
 import { DropdownComponent } from '../core/shared-components/dropdown/dropdown.component';
 import { SharedStates } from '../core/services/sharedStates.service';
+import { Router } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-new-task',
-  imports: [InputComponent, CommonModule, DropdownComponent],
+  imports: [InputComponent, CommonModule, DropdownComponent, FormsModule],
   templateUrl: './new-task.component.html',
   styleUrl: './new-task.component.scss'
 })
 export class NewTaskComponent implements OnInit{
+  router=inject(Router)
  data={
     name:"", 
     description:"", 
@@ -20,7 +23,7 @@ export class NewTaskComponent implements OnInit{
     employee:undefined, 
     deadline:""
   }
-
+date:null=null
 titleValue=signal('');
 minimumLengthValid=signal(false);
 maximumLengthValid=signal(true);
@@ -173,16 +176,19 @@ let data={
   employee_id:this.chosenEmployee()?.id, 
 }
 
+
 this.apiService.postData('tasks', data).subscribe(
   { next:(response)=>{
 if(response){
 this.apiService.getTasks()
+
   this.titleValue.set('')
 this.description.set(''), 
   this.chosenDepartment.set(undefined), 
   this.chosenEmployee.set(undefined)
   this.formSubmitted.set(false)
   localStorage.removeItem('taskData')
+  this.router.navigate(['/'])
 }
   
   }}

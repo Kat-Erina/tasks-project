@@ -1,0 +1,42 @@
+<div class="comment-item">
+    <div class="comment-section">
+
+        <img [src]="comment.author_avatar">
+    
+    <section class="full-comment">
+        <p class="name">{{comment.author_nickname}}</p>
+        <p class="description">{{comment.text}}</p>
+        <button class="reply-btn" (click)="show.set(!show())" >
+            <img src="images/Left 2.svg" alt="reply">
+            <span>უპასუხე</span>
+        </button>
+    </section>
+
+<!-- childd -->
+
+       </div>
+       <div class="reply-div">
+        @if(show()){
+            <app-comment-area [parentCommentId]="comment.id" [id]="id()" [childOrParent]="'child'" [show]="show"></app-comment-area>
+        }
+    </div>
+       <div class="sub-comment-section">
+        @for(sub of comment.sub_comments; track sub){
+            <div class="comment-section">
+    
+                <img [src]="sub.author_avatar">
+            
+            <section class="full-comment">
+                <p class="name">{{sub.author_nickname}}</p>
+                <p class="sub-description"> {{sub.text}}</p>
+               
+            </section>
+        </div>
+        }
+    </div>
+    <!-- <div class="reply-div">
+        @if(show()){
+            <app-comment-area [parentCommentId]="comment.id" [id]="id()" [childOrParent]="'child'"></app-comment-area>
+        }
+    </div> -->
+</div>

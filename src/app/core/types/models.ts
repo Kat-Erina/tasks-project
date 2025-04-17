@@ -39,12 +39,14 @@ icon?:string
   }
 
 
-  export interface Comment
-    {
+  export interface Comment{
         id: number,
         text: string,
         task_id: number,
-        parent_id: number
+        parent_id: number|null,
+        sub_comments:any[],
+        author_avatar:string,
+author_nickname:string
       }
 
       export interface Task{

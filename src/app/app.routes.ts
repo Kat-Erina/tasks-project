@@ -10,6 +10,6 @@ loadComponent:()=>import('./new-task/new-task.component').then(m=>m.NewTaskCompo
     },
     {
         path:'task/:id',
-        loadComponent:()=>import('./item/item.component').then(m=>m.ItemComponent)
+        loadComponent:()=>import('./task/task.component').then(m=>m.TaskComponent)
     }
 ];

@@ -1,5 +1,7 @@
 .collapsible-section{
     .header {
+      display: flex;
+      justify-content: space-between;
         background-color: #007bff;
         color: white;
         padding: 10px;
@@ -10,14 +12,15 @@
         font-size: 18px;
       }
       .content {
-        max-height: 0;
         overflow: hidden;
         display: flex;
         flex-direction: column;
        
-        transition: max-height 0.3s ease;
+        transition: all 0.5s ease-in-out;
         background-color: #f1f1f1;
         padding: 0 10px;
         border-radius: 0 0 5px 5px;
       }
+
 }
+

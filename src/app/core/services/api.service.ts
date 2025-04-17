@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { inject, Injectable, OnInit, signal } from "@angular/core";
-import {  Department, Employee, Priority, ReceivedEmployee, Status, Task } from "../types/models";
+import {  Comment, Department, Employee, Priority, ReceivedEmployee, Status, Task } from "../types/models";
 import { SharedStates } from "./sharedStates.service";
 
 @Injectable({
@@ -18,7 +18,9 @@ toBeStartedTasks=signal<Task[]>([])
 inProgressTasks=signal<Task[]>([])
 toBeTestedTasks=signal<Task[]>([])
 finishedTasks=signal<Task[]>([])
-chosenFilteringCriterias=this.sharedStatesService.chosenFilteringCriterias
+chosenFilteringCriterias=this.sharedStatesService.chosenFilteringCriterias;
+comments=signal<Comment[]>([])
+
 
     
 
@@ -107,7 +109,7 @@ this.finishedTasks.set(this.filterTasks(this.finishedTasks(), this.chosenFilteri
 
   getItemInfo(id:number){
     const header=new HttpHeaders({
-      Authorization: 'Bearer ' 
+      Authorization: 'Bearer' 
   })
     return this.http.get<Task>(`${this.url}/tasks/${id}`, {headers:header})
   }
@@ -118,6 +120,28 @@ this.finishedTasks.set(this.filterTasks(this.finishedTasks(), this.chosenFilteri
   })
 
   return this.http.put<Task>(`${this.url}/tasks/${id}`,data,{headers:header})
+  }
+
+  getAllcomments(id:number){
+    const header=new HttpHeaders({
+      Authorization: 'Bearer ' 
+  })
+   this.http.get<Comment[]>(`${this.url}/tasks/${id}/comments`, {headers:header}).subscribe({
+        next:response=>{console.log(response)
+          this.comments.set(response)
+          console.log(this.comments())
+        },
+        error:error=>console.log(error)
+      })
+  }
+
+
+  addComment(id:number, data:{text:string, parent_id?:number}){
+    const header=new HttpHeaders({
+      Authorization: 'Bearer ' 
+  })
+  return this.http.post<{text:string, parent_id?:number}>(`${this.url}/tasks/${id}/comments`,data, {headers:header})
+  
   }
 
 }

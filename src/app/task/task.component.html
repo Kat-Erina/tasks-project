@@ -39,7 +39,7 @@
                 <p>თანამშრომელი</p>
             </div>
             <div class="employee-details">
-                <p>{{item?.department?.name}}</p>
+                <p class="department-name">{{item?.department?.name}}</p>
                 <div class="employee-img-container">
                     <img [src]="item?.employee?.avatar" [alt]="'employee-avatar'">
                     <p class="empoyee-name">{{item?.employee?.name}} {{item?.employee?.surname}}</p>
@@ -52,6 +52,25 @@
                 <p>დავალების ვადა</p>
             </div>
             <div class="deadline-details"></div>
+        </div>
+    </div>
+
+    <!-- //comments section -->
+    <div class="comments-div">
+      <app-comment-area [id]="id()" [childOrParent]="'parent'"></app-comment-area>
+
+        <div class="all-comments">
+            <h4>კომენტარები <span> {{commentsLength}}</span></h4>
+            <ul class="comment-list">
+                @for(comment of comments(); track comment.id){
+<li >
+
+<app-comment-item [id]="id()" [comment]="comment"></app-comment-item>
+
+</li>
+                }
+
+            </ul>
         </div>
     </div>
 </div>

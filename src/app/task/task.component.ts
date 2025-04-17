@@ -1,26 +1,30 @@
-import { Component, inject, input,  OnInit, signal,  } from '@angular/core';
+import { Component, ElementRef, inject, input,  OnInit, signal, ViewChild,  } from '@angular/core';
 import { ApiService } from '../core/services/api.service';
-import { Status, Task } from '../core/types/models';
-import { DropdownComponent } from "../core/shared-components/dropdown/dropdown.component";
+import { Comment, Status, Task } from '../core/types/models';
 import { CommonModule } from '@angular/common';
+import { CommentAreaComponent } from "../core/shared-components/comment-area/comment-area.component";
+import { CommentItemComponent } from "../core/shared-components/comment-item/comment-item.component";
 
 @Component({
-  selector: 'app-item',
-  imports: [CommonModule],
-  templateUrl: './item.component.html',
-  styleUrl: './item.component.scss'
+  selector: 'app-task',
+  imports: [CommonModule, CommentAreaComponent, CommentItemComponent],
+  templateUrl: './task.component.html',
+  styleUrl: './task.component.scss'
 })
-export class ItemComponent implements OnInit {
+export class TaskComponent implements OnInit {
 apiService=inject(ApiService)
-
 id=input.required<number>()
 item:Task|undefined=undefined
 statuses=signal<Status[]>([])
 isVisible=signal(false)
 chosenStatus=signal<Status|null>(null)
+comments=this.apiService.comments
+
+
  ngOnInit(): void {
    console.log(this.id())
    this.loadData()
+   this.apiService.getAllcomments(this.id())
  }
 
 
@@ -54,6 +58,19 @@ chooseStatus(status:Status){
     error:error=>console.log(error)
   })
 
-
 }
+
+get commentsLength() {
+  let total = 0;
+
+  for (let comment of this.comments()) {
+    total += 1; // count the main comment itself
+    total += comment.sub_comments.length; // count its subcomments
+  }
+
+  return total;
+}
+
+
+
 }

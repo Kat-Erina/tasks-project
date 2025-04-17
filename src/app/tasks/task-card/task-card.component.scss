@@ -81,7 +81,9 @@ color: rgb(13, 13, 13)}
     img{
         width:31px;
         height: 31px;
-        border-radius: 50%
+        border-radius: 50%;
+        object-fit: cover;
+        object-position: top center
     }
     .comments-icons{
         display: flex;

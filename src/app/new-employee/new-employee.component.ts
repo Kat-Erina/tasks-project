@@ -81,6 +81,7 @@ onFileChange(event: Event) {
     reader.onload = () => {
       const imageString=reader.result as string;
       this.imageSrc.set(imageString)
+      console.log(this.imageSrc())
       }
       reader.readAsDataURL(input.files[0]);
 

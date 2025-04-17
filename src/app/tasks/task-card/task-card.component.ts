@@ -3,12 +3,12 @@ import { Task } from '../../core/types/models';
 import { DatePipe } from '@angular/common';
 
 @Component({
-  selector: 'app-task-item',
+  selector: 'app-task-card',
   imports: [DatePipe],
-  templateUrl: './task-item.component.html',
-  styleUrl: './task-item.component.scss'
+  templateUrl: './task-card.component.html',
+  styleUrl: './task-card.component.scss'
 })
-export class TaskItemComponent {
+export class TaskCardComponent {
 
   @Input() task!:Task
 }

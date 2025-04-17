@@ -1,8 +1,9 @@
 :host{
-    font-size: 12px;
+    font-size: 10px;
     display: flex;
     align-items: center;
-    gap:4px
+    gap:4px;
+    font-weight: bold;
 }
 :host:hover{
     color: #8338EC
