@@ -1,12 +1,12 @@
 <div class="card-div" >
     <div class="heading">
         <div class="status">
-            <div class="priority">
+            <div class="priority" [ngStyle]="{'border-color':getPriorityClass(task.priority.name)}">
                 <img alt="'priority'" [src]="task.priority.icon">
-                <span>{{task.priority.name}}</span>
+                <span [ngStyle]="{'color': applyPriorityColor(task.priority.name)}">{{task.priority.name}}</span>
             </div>
             <div class="task-dep"><p>
-                {{task.department.name }}
+                {{task.department.name |shortenText }}
             </p></div>
         </div>
         <span class="date">{{ task.due_date| date: 'dd MMM, yyyy' }}</span>

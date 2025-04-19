@@ -2,7 +2,7 @@
     padding: 5px 10px;
     display: flex;
     flex-direction: column;
-    background-color: #DDD2FF;
+    // background-color: #DDD2FF;
     border-radius: 4px;
     gap:15px;
     // height: 100vh;
@@ -13,73 +13,232 @@
         display: flex;
         flex-direction: column;
         gap:15px;
-        .first-sub-container{
-            display: flex;
-    flex-direction: column;
-    gap:15px;
-   
-    .desc-div{
-        display: flex;
-        flex-direction: column;
-        gap:4px;
-        label{
-            font-size: 12px;
-            font-weight: bold;
-        };
-        textarea{
-            outline: none;
-            padding: 8px;
-            border-radius: 5px;
-            border:1px solid #DEE2E6;
-            min-height: 100px;
-        }
-        .span-container{
-            display: flex;
-            flex-direction: column;
-            span{
-            color: #6C757D;
-            font-size: 8px;
-            }
-        }
-    }
-    .status-priority-container{
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        gap:20px;
-     
-        .priority, .status{
-            width: 50%;
-        }
-    }
-        }
-        .second-sub-container{
-            display: flex;
-            flex-direction: column;
-            gap:15px;
-            .department-employee-container{
+        background-color: #DDD2FF;
+        padding: 20px 30px;
+        .main-container{
+display: flex;
+flex-direction: column;
+gap:15px;
+            .first-sub-container{
                 display: flex;
-                flex-direction: row; 
-                justify-content: space-between;
-                gap:20px;
+        flex-direction: column;
+        gap:15px;
+       .title-div{
+        background-color: aqua;
+        width: 100%;
+       }
+        .desc-div{
+            display: flex;
+            flex-direction: column;
+            gap:4px;
+            label{
+                font-size: 12px;
+                font-weight: bold;
+            };
+            textarea{
+                outline: none;
+                padding: 8px;
+                border-radius: 5px;
+                border:1px solid #DEE2E6;
+                min-height: 100px;
             }
-            .department-container,.employees-container{
-                width: 50%;
-               
-            }
-            .deadline-container{
-                position: relative;
-                border: 1px solid black;
-                width: 50%;
+            .span-container{
                 display: flex;
                 flex-direction: column;
-                gap:2px;
-                p{
-font-weight: bold;
+                span{
+                color: #6C757D;
+                font-size: 8px;
+                }
+            }
+        }
+        .status-priority-container{
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            gap:20px;
+         
+            .priority, .status{
+                width: 50%;
+            }
+        }
+            }
+            .second-sub-container{
+                display: flex;
+                flex-direction: column;
+                gap:15px;
+                .department-employee-container{
+                    display: flex;
+                    flex-direction: row; 
+                    justify-content: space-between;
+                    gap:20px;
+                }
+                .department-container,.employees-container{
+                    width: 50%;
+                   
+                }
+                .deadline-container{
+                    position: relative;
+                    border: 1px solid black;
+                    width: 50%;
+                    display: flex;
+                    flex-direction: column;
+                    gap:2px;
+                    p{
+    font-weight: bold;
+                    }
+                   
                 }
                
             }
+
+        }
+        .btn-container{
+            display: flex;
+            justify-content: end;
+            margin-top: 40px;
+            button{
+                background-color: #8338EC;
+                color: white;
+                outline: none;
+                border: none;
+                border-radius: 5px;
+                padding: 5px 10px;
+                align-items: center;
+                font-family: 'FiraGO', sans-serif;
+                font-size: 12px;
+            }
+        }
+
+    }
+}
+
+@media screen and (min-width:700px) {
+    .task-container{
+       
+        h1{
+            font-size: 18px;
+        }
+        form{
+            min-height: 500px;
+            padding-top:40px;
+            .main-container{
+            flex-direction: row ;
+            gap:30px;
+                .first-sub-container{
+                    width: 100%;
+                  
+            }
+            .second-sub-container{
+                width: 100%;
+                gap:35px;
+               
+
+                    .department-employee-container{
+                        flex-direction: column; 
+                        width: 100%;
+                        background-color: yellow;
+                        gap:37px;
+                        .department-container,.employees-container{
+                            width: 100%;
+                           
+                        }
+                    }
+                  
+
+
+                } 
+
+              
+            }
+              }
+        }
+    }   
+
+
+@media screen and (min-width:1000px) {
+    .task-container{
+        
+        h1{
+            font-size: 20px;
+        }
+        form{
+          
+            .btn-container{
+                button{
+                    font-family: 'FiraGO', sans-serif;
+                    font-size: 15px;
+                    padding: 8px 18px;
+                }
+            }
+    
+        }
+    }
+}
+
+@media screen and (min-width:1400px) {
+    .task-container{
+       h1{
+            font-size: 22px;
+        }
+        form{
+            .main-container{
+    gap:30px;
+    background-color: yellow;
+                .first-sub-container, .second-sub-container{
+                //  background-color: green;
+                border:1px solid black;
+                width:40%;
+            // gap:45px;
+            .title-div{background-color: red;
+            width:90%}
            
+            .desc-div{
+                width:90%;
+                label{
+                    font-size: 14px;
+                };
+            }
+            .status-priority-container{
+                width:90%;
+            }
+                }
+                .second-sub-container{
+                    .department-employee-container{
+                        background-color: aqua;
+                        width: 90%;
+                    }
+                    .deadline-container{
+                        position: relative;
+                        border: 1px solid black;
+                        width: 50%;
+                        display: flex;
+                        flex-direction: column;
+                        gap:2px;
+                        p{
+        font-weight: bold;
+                        }
+                       
+                    }
+                   
+                }
+    
+            }
+            .btn-container{
+             width: 78.2%;
+             border:1px solid black;
+                // button{
+                //     background-color: #8338EC;
+                //     color: white;
+                //     outline: none;
+                //     border: none;
+                //     border-radius: 5px;
+                //     padding: 5px 10px;
+                //     align-items: center;
+                //     font-family: 'FiraGO', sans-serif;
+                //     font-size: 12px;
+                // }
+            }
+    
         }
     }
 }

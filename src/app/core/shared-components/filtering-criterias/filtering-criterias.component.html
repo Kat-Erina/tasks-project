@@ -5,7 +5,7 @@
             <section class="checkbox-item"> 
             <input  [value]="item" type="checkbox" class="custom-checkbox"  (change)="handleChange(item)">
            @if(item.surname){
-            <label> {{item.name}} {{item.surname}} </label>
+            <label class="label"> {{item.name}} {{item.surname}} </label>
            } @else{<label> {{item.name}}</label>}
             </section>
         </li>

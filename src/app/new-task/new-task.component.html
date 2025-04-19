@@ -1,73 +1,74 @@
 <div class="task-container">
     <h1>შექმენი ახალი დავალება</h1>
     <form (submit)="handleSubmit($event)">
-
-        <!-- pirveli div -->
-       <div class="first-sub-container">
-       <!-- name fileds -->
-        <div class="title-div">
-<app-input [label]="'სახელი*'" [value]="titleValue()" (valueEmit)="handleNameChange($event)" [minimumRequirement]="'მინიმუმ 2 სიმბოლო'" 
-[maximumRequirement]="'მაქსიმუმ 255 სიმბოლო'" [minimumLengthIsValid]="minimumLengthValid()"  [maxiumLengthIsValid]="maximumLengthValid()"
-[formSubmitted]="formSubmitted()">
-</app-input>
-        </div>
-
-        <!-- desc div -->
-        
-        <div class="desc-div">
-            <label for="description"> აღწერა</label>
-            <textarea [value]="description()" name="description" (input)="handleDescriptionChange($event)" [value]="description()"></textarea>
-            <div class="span-container">
-            <span [ngClass]="{
-                'valid':isDescriptionValid,
-                'invalid':description().length>0 && !isDescriptionValid
-            }">მინიმუმ 4 სიტყვა</span>
-            <span [ngClass]="{
-                'valid':description().length>0 && !regexForMaximumLength.test(description()),
-                'invalid':description().length>0 && regexForMaximumLength.test(description())
-            }">მაქსიმუმ 255 სიმბოლო</span>
-            </div>
-           </div>
-
-           <div class="status-priority-container">
-<div class="priority">
-    <app-dropdown [data]="priorities()" [chosenValue]="chosenPriority()" [classifier]="'priority'" (getchosenValue)="handleDropDownChange($event)"
-    [title]="'პრიორიტეტი*'" ></app-dropdown>
-</div>
-<div class="status">
-    <app-dropdown [data]="statuses()" [chosenValue]="chosenstatus()" [classifier]="'statuses'" (getchosenValue)="handleDropDownChange($event)"
-    [title]="'სტატუსი*'" ></app-dropdown>
-</div>
-           </div>
-       </div>
-
-       <!-- second div -->
-<div class="second-sub-container">
-   <div class="department-employee-container">
-    <div class="department-container">
-        <app-dropdown [data]="apiService.departments()" [chosenValue]="chosenDepartment()" [classifier]="'department'" (getchosenValue)="handleDropDownChange($event)"
-        [title]="'დეპარტამენტი*'" [formSubmitted]="formSubmitted"></app-dropdown>
-    </div>
-    @if(chosenDepartment()){
-        <div class="employees-container">
-            <app-dropdown  [data]="filteredEmployees()" [chosenValue]="chosenEmployee()" [classifier]="'employee'" (getchosenValue)="handleDropDownChange($event)"
-            [title]="'თანამშრომელი*'" [formSubmitted]="formSubmitted"></app-dropdown>
-        </div>
-    }
-   
-   </div>
-    <div class="deadline-container" >
-        <!-- <p>დედლაინი</p> -->
+<div class="main-container">
+    <div class="first-sub-container">
+        <!-- name fileds -->
+         <div class="title-div">
+ <app-input [label]="'სახელი*'" [value]="titleValue()" (valueEmit)="handleNameChange($event)" [minimumRequirement]="'მინიმუმ 2 სიმბოლო'" 
+ [maximumRequirement]="'მაქსიმუმ 255 სიმბოლო'" [minimumLengthIsValid]="minimumLengthValid()"  [maxiumLengthIsValid]="maximumLengthValid()"
+ [formSubmitted]="formSubmitted()">
+ </app-input>
+         </div>
+ 
+         <!-- desc div -->
          
-<label for="date">დედლაინი</label>
-      
-    </div>
+         <div class="desc-div">
+             <label for="description"> აღწერა</label>
+             <textarea [value]="description()" name="description" (input)="handleDescriptionChange($event)" [value]="description()"></textarea>
+             <div class="span-container">
+             <span [ngClass]="{
+                 'valid':isDescriptionValid,
+                 'invalid':description().length>0 && !isDescriptionValid
+             }">მინიმუმ 4 სიტყვა</span>
+             <span [ngClass]="{
+                 'valid':description().length>0 && !regexForMaximumLength.test(description()),
+                 'invalid':description().length>0 && regexForMaximumLength.test(description())
+             }">მაქსიმუმ 255 სიმბოლო</span>
+             </div>
+            </div>
+ 
+            <div class="status-priority-container">
+ <div class="priority">
+     <app-dropdown [data]="priorities()" [chosenValue]="chosenPriority()" [classifier]="'priority'" (getchosenValue)="handleDropDownChange($event)"
+     [title]="'პრიორიტეტი*'" ></app-dropdown>
+ </div>
+ <div class="status">
+     <app-dropdown [data]="statuses()" [chosenValue]="chosenstatus()" [classifier]="'statuses'" (getchosenValue)="handleDropDownChange($event)"
+     [title]="'სტატუსი*'" ></app-dropdown>
+ </div>
+            </div>
+
+            <!-- //meore div -->
+
+           
+        </div>
+        <div class="second-sub-container">
+            <div class="department-employee-container">
+             <div class="department-container">
+                 <app-dropdown [data]="apiService.departments()" [chosenValue]="chosenDepartment()" [classifier]="'department'" (getchosenValue)="handleDropDownChange($event)"
+                 [title]="'დეპარტამენტი*'" [formSubmitted]="formSubmitted"></app-dropdown>
+             </div>
+             @if(chosenDepartment()){
+                 <div class="employees-container">
+                     <app-dropdown  [data]="filteredEmployees()" [chosenValue]="chosenEmployee()" [classifier]="'employee'" (getchosenValue)="handleDropDownChange($event)"
+                     [title]="'თანამშრომელი*'" [formSubmitted]="formSubmitted"></app-dropdown>
+                 </div>
+             }
+            
+            </div>
+             <div class="deadline-container" >
+                 <!-- <p>დედლაინი</p> -->
+                  
+         <label for="date">დედლაინი</label>
+               
+             </div>
+         </div>
 </div>
       
-
-       <!-- //third დივ -->
-        <div>
-            <button type="submit">დასსაბმითე</button>
-        </div>
+<div class="btn-container">
+    <button type="submit">დავალების შექმნა</button>
+</div>  
     </form>
+    
 </div>

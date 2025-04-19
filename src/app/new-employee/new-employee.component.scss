@@ -11,13 +11,11 @@
     display: flex;
     justify-content: center;
     align-items: center;
-  
-  
-  /* Modal */
-  .modal {
+    overflow-y: auto;
+    .modal {
     background-color: #fff;
     width: 400px;
-    max-width: 90%; //needs to be changed
+    max-width: 90%;
     border-radius: 8px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     display: flex;
@@ -153,4 +151,69 @@ color: white
 }
   
 
+@media screen and (min-width:1400px) {
+  .overlay{
+    align-items: start;
+    .modal {
+      width: 800px;
+      margin-top: 118px;
+      padding:30px 40px 50px;
+      .img-container{
+  .close-btn {
+      height: 30px;
+      width: 30px;
+    }
+      }
+      form{
+  h2{
+    font-size: 18px;
+  }
+  .personal-info-content{
+    display: flex;
+    flex-direction: row;
+    gap:45px;
+    justify-content: space-between;
+  }
+
+.img-container{
+  .upload-container {
+height: 100px;
+    .image-preview {
+      position: relative;
+      width: 68px;
+      height: 68px;
+      img {
+        width: 68px;
+        height: 68px;;
+      }
+      .fa-trash {
+        font-size: 12px;
+      }
+  }
+
+    .upload-text {
+      .fa-image{
+font-size: 30px;
+      }
+      p{
+        font-size: 12px;
+      }
+    }
+  }
+}
+
+.modal-footer{
+  button{
+      padding: 8px 15px;
+font-size: 13px 
+  }
+
+}
+      }
+     
+    }
+  }
+
+  
+}
   

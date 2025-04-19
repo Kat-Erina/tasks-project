@@ -1,6 +1,19 @@
-<div class="collapsible-section">
+<div class="collapsable-section">
     <h2 class="header" [style.background]="color" (click)="toggleExpand()">{{header}} <i class="fa-solid" [ngClass]="isExpanded()?'fa-angle-up':'fa-angle-down'"></i></h2>
     <div class="content" #content  [style.maxHeight.px]="isExpanded() && data ? contentHeight() : 0"  >
+     @if(data.length===0) {
+      <p> დავალებები არ არსებობს</p>
+    }@else {
+      @for(task of data;track task.id){
+        <app-task-card [task]="task" (click)="navigateToItem(task.id)"></app-task-card>
+       }
+    }
+    </div>
+  </div>
+
+  <div class="noncollapsable-section">
+    <h2 class="header" [style.background]="color" >{{header}}</h2>
+    <div class="content"  >
      @if(data.length===0) {
       <p> დავალებები არ არსებობს</p>
     }@else {

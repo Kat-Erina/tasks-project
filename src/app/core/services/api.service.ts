@@ -109,7 +109,7 @@ this.finishedTasks.set(this.filterTasks(this.finishedTasks(), this.chosenFilteri
 
   getItemInfo(id:number){
     const header=new HttpHeaders({
-      Authorization: 'Bearer' 
+      Authorization: 'Bearer ' 
   })
     return this.http.get<Task>(`${this.url}/tasks/${id}`, {headers:header})
   }
