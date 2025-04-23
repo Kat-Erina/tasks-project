@@ -58,9 +58,18 @@
             
             </div>
              <div class="deadline-container" >
-                 <!-- <p>დედლაინი</p> -->
-                  
-         <label for="date">დედლაინი</label>
+                <p class="deadline-p" [ngClass]="{'invalid':(formSubmitted()&&!validateTime) || dateInput.touched && !validateTime , 
+                    'valid':formSubmitted()&& validateTime || validateTime===true
+                }">დედლაინი</p>
+                 <mat-form-field>
+                    <input [ngClass]="{'invalid':(formSubmitted()&&!validateTime) || validateTime===false, 
+                    'valid': validateTime
+                }"
+                      matInput [matDatepicker]="picker" placeholder="DD/MM/YYYY" [(ngModel)]="date" name="date" (dateChange)="handleDatePick()"
+                      #dateInput="ngModel">
+                    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker [startAt]="tomorrow"></mat-datepicker>
+                  </mat-form-field>
                
              </div>
          </div>

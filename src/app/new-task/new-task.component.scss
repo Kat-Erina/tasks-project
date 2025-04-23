@@ -1,11 +1,11 @@
 .task-container{
+    font-family: 'FiraGO', sans-serif;
+
     padding: 5px 10px;
     display: flex;
     flex-direction: column;
-    // background-color: #DDD2FF;
     border-radius: 4px;
     gap:15px;
-    // height: 100vh;
     h1{
         font-size: 16px;
     }
@@ -24,7 +24,6 @@ gap:15px;
         flex-direction: column;
         gap:15px;
        .title-div{
-        background-color: aqua;
         width: 100%;
        }
         .desc-div{
@@ -77,16 +76,16 @@ gap:15px;
                    
                 }
                 .deadline-container{
+                    // border: 1px solid black;
                     position: relative;
-                    border: 1px solid black;
-                    width: 50%;
                     display: flex;
                     flex-direction: column;
                     gap:2px;
                     p{
+                        font-size: 12px;
     font-weight: bold;
+    margin-bottom: 4px;
                     }
-                   
                 }
                
             }
@@ -111,6 +110,78 @@ gap:15px;
 
     }
 }
+
+::ng-deep{
+    mat-form-field{
+        display: flex;
+        justify-content: start;
+        .mat-mdc-text-field-wrapper{ 
+          
+            border-radius: 5px;
+            padding: 0;
+            height: 34px;
+            display: flex;
+            align-items: center;
+            .mat-mdc-form-field-flex{
+                background-color: white;
+                border-radius: 5px;
+                .mat-mdc-form-field-infix{
+                    gap:20px;
+                    input{
+                        margin-left: 25px;
+                        font-size: 12px;
+                    }
+                    input::placeholder{
+                        color: #ADB5BD;
+                        font-size: 12px;
+                    }
+
+                }
+                .mat-mdc-form-field-icon-suffix{
+                    position: absolute;
+                    mat-datepicker-toggle{
+                        button{
+                            width:15px;
+                            height: 15px;
+                            padding: 0;
+                            display: flex;
+                            align-items: center;
+                            border-radius: 0;
+                            
+                            svg{
+                                width:100%;
+                            height: 100%;
+                            }
+                        }
+                    }
+                    
+                }
+            }
+        }
+       
+    }
+
+    .mat-datepicker-popup{
+        background-color:white;
+        margin-top: 4px;
+        mat-datepicker-content{
+            background-color:white;
+           
+        }
+    }
+    .mat-calendar-body-today:not(.mat-calendar-body-selected) {
+        border: none !important;
+        outline: none !important;
+      }
+      .mat-calendar-body-cell[aria-pressed="true"] > .mat-calendar-body-cell-content {
+        background-color: #8338EC !important;
+        color: white !important;
+        border-radius: 50%;
+      }
+}
+
+    
+
 
 @media screen and (min-width:700px) {
     .task-container{
@@ -208,16 +279,17 @@ gap:15px;
                         width: 90%;
                     }
                     .deadline-container{
+                        background-color: red;
                         position: relative;
-                        border: 1px solid black;
+                        border: 1px solid rgb(26, 141, 51);
                         width: 50%;
                         display: flex;
                         flex-direction: column;
                         gap:2px;
-                        p{
-        font-weight: bold;
-                        }
-                       
+                       .deadline-p{
+                        margin-bottom: 4px;
+                        background-color: red;
+                       }
                     }
                    
                 }
@@ -226,17 +298,7 @@ gap:15px;
             .btn-container{
              width: 78.2%;
              border:1px solid black;
-                // button{
-                //     background-color: #8338EC;
-                //     color: white;
-                //     outline: none;
-                //     border: none;
-                //     border-radius: 5px;
-                //     padding: 5px 10px;
-                //     align-items: center;
-                //     font-family: 'FiraGO', sans-serif;
-                //     font-size: 12px;
-                // }
+              
             }
     
         }

@@ -1,18 +1,25 @@
 import { Component,  inject, OnInit, signal } from '@angular/core';
 import { InputComponent } from '../core/shared-components/input/input.component';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { ApiService } from '../core/services/api.service';
 import {  Priority, ReceivedEmployee, Status } from '../core/types/models';
 import { DropdownComponent } from '../core/shared-components/dropdown/dropdown.component';
 import { SharedStates } from '../core/services/sharedStates.service';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatNativeDateModule } from '@angular/material/core';
+import { format } from 'date-fns';
 @Component({
   selector: 'app-new-task',
-  imports: [InputComponent, CommonModule, DropdownComponent, FormsModule],
+  imports: [InputComponent, CommonModule, DropdownComponent, FormsModule, 
+    MatDatepickerModule, MatFormFieldModule, MatInputModule, MatNativeDateModule,
+    
+  ],
   templateUrl: './new-task.component.html',
-  styleUrl: './new-task.component.scss'
+  styleUrl: './new-task.component.scss',
 })
 export class NewTaskComponent implements OnInit{
   router=inject(Router)
@@ -21,9 +28,11 @@ export class NewTaskComponent implements OnInit{
     description:"", 
     department:undefined, 
     employee:undefined, 
-    deadline:""
+    deadline:"", 
+    due_date:''
   }
-date:null=null
+date!:Date
+tomorrow=new Date(new Date().setDate(new Date().getDate() + 1));
 titleValue=signal('');
 minimumLengthValid=signal(false);
 maximumLengthValid=signal(true);
@@ -44,6 +53,8 @@ chosenEmployee=signal<ReceivedEmployee|undefined>(undefined)
 employees=this.sharedStates.employees
 filteredEmployees=this.sharedStates.filteredEmployees
 
+
+
 handleNameChange(value:string){
     this.titleValue.set(value)
    this.minimumLengthValid.set(this.regexforMinimumLength.test(this.titleValue()));
@@ -61,8 +72,6 @@ handleNameChange(value:string){
     localStorage.setItem('taskData',JSON.stringify(this.data));
   }
  
-
-
   handleDropDownChange(val:any){
 let {name, obj}=val;
 this.data = { ...this.data, [name]: obj };
@@ -89,6 +98,8 @@ localStorage.setItem('taskData',JSON.stringify(this.data))
 }    
 
   ngOnInit(): void {
+    // console.log(this.tomorrow)
+    // this.date=this.tomorrow
     // localStorage.clear()
     let fetchedData=localStorage.getItem('taskData');
     this.apiService.getAllDepartments()
@@ -105,6 +116,7 @@ localStorage.setItem('taskData',JSON.stringify(this.data))
       this.descMinimumValidation.set(this.regexforMinimumLength.test(this.description()));
       this.chosenDepartment.set(data.department)
       this.chosenEmployee.set(data.employee)
+      this.date=new Date(data.due_date)
          }
 
     this.apiService.getEmployees().subscribe({
@@ -152,6 +164,8 @@ this.filteredEmployees.set(empls)
       })
       }
 
+    
+      
 
       get isDescriptionValid(): boolean {
         const desc = this.description().trim();
@@ -160,22 +174,62 @@ this.filteredEmployees.set(empls)
         return charCount > 0 && wordCount >= 4 
       }
 
+      handleDatePick(){
+      const pickedDate = new Date(this.date);
+      const tomorrow = new Date();
+      tomorrow.setDate(tomorrow.getDate() + 1);
+    
+      pickedDate.setHours(0, 0, 0, 0);
+      tomorrow.setHours(0, 0, 0, 0);
+        if (pickedDate.getTime() < tomorrow.getTime()) {
+          alert('გთხოვთ აირჩიეთ მომავალი თარიღი')
+          // this.date = ''; 
+          // return;
+          
+        } else {
+          console.log('kargia'); // Good date
+          const formattedDate = format(this.date, 'yyyy-MM-dd');
+          console.log(formattedDate)
+    // const due_date = formatted; // --> This will be like "2025-12-31"
+    console.log('due_date:', formattedDate);
+
+    this.data = { ...this.data, due_date: formattedDate };
+  // this.chosenEmployee.set(undefined)
+localStorage.setItem('taskData',JSON.stringify(this.data)); 
+
+        }
+// console.log(this.validateTime)
+      }
+
+    get validateTime(){
+     if(!this.date){
+      return undefined
+     }
+     else{
+      // console.log(this.tomorrow.getTime() <= this.date.getTime())
+      return  this.tomorrow.getTime() <= this.date.getTime();
+     }
+      
+    }  
+
   handleSubmit(event:Event){
     event.preventDefault();
 this.formSubmitted.set(true);
-
+console.log(this.validateTime)
 if((this.description().length===0 || this.isDescriptionValid )&& this.minimumLengthValid() && !this.maximumLengthValid()
 && this.chosenDepartment() && this.chosenEmployee() && this.chosenstatus()&& this.chosenPriority()  ){
 let data={
   name:this.titleValue(), 
   description:this.description(), 
-  due_date:'2025-07-15',
+  due_date:format(this.date, 'yyyy-MM-dd'),
   status_id:this.chosenstatus()?.id, 
   priority_id: this.chosenPriority()?.id,
   department_id: this.chosenDepartment()?.id, 
   employee_id:this.chosenEmployee()?.id, 
 }
 
+console.log(this.date)
+console.log(data)
 
 this.apiService.postData('tasks', data).subscribe(
   { next:(response)=>{

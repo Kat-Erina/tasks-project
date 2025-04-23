@@ -22,6 +22,8 @@
         border-radius: 4px;
         height: 34px;
         width:100%;
+        // font-size: 8px;
+        overflow-wrap: break-word;
         // height: px !important;
         .img-container{
             display: flex;
@@ -33,7 +35,10 @@
             width:14px;
             height: 14px;
         }
-        p{font-size: 12px;}
+    p{font-size: 8px;
+    width: 100%;
+word-wrap: break-word; 
+white-space: normal;  }
         }
         .fa-solid{
             font-size: 12px;

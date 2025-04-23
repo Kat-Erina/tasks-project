@@ -1,6 +1,6 @@
-import { Component, ElementRef, inject, input,  OnInit, signal, ViewChild,  } from '@angular/core';
+import { Component, inject, input,  OnInit, signal,   } from '@angular/core';
 import { ApiService } from '../core/services/api.service';
-import { Comment, Status, Task } from '../core/types/models';
+import {  Status, Task } from '../core/types/models';
 import { CommonModule } from '@angular/common';
 import { CommentAreaComponent } from "../core/shared-components/comment-area/comment-area.component";
 import { CommentItemComponent } from "../core/shared-components/comment-item/comment-item.component";
@@ -18,11 +18,25 @@ item:Task|undefined=undefined
 statuses=signal<Status[]>([])
 isVisible=signal(false)
 chosenStatus=signal<Status|null>(null)
-comments=this.apiService.comments
+comments=this.apiService.comments;
+date:Date|string=''
+ day = signal('');
+ month =signal('');
+ year!:number;
+ formattedDate = signal('');
+ weekDay=signal('')
 
+ daysObj: { [key: number]: string } = {
+  0: 'კვი',  
+  1: 'ორშ',  
+  2: 'სამ',  
+  3: 'ოთხ',  
+  4: 'ხუთ',  
+  5: 'პარ',  
+  6: 'შაბ'   
+};
 
  ngOnInit(): void {
-   console.log(this.id())
    this.loadData()
    this.apiService.getAllcomments(this.id())
  }
@@ -31,9 +45,15 @@ comments=this.apiService.comments
 
  loadData(){
   this.apiService.getItemInfo(this.id()).subscribe({
-    next:response=>{console.log(response)
-      this.item=response;
-      this.chosenStatus.set(this.item.status)
+    next:response=>{
+this.item=response;
+this.chosenStatus.set(this.item.status)
+this.date=new Date(this.item.due_date)
+this.day.set(String(this.date.getDate()).padStart(2, '0'))
+this.month.set(String(this.date.getMonth() + 1).padStart(2, '0')) 
+this.year = this.date.getFullYear();
+this.formattedDate.set( `${this.day()}/${this.month()}/${this.year}`);
+this.weekDay.set(this.daysObj[this.date.getDay()])
     }
   })
   this.getStatuses()
@@ -47,17 +67,12 @@ comments=this.apiService.comments
 }
 
 chooseStatus(status:Status){
-  console.log(status)
-  this.chosenStatus.set(status)
-
-  this.apiService.updateTaskstatus(this.id(), {'status_id':this.chosenStatus()?.id}).subscribe({
+this.chosenStatus.set(status)
+this.apiService.updateTaskstatus(this.id(), {'status_id':this.chosenStatus()?.id}).subscribe({
     next:response=>{if(response)this.isVisible.set(false)
-
     },
-    
     error:error=>console.log(error)
   })
-
 }
 
 get commentsLength() {
