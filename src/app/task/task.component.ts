@@ -4,10 +4,11 @@ import {  Status, Task } from '../core/types/models';
 import { CommonModule } from '@angular/common';
 import { CommentAreaComponent } from "../core/shared-components/comment-area/comment-area.component";
 import { CommentItemComponent } from "../core/shared-components/comment-item/comment-item.component";
+import { ShortenTextPipe } from '../core/pipes/shorten-text.pipe';
 
 @Component({
   selector: 'app-task',
-  imports: [CommonModule, CommentAreaComponent, CommentItemComponent],
+  imports: [CommonModule, CommentAreaComponent, CommentItemComponent, ShortenTextPipe],
   templateUrl: './task.component.html',
   styleUrl: './task.component.scss'
 })
@@ -84,6 +85,45 @@ get commentsLength() {
   }
 
   return total;
+}
+
+
+
+getPriorityClass(priority: string): string {
+  switch (priority.toLowerCase()) {
+    case 'მაღალი': return '#FA4D4D';
+    case 'საშუალო': return '#FFBE0B';
+    case 'დაბალი': return '#08A508';
+    default: return '#08A508';
+  }
+}
+
+applyBorder(priority: string): string {
+  console.log(priority)
+  switch (priority.toLowerCase()) {
+    case 'დასაწყები': return '#FFBE0B';
+    case 'პროგრესში': return '#FB5607';
+    case 'მზად ტესტირებისთვის': return '#FF006E';
+    case 'დასრულებული': return '#3A86FF';
+    default: return '#FFBE0B';
+  }
+  
+}
+
+
+applyBgc(dep:string):string{
+  switch(dep){
+    case 'ადმინისტრაციის დეპარტამენტი': return '#89B6FF'
+    case 'ადამიანური რესურსების მართვის დეპარტამენტი': return '#FD9A6A'
+    case 'ფინანსების დეპარტამენტი': return '#FFD86D'
+    case 'გაყიდვები და მარკეტინგის დეპარტამენტი': return '#FF66A8'
+    case 'ლოჯოსტიკის დეპარტამენტი': return '#89B6FF'
+    case 'ტექნოლოგიების დეპარტამენტი': return '#FFD86D'
+    case 'მედიის დეპარტამენტი': return '#FD9A6A'
+    case 'დიზაინერების დეპარტამენტი': return '#FF66A8'
+
+    default: return '#FD9A6A'
+  }
 }
 
 

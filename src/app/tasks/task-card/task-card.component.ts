@@ -14,7 +14,7 @@ export class TaskCardComponent {
   @Input() task!:Task
 
   getPriorityClass(priority: string): string {
-    switch (priority.toLowerCase()) {
+    switch (priority) {
       case 'მაღალი': return '#FA4D4D';
       case 'საშუალო': return '#FFBE0B';
       case 'დაბალი': return '#08A508';
@@ -22,12 +22,33 @@ export class TaskCardComponent {
     }
   }
 
-  applyPriorityColor(priority: string): string {
-    switch (priority.toLowerCase()) {
-      case 'მაღალი': return '#FA4D4D';
-      case 'საშუალო': return '#FFBE0B';
-      case 'დაბალი': return '#08A508';
-      default: return '#08A508';
+  applyBorder(priority: string): string {
+    switch (priority) {
+      case 'დასაწყები': return '#FFBE0B';
+      case 'პროგრესში': return '#FB5607';
+      case 'მზად ტესტირებისთვის': return '#FF006E';
+      case 'დასრულებული': return '#3A86FF';
+      default: return '#FFBE0B';
     }
+  }
+
+
+  applyBgc(dep:string):string{
+    switch(dep){
+      case 'ადმინისტრაციის დეპარტამენტი': return '#89B6FF'
+      case 'ადამიანური რესურსების მართვის დეპარტამენტი': return '#FD9A6A'
+      case 'ფინანსების დეპარტამენტი': return '#FFD86D'
+      case 'გაყიდვები და მარკეტინგის დეპარტამენტი': return '#FF66A8'
+      case 'ლოჯოსტიკის დეპარტამენტი': return '#89B6FF'
+      case 'ტექნოლოგიების დეპარტამენტი': return '#FFD86D'
+      case 'მედიის დეპარტამენტი': return '#FD9A6A'
+      case 'დიზაინერების დეპარტამენტი': return '#FF66A8'
+
+      default: return '#FD9A6A'
+    }
+  }
+
+  ngOnInit(){
+  console.log(this.applyBgc('ადმინისტრაციის დეპარტმანეტი'))  
   }
 }

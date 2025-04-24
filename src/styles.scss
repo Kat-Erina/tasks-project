@@ -1,11 +1,11 @@
 
   
   body {
-    font-family: 'FiraGO', sans-serif;
+    font-family: 'FiraGO', sans-serif !important;
    
   }
   
-
+  html, body { height: 100%; }
 
 *{
     padding: 0;
@@ -25,5 +25,6 @@
 }    
 
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
+  

@@ -1,21 +1,23 @@
 <div *ngIf="item" class="header-div">
-    <div class="priority-container">
+    <div class="priority-container" [ngStyle]="{'border-color':getPriorityClass(item.priority.name)}">
      <img [src]="item.priority.icon" [alt]="item.priority.name">
-        <p>{{item.priority.name}}</p>
+        <p [ngStyle]="{'color': getPriorityClass(item.priority.name)}">{{item.priority.name}}</p>
     </div>
-    <p>{{item.department.name}}</p>
+    <p class="department-name" [ngStyle]="{'background-color' :applyBgc(item.department.name)}">{{item.department.name | shortenText}} </p>
 </div>
-<div class="main-container">
-    <div class="item-desc-container">
-        <h1>{{item?.name}}</h1>
-        <p class="task-description">{{item?.description}}</p>
-    </div>
+<div *ngIf="item" class="main-container">
     <div class="task-details">
-        <p>დავალების დეტალები</p>
+        <div class="item-desc-container">
+            <h1>{{item.name}}</h1>
+            <p class="task-description">{{item.description}}</p>
+        </div>
+        <p class="details-p" style="font-weight: bold;">დავალების დეტალები</p>
+
+
         <div class="task-status">
             <div class="img-container">
                 <img src="images/pie-chart.svg">
-                <p>სტატუსი</p>
+                <p class="status-p">სტატუსი</p>
             </div>
 
             <div class="status">
@@ -36,20 +38,20 @@
         <div class="task-employee">
             <div class="img-container">
                 <img src="images/Frame 1000005864.svg">
-                <p>თანამშრომელი</p>
+                <p class="empl-p">თანამშრომელი</p>
             </div>
             <div class="employee-details">
-                <p class="department-name">{{item?.department?.name}}</p>
+                <p class="department-name">{{item.department.name}}</p>
                 <div class="employee-img-container">
-                    <img [src]="item?.employee?.avatar" [alt]="'employee-avatar'">
-                    <p class="empoyee-name">{{item?.employee?.name}} {{item?.employee?.surname}}</p>
+                    <img [src]="item.employee.avatar" [alt]="'employee-avatar'">
+                    <p class="empoyee-name">{{item.employee.name}} {{item.employee.surname}}</p>
                 </div>
             </div>
         </div>
         <div class="task-deadline">
             <div class="img-container">
                 <img src="images/calendar.svg">
-                <p>დავალების ვადა</p>
+                <p class="deadline-p">დავალების ვადა</p>
             </div>
             <div class="deadline-details">
                 <p>{{weekDay()}} - <span>{{formattedDate()}}</span></p>

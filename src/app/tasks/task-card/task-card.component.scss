@@ -1,10 +1,9 @@
-// @import '../../../../styles/mixins.scss';
 
 .card-div{
-background-color: white;
+border:1px solid;
 padding: 20px;
 border-radius: 15px;
-gap:28px;
+gap:20px;
 display: flex;
 flex-direction: column;
 margin: 10px 0px;
@@ -26,10 +25,13 @@ flex-direction: row;
         border-radius: 4px;
         border:0.5px solid;
         padding: 4px;
-        font-size: 12px;
+        font-size: 10px;
         font-weight: 500;
         text-align: center;
         align-items: center;
+        img{
+            width: 12px;
+        }
     }
     .task-dep{
 text-align: center;
@@ -39,17 +41,17 @@ height: 100%;
 align-items: center;
 display: flex;
 border-radius: 15px;
-p{font-size: 12px;
+p{font-size: 10px;
     font-weight: 400;
     text-align: center;
-color: rgb(13, 13, 13)}
+color: white}
     }
 }
 .date{
     text-align: center;
     display: flex;
     align-items: center;
-    font-size: 12px;
+    font-size: 10px;
     font-weight: 400;
     color: #212529
 }
@@ -59,16 +61,16 @@ color: rgb(13, 13, 13)}
     flex-direction: column;
     gap: 12px;
     .desc-heading{
-        height: auto;   /* Allow height to expand if needed */
+        height: auto; 
   word-wrap: break-word;
   overflow-wrap: break-word;
   white-space: normal;
-  font-size: 15px;
+  font-size: 13px;
   font-weight: bold !important;
   color: #212529;
   text-align: center;
     }.desc-text{
-        font-size: 14px;
+        font-size: 12px;
         color: #212529;
         font-weight: 400;
     }
@@ -76,12 +78,12 @@ color: rgb(13, 13, 13)}
 .icons-container{
     display: flex;
     flex-direction: row;
-    height: 31px;
+    height: 25px;
     justify-content: space-between;
     align-items: center;
     img{
         width:31px;
-        height: 31px;
+        height: 25px;
         border-radius: 50%;
         object-fit: cover;
         object-position: top center
@@ -94,7 +96,7 @@ color: rgb(13, 13, 13)}
         align-items: center;
         color: #212529;
         .fa-message{
-            font-size: 20px;
+            font-size: 15px;
         }
         span{
             font-size: 14px;
@@ -105,3 +107,64 @@ color: rgb(13, 13, 13)}
 }
 }
 
+
+
+@media screen and (min-width:900px) {
+
+.card-div{
+    gap:24px; 
+    .heading{
+    .status{
+        .priority, .task-dep p{
+             font-size: 12px; 
+        }
+    }
+    .date{
+        font-size: 12px;
+    }
+    }
+    .desc-container{
+        .desc-heading{
+      font-size: 15px;
+        }
+    }
+    }
+
+}
+
+
+
+
+
+@media screen and (min-width:1400px) {
+
+    .card-div{
+        gap:28px; 
+      .heading{
+        .status{
+            .priority{
+                img{
+                    width: 16px;
+                }
+            }
+        }
+      }
+        .desc-container{
+            .desc-text{
+                font-size: 14px;
+            }
+        }
+        .icons-container{
+            height: 31px;
+            img{
+                width:31px;
+                height: 100%;
+            }
+            .comments-icons{  
+                .fa-message{
+                    font-size: 18px;
+                }  
+            }
+        }
+        }
+    }

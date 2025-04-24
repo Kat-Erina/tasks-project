@@ -1,26 +1,24 @@
 .collapsable-section, .noncollapsable-section{
-  // display: flex;
+  
     .header {
       display: flex;
       justify-content: space-between;
-        background-color: #007bff;
-        color: white;
-        padding: 10px;
-        cursor: pointer;
-        user-select: none;
-        border-radius:5px;
-        margin-bottom: 10px;
-        font-size: 18px;
+      align-items: center;
+      color: white;
+      padding: 10px;
+      cursor: pointer;
+      border-radius:5px;
+      font-size: 14px;
+      font-weight: lighter;
       }
       .content {
         overflow: hidden;
         display: flex;
         flex-direction: column;
-       
         transition: all 0.5s ease-in-out;
-        background-color: #f1f1f1;
-        padding: 0 10px;
-        border-radius: 0 0 5px 5px;
+        p{
+          margin-top: 10px;
+        }
       }
 
 }
@@ -28,14 +26,36 @@
 display:none
 }
 
+@media screen and (min-width:700px) {
+  .collapsable-section{
+   .header{
+    font-size: 16px;
+   } 
+  }
+ 
+}
+
 @media screen and (min-width:1400px) {
   .collapsable-section{
     display: none;
-    background-color: red;
   }
   .noncollapsable-section{
     display:flex;
     flex-direction: column;
+    .header{
+      justify-content: center;
+      font-size:17px;
+    }
+    }
+}
+
+@media screen and (min-width:1920px) {
+ 
+  .noncollapsable-section{
+    .header{
+      padding: 15px;
+      font-size:18px;
+    }
     }
 }
 

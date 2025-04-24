@@ -1,7 +1,7 @@
 :host{
     position: relative;
     h1{
-        font-size: 20px;
+        font-size: 18px;
         color: #212529
         }
         .filters{
@@ -18,8 +18,8 @@
             }
         }
         .chosen-criterias{
-            margin-top: 10px;
-            margin-bottom: 10px;
+            margin-top: 15px;
+            margin-bottom: 15px;
             ul{
                 display: flex;
                 flex-direction: row;
@@ -58,7 +58,7 @@
 
 @media screen and (min-width:700px){
   :host{
-    h1{font-size: 24px;}
+    h1{font-size: 21px;}
     .filters{
        
         ul{
@@ -79,10 +79,4 @@
 }
 
 
-// @media screen and (min-width:1400px) {
-// main{
-//     padding: 0px 120px;
-//     background-color: red;
-// }
-    
-// }
+

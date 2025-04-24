@@ -1,11 +1,11 @@
-<div class="card-div" >
+<div class="card-div" [ngStyle]="{'border-color':applyBorder(task.status.name)}">
     <div class="heading">
         <div class="status">
             <div class="priority" [ngStyle]="{'border-color':getPriorityClass(task.priority.name)}">
                 <img alt="'priority'" [src]="task.priority.icon">
-                <span [ngStyle]="{'color': applyPriorityColor(task.priority.name)}">{{task.priority.name}}</span>
+                <span [ngStyle]="{'color': getPriorityClass(task.priority.name)}">{{task.priority.name}}</span>
             </div>
-            <div class="task-dep"><p>
+            <div class="task-dep" [ngStyle]="{'background-color':applyBgc(task.department.name)}"><p>
                 {{task.department.name |shortenText }}
             </p></div>
         </div>

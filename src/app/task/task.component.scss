@@ -1,48 +1,90 @@
 .header-div{
     display: flex;
     flex-direction: row;
-    gap:20px;
+    align-items: center;
+    gap:12px;
     font-size: 10px;
     .priority-container{
         display: flex;
         flex-direction: row;
-        gap:2px
+        align-items: center;
+        gap:2px;
+        border:1px solid;
+        border-radius: 4px;
+        padding: 4px ;
+        img{
+            width: 10px;
+        }
         
+    }
+    .department-name{
+             text-align: center;
+            padding: 5px 10px;
+            font-weight: 400;
+            align-items: center;
+            display: flex;
+            border-radius: 15px;
+            font-size: 10px; 
+            text-align: center;
+            color: white
+                
     }
 }
 
 .main-container{
+    margin-top: 12px;
+    background-color: azure;
     position: relative;
     display: flex;
     flex-direction: column;
-    gap:30px;
-    .item-desc-container{
-        display: flex;
-        flex-direction: column;
-        gap:15px; 
-        h1{
-            font-size: 20px;
-        }
-        .task-description{
-            font-size: 14px;
-        }
-    }
+    gap:35px;
     .task-details{
+        background-color: yellow;
         display: flex;
         flex-direction: column;
-        gap:10px;
+        gap:20px;
+
+        .item-desc-container{
+            background-color: rgb(76, 97, 128);
+            display: flex;
+            flex-direction: column;
+            gap:15px; 
+            h1{
+                font-size: 15px; 
+                
+            }
+            .task-description{
+                font-size: 14px;
+            }
+        }
+
         .task-status, .task-employee, .task-deadline{
-            border: 1px solid black;
             align-items: center;
             display: flex;
         flex-direction: row;
         justify-content: space-between;
+
+        .status-p, .empl-p, .deadline-p{
+            font-size: 11px ;
+            
+        }
+        .deadline-details{
+            display: flex;
+        justify-content: flex-start;
+        width: 50%;
+        font-size: 10px
+            }
+        
         };
+        
         .task-status{
             align-items: end;
+            position: relative;
             .status{
+                border: 1px solid black;
                 width: 50%;
                 height: 100%;
+                position: relative;
                 .chosen-status{
                     display: flex;
                     flex-direction: row;
@@ -66,11 +108,8 @@ border-radius: 5px;
                 list-style: none;
                 position: absolute;
                 background-color: white;
-                // width:100%;
-                width: 50%;
-                min-width:auto;
+                width: 100%;
                 li{
-                    // border: 1px solid black;
                     padding: 5px ;
                     font-size: 10px;
                     margin-top: 2px;
@@ -83,7 +122,6 @@ border-radius: 5px;
                 flex-direction: column;
                 gap:3px;
                 justify-content: flex-start;
-// border: 1px solid blue;
 width: 50%;
                 .department-name{
                     font-size: 8px;
@@ -94,19 +132,15 @@ width: 50%;
                     display: flex;
                     flex-direction: row;
                     gap:5px;
-// justify-content: flex-start;
-// border: 1px solid blue;
 p{background-color: yellow;}
                     img{width:16px;
                     height: 16px;
                 border-radius: 50px;
                 object-fit: cover;
                 object-position: top center;
-                // position: absolute;
                }
                 }
                 .empoyee-name{
-                    // text-align: start;
                     font-size: 9px;
                     font-weight: bold;
                 }
@@ -157,4 +191,224 @@ li{
         width: 14px;
         
     }
+}
+
+@media screen and (min-width:700px) {
+
+    .header-div{
+        font-size: 12px;
+        .priority-container{ 
+            img{
+                width: 12px; // es
+            }
+        }
+        .department-name{
+                font-size: 12px; // es      
+        }
+    }
+    
+    .main-container{
+        .task-details{
+            width: 450px;
+            .item-desc-container{
+                    h1{
+                    font-size: 16px; 
+                }
+            }
+            .task-status, .task-employee, .task-deadline{
+            .status-p, .empl-p, .deadline-p{
+                font-size: 12px
+            }
+            .deadline-details{
+            font-size: 11px
+                }
+            };
+            
+        } 
+    }
+    
+}
+
+@media screen and (min-width:900px) {
+   
+    .header-div{
+        background-color: yellow;
+        font-size: 14px;
+        margin-bottom: 20px;
+        .priority-container{
+            img{
+                width: 14px; 
+            }
+        }
+        .department-name{
+                font-size: 14px;        
+        }  
+    }
+    
+    .main-container{
+        flex-direction: row;
+        
+        .task-details{
+width: 50%;
+            .item-desc-container{
+          margin-bottom: 35px;
+                gap:25px;
+                h1{
+                    font-size: 22px;
+                }
+                .task-description{
+                    font-size: 18px;
+                }
+            }
+.details-p{
+font-size: 18px;
+}
+            .task-status, .task-employee, .task-deadline{
+                width: 400px;
+                background-color: red;
+            .status-p, .empl-p, .deadline-p{
+                font-size: 14px 
+            }
+            .deadline-details{
+            font-size: 13px
+                }
+            };
+            .task-status{
+
+.status{
+    .chosen-status{
+        p{
+        font-size: 13px;
+    }
+   
+span{
+    font-size: 13px;
+}}
+
+.status-list{
+    background-color: brown;
+    li{
+        font-size: 12px;
+    }
+}
+}    
+            }
+               .task-employee{
+                .employee-details{
+                    .department-name{
+                        font-size: 11px;                      
+                    }
+                    .employee-img-container{
+                        img{width:24px;
+                        height: 24px;
+                   }
+                    }
+                    .empoyee-name{
+                        font-size: 12px;
+                        align-items: center;
+                        display: flex;
+                    }
+                }
+            }
+        }
+        .comments-div{
+            width: 50%;
+        }
+    }
+    .img-container{
+         img{
+            width: 20px;
+        }
+    }
+}
+
+@media screen and (min-width:1400px) {
+    .header-div{
+        font-size: 14px;
+        .priority-container{
+            img{
+                width: 14px; 
+            }
+        }
+        .department-name{
+                font-size: 14px;      
+        }
+    }
+    
+    .main-container{
+        background-color: azure;
+        .task-details{
+           width: 50%;
+            .item-desc-container{
+                background-color: rgb(76, 97, 128);
+                display: flex;
+                flex-direction: column;
+                gap:20px; 
+                h1{
+                    font-size: 24px; 
+                }
+                .task-description{
+                    font-size: 20px;
+                }
+            }
+    .details-p{
+        font-size: 21px;
+    }
+            .task-status, .task-employee, .task-deadline{
+                width: 450px;
+            .status-p, .empl-p, .deadline-p{
+                font-size: 16px
+            }
+            .deadline-details{
+            font-size: 14px
+                }
+            };
+            
+            .task-status{
+                .status{
+                    .chosen-status{
+                        p{
+                            font-size: 14px;
+                        }
+                        span{
+                            font-size: 14px;
+                        }
+                    }
+                }
+                .status-list{
+                    li{
+                        font-size: 13px;
+                    }
+                }
+            }
+            .task-employee{
+                .employee-details{
+                    .department-name{
+                        font-size: 11px; 
+                    }
+                    .employee-img-container{
+                        img{width:28px;
+                        height: 28px;
+                   }
+                    }
+                    .empoyee-name{
+                        font-size: 14px;
+                    }
+                }
+                
+            }
+        }
+        .comments-div{
+            width: 50%;
+        }
+    }
+    
+    .img-container{
+        img{
+            width: 22px;
+            height: 22px;
+            
+        }
+    }
+    
 }
