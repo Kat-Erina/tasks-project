@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from "@angular/common/http";
-import { inject, Injectable, OnInit, signal } from "@angular/core";
-import {  Comment, Department, Employee, Priority, ReceivedEmployee, Status, Task } from "../types/models";
+import { DestroyRef, inject, Injectable, OnInit, signal } from "@angular/core";
+import {  Comment, Department,  Priority, ReceivedEmployee, Status, Task } from "../types/models";
 import { SharedStates } from "./sharedStates.service";
 
 @Injectable({
@@ -20,7 +20,9 @@ toBeTestedTasks=signal<Task[]>([])
 finishedTasks=signal<Task[]>([])
 chosenFilteringCriterias=this.sharedStatesService.chosenFilteringCriterias;
 comments=signal<Comment[]>([])
-
+tasksAreLoading = signal(true);
+taskLoadingHasError = signal(false);
+destroyRef=inject(DestroyRef)
 
     
 
@@ -53,11 +55,15 @@ ngOnInit(): void {
 
 
    getAllDepartments(){
-    this.getDepartments('departments').subscribe({
+  let sub= this.getDepartments('departments').subscribe({
       next:(response)=>{
         this.departments.set(response)
       },
       error:(error)=>{console.log(error)}
+    })
+
+    this.destroyRef.onDestroy(()=>{
+      sub.unsubscribe()
     })
   }
 
@@ -65,13 +71,21 @@ ngOnInit(): void {
   const header=new HttpHeaders({
     Authorization: 'Bearer ' 
 })
- this.http.get<Task[]>(`${this.url}/tasks`, {headers:header}).subscribe({
+let sub=this.http.get<Task[]>(`${this.url}/tasks`, {headers:header}).subscribe({
   next:data=>{
     this.tasks.set(data)
     this.sortData()
+    this.tasksAreLoading.set(false)
   }, 
-  error:error=>console.log(error)
+  error:()=>{
+this.taskLoadingHasError.set(true)
+this.tasksAreLoading.set(false)
+  }
  })
+
+ this.destroyRef.onDestroy(()=>{
+  sub.unsubscribe()
+})
 
  }
 
@@ -126,12 +140,13 @@ this.finishedTasks.set(this.filterTasks(this.finishedTasks(), this.chosenFilteri
     const header=new HttpHeaders({
       Authorization: 'Bearer ' 
   })
-   this.http.get<Comment[]>(`${this.url}/tasks/${id}/comments`, {headers:header}).subscribe({
-        next:response=>{console.log(response)
-          this.comments.set(response)
-          console.log(this.comments())
-        },
+ let sub= this.http.get<Comment[]>(`${this.url}/tasks/${id}/comments`, {headers:header}).subscribe({
+        next:response=> this.comments.set(response),
         error:error=>console.log(error)
+      })
+
+      this.destroyRef.onDestroy(()=>{
+        sub.unsubscribe()
       })
   }
 

@@ -1,3 +1,16 @@
+@if(item===undefined && !taskError()){
+    <div class="loader-div">
+        <p>მონაცემები იტვირთება</p>
+        <mat-spinner [color]="'warn'" [diameter]="70" [strokeWidth]="2"></mat-spinner>
+      </div>
+}
+
+@if(taskError()){
+    <div class="error-div">
+        <p>სამწუხაროდ მონაცემების ჩატვირთვა ვერ მოხერხდა. 😢</p>
+    </div>
+}
+
 <div *ngIf="item" class="header-div">
     <div class="priority-container" [ngStyle]="{'border-color':getPriorityClass(item.priority.name)}">
      <img [src]="item.priority.icon" [alt]="item.priority.name">

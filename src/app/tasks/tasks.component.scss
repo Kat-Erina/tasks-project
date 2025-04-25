@@ -1,5 +1,6 @@
 :host{
     position: relative;
+   
     h1{
         font-size: 18px;
         color: #212529
@@ -79,4 +80,6 @@
 }
 
 
-
+::ng-deep mat-spinner circle {
+    stroke: #8338EC; 
+  }

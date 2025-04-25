@@ -1,7 +1,6 @@
 .task-container{
     font-family: 'FiraGO', sans-serif;
-
-    padding: 5px 10px;
+    padding-top: 5px;
     display: flex;
     flex-direction: column;
     border-radius: 4px;
@@ -35,11 +34,15 @@ gap:15px;
                 font-weight: bold;
             };
             textarea{
+                font-family: 'FiraGO', sans-serif !important;
                 outline: none;
                 padding: 8px;
                 border-radius: 5px;
                 border:1px solid #DEE2E6;
                 min-height: 100px;
+                font-size: 10px;
+                line-height: 150%;
+                color: #0D0F10
             }
             .span-container{
                 display: flex;
@@ -71,12 +74,8 @@ gap:15px;
                     justify-content: space-between;
                     gap:20px;
                 }
-                .department-container,.employees-container{
-                    width: 50%;
-                   
-                }
+                .department-container,.employees-container{ width: 50%;}
                 .deadline-container{
-                    // border: 1px solid black;
                     position: relative;
                     display: flex;
                     flex-direction: column;
@@ -87,7 +86,6 @@ gap:15px;
     margin-bottom: 4px;
                     }
                 }
-               
             }
 
         }
@@ -107,7 +105,6 @@ gap:15px;
                 font-size: 12px;
             }
         }
-
     }
 }
 
@@ -116,7 +113,6 @@ gap:15px;
         display: flex;
         justify-content: start;
         .mat-mdc-text-field-wrapper{ 
-          
             border-radius: 5px;
             padding: 0;
             height: 34px;
@@ -147,7 +143,6 @@ gap:15px;
                             display: flex;
                             align-items: center;
                             border-radius: 0;
-                            
                             svg{
                                 width:100%;
                             height: 100%;
@@ -166,7 +161,6 @@ gap:15px;
         margin-top: 4px;
         mat-datepicker-content{
             background-color:white;
-           
         }
     }
     .mat-calendar-body-today:not(.mat-calendar-body-selected) {
@@ -180,46 +174,39 @@ gap:15px;
       }
 }
 
-    
-
 
 @media screen and (min-width:700px) {
     .task-container{
-       
         h1{
-            font-size: 18px;
-        }
+            font-size: 18px; }
         form{
             min-height: 500px;
-            padding-top:40px;
+            padding-top:50px;
+            padding-bottom:40px;
             .main-container{
             flex-direction: row ;
             gap:30px;
                 .first-sub-container{
                     width: 100%;
+                    .desc-div{
+                      textarea{
+                        font-size: 12px;
+                      }  
+                    }
                   
             }
             .second-sub-container{
                 width: 100%;
                 gap:35px;
-               
-
                     .department-employee-container{
                         flex-direction: column; 
                         width: 100%;
-                        background-color: yellow;
                         gap:37px;
                         .department-container,.employees-container{
                             width: 100%;
-                           
                         }
                     }
-                  
-
-
                 } 
-
-              
             }
               }
         }
@@ -228,19 +215,27 @@ gap:15px;
 
 @media screen and (min-width:1000px) {
     .task-container{
-        
         h1{
             font-size: 20px;
         }
         form{
-          
-            .btn-container{
-                button{
-                    font-family: 'FiraGO', sans-serif;
+            .main-container{
+                .first-sub-container{
+            .desc-div{
+                label{
                     font-size: 15px;
-                    padding: 8px 18px;
-                }
+                };
+             
             }
+                }
+                .second-sub-container{
+                    .deadline-container{
+                        .deadline-p{font-size: 15px;}
+                    } 
+                }
+    
+            }
+          
     
         }
     }
@@ -248,23 +243,14 @@ gap:15px;
 
 @media screen and (min-width:1400px) {
     .task-container{
-       h1{
-            font-size: 22px;
-        }
+       h1{font-size: 22px; }
         form{
             .main-container{
     gap:30px;
-    background-color: yellow;
-                .first-sub-container, .second-sub-container{
-                //  background-color: green;
-                border:1px solid black;
+    .first-sub-container, .second-sub-container{
                 width:40%;
-            // gap:45px;
-            .title-div{background-color: red;
-            width:90%}
-           
-            .desc-div{
-                width:90%;
+            .title-div{width:90%}
+            .desc-div{  width:90%;
                 label{
                     font-size: 14px;
                 };
@@ -274,30 +260,25 @@ gap:15px;
             }
                 }
                 .second-sub-container{
-                    .department-employee-container{
-                        background-color: aqua;
-                        width: 90%;
-                    }
+                    .department-employee-container{ width: 90%; }
                     .deadline-container{
-                        background-color: red;
                         position: relative;
-                        border: 1px solid rgb(26, 141, 51);
                         width: 50%;
                         display: flex;
                         flex-direction: column;
                         gap:2px;
                        .deadline-p{
                         margin-bottom: 4px;
-                        background-color: red;
                        }
                     }
-                   
                 }
-    
             }
             .btn-container{
              width: 78.2%;
-             border:1px solid black;
+             button{
+                padding: 5px 10px;
+                font-size: 15px;
+             }
               
             }
     

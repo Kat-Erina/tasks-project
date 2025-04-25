@@ -1,10 +1,9 @@
-import { Component, inject, OnInit, Signal, signal } from '@angular/core';
+import { Component, DestroyRef, inject, OnInit, signal } from '@angular/core';
 import { SharedStates } from '../core/services/sharedStates.service';
 import { InputComponent } from "../core/shared-components/input/input.component";
 import { DropdownComponent } from "../core/shared-components/dropdown/dropdown.component";
 import { Department } from '../core/types/models';
 import { ApiService } from '../core/services/api.service';
-import { SIGNAL } from '@angular/core/primitives/signals';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -16,7 +15,6 @@ import { CommonModule } from '@angular/common';
 export class NewEmployeeComponent implements OnInit {
 sharedState=inject(SharedStates);
 apiService=inject(ApiService)
-//reuirements
 
 nameValue=signal('');
 surnameValue=signal('')
@@ -38,6 +36,7 @@ data={
   avatar:'', 
 }
 employees=this.sharedState.employees
+destroyRef=inject(DestroyRef)
 
 
 handleNameChange(value:string){
@@ -81,7 +80,6 @@ onFileChange(event: Event) {
     reader.onload = () => {
       const imageString=reader.result as string;
       this.imageSrc.set(imageString)
-      console.log(this.imageSrc())
       }
       reader.readAsDataURL(input.files[0]);
 
@@ -147,7 +145,7 @@ handleSubmit(event:Event){
     formData.append('department_id', this.chosenDepartment()?.id.toString()||'');
 
 
-    this.apiService.postData('employees', formData).subscribe({
+  let sub= this.apiService.postData('employees', formData).subscribe({
       next:response=>{
         if(response){
           this.sharedState.openEmployeeModal.set(false);
@@ -162,6 +160,9 @@ handleSubmit(event:Event){
       },
       error:error=>console.log(error)
     })
+    this.destroyRef.onDestroy(()=>{
+      sub.unsubscribe()
+    })
   }
-  
-}}
+}
+}

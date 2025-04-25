@@ -4,19 +4,20 @@ import { SharedStates } from '../core/services/sharedStates.service';
 import { FilteringCriteriasComponent } from '../core/shared-components/filtering-criterias/filtering-criterias.component';
 import { ApiService } from '../core/services/api.service';
 import { TaskColumnComponent } from '../core/shared-components/task-column/task-column.component';
-import { Department, Employee, Priority, ReceivedEmployee, Task } from '../core/types/models';
-import { DecimalPipe } from '@angular/common';
-import { share } from 'rxjs';
+import { Department,  Priority, ReceivedEmployee, Task } from '../core/types/models';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+
 
 @Component({
   selector: 'app-tasks',
-  imports: [LiComponent, FilteringCriteriasComponent, TaskColumnComponent],
+  imports: [LiComponent, FilteringCriteriasComponent, TaskColumnComponent, MatProgressSpinnerModule],
   templateUrl: './tasks.component.html',
   styleUrl: './tasks.component.scss'
 })
 export class TasksComponent implements OnInit {
 sharedStatesService=inject(SharedStates)
 apiService=inject(ApiService)
+tasks=this.apiService.tasks
 priorities=signal<Priority[]>([])
 employees=signal<ReceivedEmployee[]>([])
 chosenDepartment:Department[]|undefined=[]
@@ -45,6 +46,8 @@ chosenCriterias:{
   employees:[]
 }
 
+tasksAreLoading = this.apiService.tasksAreLoading;
+taskLoadingHasError = this.apiService.taskLoadingHasError;
 
 ngOnInit(): void {
   // localStorage.clear()

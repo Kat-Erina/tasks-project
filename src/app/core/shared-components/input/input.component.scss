@@ -7,12 +7,16 @@
         font-weight: bold;
     }
     input{
+        font-family: 'FiraGO', sans-serif !important;
         outline: none;
         padding: 8px;
         border-radius: 5px;
         border:1px solid #DEE2E6;
         height: 34px;
         width: 100%;
+        font-size: 10px;
+        color: #0D0F10
+
     }
     .span-container{
         display: flex;
@@ -25,6 +29,14 @@
     }
 }
 
+
+@media screen and (min-width:700px) {
+    :host{
+    input{
+        font-size: 12px;
+    }}
+        }
+
 @media screen and (min-width:1000px) {
     :host{
         width:100%
@@ -32,7 +44,5 @@
     label{
         font-size: 15px
     }
-    input{
-        font-size: 13px;
-    }}
+   }
         }

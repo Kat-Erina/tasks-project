@@ -34,3 +34,41 @@ border: none;
     }
    }
 }
+
+@media screen and (min-width:700px) {
+
+    .comment-textarea{
+       padding: 10px;
+       textarea{
+        height: 60px;
+       }
+       textarea::placeholder{
+        font-size: 12px;
+       }
+         .btn-div{
+
+        button{
+            padding: 5px 10px;
+            font-size: 10px;
+        }
+       }
+    }
+
+
+    
+}
+
+
+@media screen and (min-width:1000px) {
+
+    .comment-textarea{
+       padding: 10px;
+       textarea{
+        height: 70px;
+       }
+       textarea::placeholder{
+        font-size: 12px;
+       }
+        
+    }
+}

@@ -1,6 +1,6 @@
-import { Component,  inject, OnInit, signal } from '@angular/core';
+import { Component,  DestroyRef,  inject, OnInit, signal } from '@angular/core';
 import { InputComponent } from '../core/shared-components/input/input.component';
-import { CommonModule, DatePipe } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { ApiService } from '../core/services/api.service';
 import {  Priority, ReceivedEmployee, Status } from '../core/types/models';
 import { DropdownComponent } from '../core/shared-components/dropdown/dropdown.component';
@@ -52,7 +52,7 @@ chosenDepartment=this.sharedStates.chosenDepartment
 chosenEmployee=signal<ReceivedEmployee|undefined>(undefined)
 employees=this.sharedStates.employees
 filteredEmployees=this.sharedStates.filteredEmployees
-
+destroyRef=inject(DestroyRef)
 
 
 handleNameChange(value:string){
@@ -98,9 +98,6 @@ localStorage.setItem('taskData',JSON.stringify(this.data))
 }    
 
   ngOnInit(): void {
-    // console.log(this.tomorrow)
-    // this.date=this.tomorrow
-    // localStorage.clear()
     let fetchedData=localStorage.getItem('taskData');
     this.apiService.getAllDepartments()
     if(!fetchedData){
@@ -119,7 +116,7 @@ localStorage.setItem('taskData',JSON.stringify(this.data))
       this.date=new Date(data.due_date)
          }
 
-    this.apiService.getEmployees().subscribe({
+  let sub=this.apiService.getEmployees().subscribe({
         next:response=>{
 this.employees.set(response)
 if(fetchedData){
@@ -134,12 +131,16 @@ return  employee.department?.id===this.chosenDepartment()?.id
 })
 this.filteredEmployees.set(empls)
 }
-}
-         }
-         })
+}}, 
+ error:error=>{console.log(error)},
+         }     )
+
+         this.destroyRef.onDestroy(()=>{
+          sub.unsubscribe()
+        })
 
 
-    this.apiService.getStatuses().subscribe({
+ let subs=   this.apiService.getStatuses().subscribe({
       next:(response)=>{
         this.statuses.set(response);
         if(fetchedData){
@@ -151,7 +152,11 @@ this.filteredEmployees.set(empls)
       error:(error)=>{console.log(error, "oops, error")}
     })
 
-    this.apiService.getPriorities().subscribe({
+    this.destroyRef.onDestroy(()=>{
+      subs.unsubscribe()
+    })
+
+  let subscribe=  this.apiService.getPriorities().subscribe({
       next:(response)=>{
         this.priorities.set(response);
         if(fetchedData){
@@ -161,6 +166,10 @@ this.filteredEmployees.set(empls)
         else{this.chosenPriority.set(response[1])}
       },
         error:(error)=>{console.log(error, "oops, error")}
+      })
+
+      this.destroyRef.onDestroy(()=>{
+        subscribe.unsubscribe()
       })
       }
 
@@ -183,22 +192,11 @@ this.filteredEmployees.set(empls)
       tomorrow.setHours(0, 0, 0, 0);
         if (pickedDate.getTime() < tomorrow.getTime()) {
           alert('გთხოვთ აირჩიეთ მომავალი თარიღი')
-          // this.date = ''; 
-          // return;
-          
         } else {
-          console.log('kargia'); // Good date
           const formattedDate = format(this.date, 'yyyy-MM-dd');
-          console.log(formattedDate)
-    // const due_date = formatted; // --> This will be like "2025-12-31"
-    console.log('due_date:', formattedDate);
-
     this.data = { ...this.data, due_date: formattedDate };
-  // this.chosenEmployee.set(undefined)
 localStorage.setItem('taskData',JSON.stringify(this.data)); 
-
         }
-// console.log(this.validateTime)
       }
 
     get validateTime(){
@@ -206,7 +204,6 @@ localStorage.setItem('taskData',JSON.stringify(this.data));
       return undefined
      }
      else{
-      // console.log(this.tomorrow.getTime() <= this.date.getTime())
       return  this.tomorrow.getTime() <= this.date.getTime();
      }
       
@@ -215,7 +212,6 @@ localStorage.setItem('taskData',JSON.stringify(this.data));
   handleSubmit(event:Event){
     event.preventDefault();
 this.formSubmitted.set(true);
-console.log(this.validateTime)
 if((this.description().length===0 || this.isDescriptionValid )&& this.minimumLengthValid() && !this.maximumLengthValid()
 && this.chosenDepartment() && this.chosenEmployee() && this.chosenstatus()&& this.chosenPriority()  ){
 let data={
@@ -228,10 +224,9 @@ let data={
   employee_id:this.chosenEmployee()?.id, 
 }
 
-console.log(this.date)
-console.log(data)
 
-this.apiService.postData('tasks', data).subscribe(
+
+let sub=this.apiService.postData('tasks', data).subscribe(
   { next:(response)=>{
 if(response){
 this.apiService.getTasks()
@@ -245,8 +240,14 @@ this.description.set(''),
   this.router.navigate(['/'])
 }
   
-  }}
+  },
+error:error=>console.log(error)
+}
  )
+
+ this.destroyRef.onDestroy(()=>{
+  sub.unsubscribe()
+})
 }
   }
 }

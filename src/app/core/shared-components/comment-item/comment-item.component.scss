@@ -71,3 +71,30 @@
     word-wrap: break-word;
     
 }
+
+@media screen and (min-width:700px) {
+
+    .comment-item{
+      .comment-section{
+               img{
+                    width:20px;
+                    height: 20px;
+                }
+                .full-comment{
+                    .name{
+                        font-size: 13px;
+                    }
+                    .description{
+                        font-size: 12px;
+                    }
+                    .reply-btn{
+                        font-size: 10px;
+                        img{
+                            width:15px;
+                            height:15px
+                        }
+                    }
+                }   
+            }     
+    }
+}

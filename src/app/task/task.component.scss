@@ -33,19 +33,16 @@
 
 .main-container{
     margin-top: 12px;
-    background-color: azure;
     position: relative;
     display: flex;
     flex-direction: column;
     gap:35px;
     .task-details{
-        background-color: yellow;
         display: flex;
         flex-direction: column;
         gap:20px;
 
         .item-desc-container{
-            background-color: rgb(76, 97, 128);
             display: flex;
             flex-direction: column;
             gap:15px; 
@@ -81,7 +78,6 @@
             align-items: end;
             position: relative;
             .status{
-                border: 1px solid black;
                 width: 50%;
                 height: 100%;
                 position: relative;
@@ -132,7 +128,6 @@ width: 50%;
                     display: flex;
                     flex-direction: row;
                     gap:5px;
-p{background-color: yellow;}
                     img{width:16px;
                     height: 16px;
                 border-radius: 50px;
@@ -232,7 +227,6 @@ li{
 @media screen and (min-width:900px) {
    
     .header-div{
-        background-color: yellow;
         font-size: 14px;
         margin-bottom: 20px;
         .priority-container{
@@ -265,7 +259,6 @@ font-size: 18px;
 }
             .task-status, .task-employee, .task-deadline{
                 width: 400px;
-                background-color: red;
             .status-p, .empl-p, .deadline-p{
                 font-size: 14px 
             }
@@ -286,7 +279,6 @@ span{
 }}
 
 .status-list{
-    background-color: brown;
     li{
         font-size: 12px;
     }
@@ -336,11 +328,9 @@ span{
     }
     
     .main-container{
-        background-color: azure;
         .task-details{
            width: 50%;
             .item-desc-container{
-                background-color: rgb(76, 97, 128);
                 display: flex;
                 flex-direction: column;
                 gap:20px; 

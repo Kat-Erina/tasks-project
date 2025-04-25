@@ -58,9 +58,7 @@
             
             </div>
              <div class="deadline-container" >
-                <p class="deadline-p" [ngClass]="{'invalid':(formSubmitted()&&!validateTime) || dateInput.touched && !validateTime , 
-                    'valid':formSubmitted()&& validateTime || validateTime===true
-                }">დედლაინი</p>
+                <p class="deadline-p">დედლაინი</p>
                  <mat-form-field>
                     <input [ngClass]="{'invalid':(formSubmitted()&&!validateTime) || validateTime===false, 
                     'valid': validateTime

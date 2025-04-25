@@ -1,3 +1,12 @@
+@if(tasksAreLoading()){
+  
+  <div class="loader-div">
+    <p>ინფორმაცია იტვირთება</p>
+    <mat-spinner [color]="'warn'" [diameter]="70" [strokeWidth]="2"></mat-spinner>
+  </div>
+}
+
+@else{
 <h1>დავალებების გვერდი</h1>
 <div class="filters">
     <ul>
@@ -7,6 +16,7 @@
     </ul>
 
 </div>
+
 @if(sharedStatesService.openFilteringCriterias() && sharedStatesService.receivedVal()==='departments'){
     <app-filtering-criterias [data]="this.apiService.departments()"  [receivedVal]="sharedStatesService.receivedVal()"/>
 }
@@ -29,8 +39,17 @@
 
 </ul>
 </div>
+
+@if(!tasksAreLoading()&& tasks().length!==0){
 <div class="main-container">
   @for(status of statuses; track status){
     <app-task-column [header]="status.name" [color]="status.color" [data]="getTasksByStatus(status.name)"></app-task-column>
   }
+</div>}
+}
+@if(taskLoadingHasError()){
+  <div class="error-div">
+    <p>სამწუხაროდ დავალებების ჩატვირთვა ვერ მოხერხდა. 😢</p>
 </div>
+}
+

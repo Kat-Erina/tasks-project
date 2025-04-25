@@ -5,10 +5,14 @@ import { CommonModule } from '@angular/common';
 import { CommentAreaComponent } from "../core/shared-components/comment-area/comment-area.component";
 import { CommentItemComponent } from "../core/shared-components/comment-item/comment-item.component";
 import { ShortenTextPipe } from '../core/pipes/shorten-text.pipe';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+
 
 @Component({
   selector: 'app-task',
-  imports: [CommonModule, CommentAreaComponent, CommentItemComponent, ShortenTextPipe],
+  imports: [CommonModule, CommentAreaComponent, CommentItemComponent, ShortenTextPipe, 
+    MatProgressSpinnerModule
+  ],
   templateUrl: './task.component.html',
   styleUrl: './task.component.scss'
 })
@@ -26,7 +30,7 @@ date:Date|string=''
  year!:number;
  formattedDate = signal('');
  weekDay=signal('')
-
+taskError=signal(false)
  daysObj: { [key: number]: string } = {
   0: 'კვი',  
   1: 'ორშ',  
@@ -55,7 +59,8 @@ this.month.set(String(this.date.getMonth() + 1).padStart(2, '0'))
 this.year = this.date.getFullYear();
 this.formattedDate.set( `${this.day()}/${this.month()}/${this.year}`);
 this.weekDay.set(this.daysObj[this.date.getDay()])
-    }
+    },
+    error:()=>this.taskError.set(true)
   })
   this.getStatuses()
 }
