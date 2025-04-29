@@ -1,3 +1,5 @@
+@use './../../styles/variables.scss' as *;
+@use './../../styles/mixins.scss' as *;
 
 .overlay {
   z-index: 2;
@@ -6,8 +8,7 @@
     inset: 0;
     background-color: rgba(0, 0, 0, 0.5); 
     backdrop-filter: blur(2px); 
-    display: flex;
-    justify-content: center;
+   @include flex-center;
     align-items: start;
     overflow-y: auto;
     padding-top: 100px;
@@ -20,12 +21,10 @@
     overflow-y: auto;
     border-radius: 8px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    display: flex;
-    flex-direction: column;
+    @include column-flex;
     padding: 15px;
     .img-container{
-        display: flex;
-justify-content: end;
+       @include flex-end;
 .close-btn {
     height: 25px;
     width: 25px;
@@ -33,51 +32,45 @@ justify-content: end;
   }
     }
     form{
-display: flex;
-flex-direction: column;
+      @include column-flex;
 gap:20px;
 h2{
   font-size: 16px;
   text-align: center;
   margin-top: 10px;
 }
-        //btn container
         .modal-footer{
             display: flex;
             justify-content: flex-end;
             gap:12px;
             button{
                 cursor: pointer;
-                padding: 5px 10px;
+                @include border-padding;
+                @include small-padding;
     border: none;
-    border-radius: 5px;
     cursor: pointer;
     font-size: 10px 
             }
             .add-btn{
-background-color:#8338EC ;
+background-color:$primary-color ;
 color: white
             }
             .close-btn{
-                color: #343A40;
-                border:1px solid #8338EC;
+              color: $font-color;
+                border:1px solid $primary-color;
                 background-color: white;
             }
         }
          .img-container {
-          display: flex;
-          flex-direction: column;
-          gap: 10px;
-          // background-color: gray;
-        
+          @include column-flex;
+          gap: 10px;        
           .upload-container {
             padding: 10px ;
             width: 100%;
             background-color: white;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            border: 1px dashed #CED4DA;
+         @include flex-center;
+         align-items: center;
+            border: 1px dashed $border-color;
             cursor: pointer;
             border-radius: 10px;
             overflow: hidden;
@@ -85,30 +78,18 @@ color: white
             input[type="file"] {
               display: none;
             }
-        
-          
-  
             .image-preview {
               position: relative;
               width: 58px;
               height: 58px;
               border-radius: 50%;
-              // background-size: cover; 
-              // background-repeat: no-repeat;
-              // background-position:  center;
               border: 1px solid black;
-  
-          
               img {
-                  // width: 100%;
-                  // height: 100%;
                   width: 58px;
                   height: 58px;
-                  object-fit: cover;
                   border-radius: 10px;
                   border-radius: 50%;
-                  object-fit: cover;
-  object-position: top center
+              @include img-fit
               }
           
               .fa-trash {
@@ -128,14 +109,13 @@ color: white
             .upload-text {
               font-size: 14px;
               color: #777;
-              display: flex;
-              flex-direction: column;
+              @include column-flex;
               text-align: center;
               .fa-image{
   font-size: 18px;
               }
               p{
-                color: #343A40;
+                color: $font-color;
                 font-size: 10px;
                 font-weight:400;
 
@@ -148,7 +128,7 @@ color: white
    
   }
   .invalid-dashed-boarder{
-    border:1px dashed red !important;
+    border:1px dashed $invalid-color !important;
   }
 }
   
@@ -171,10 +151,9 @@ color: white
     font-size: 18px;
   }
   .personal-info-content{
-    display: flex;
-    flex-direction: row;
+   @include row-flex-space;
     gap:45px;
-    justify-content: space-between;
+    
   }
 
 .img-container{

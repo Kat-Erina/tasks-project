@@ -22,8 +22,6 @@ toggle(){
     this.sharedStatesService.receivedVal.set(this.val)
     this.sharedStatesService.openFilteringCriterias.set(true)
 }
-console.log(this.sharedStatesService.receivedVal())
-// this.valEmitter.emit
 }
 
 up(): boolean {

@@ -2,7 +2,6 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { DestroyRef, inject, Injectable, OnInit, signal } from "@angular/core";
 import {  Comment, Department,  Priority, ReceivedEmployee, Status, Task } from "../types/models";
 import { SharedStates } from "./sharedStates.service";
-import { environment } from "../../../environments/environment";
 @Injectable({
     'providedIn':"root"
 })
@@ -11,7 +10,6 @@ export class ApiService implements OnInit{
 
 url="https://momentum.redberryinternship.ge/api"
 http=inject(HttpClient)
-// private token=environment.apiToken
 sharedStatesService=inject(SharedStates)
 departments=signal<Department[]|undefined>([])
 tasks=signal<Task[]>([])
@@ -49,7 +47,7 @@ ngOnInit(): void {
 
    getEmployees(){
     const header=new HttpHeaders({
-        Authorization: `Bearer ${environment.apiToken}`
+        Authorization: 'Bearer '
     })
     return  this.http.get<ReceivedEmployee[]>(`${this.url}/employees`, {headers:header})
    }
@@ -70,7 +68,7 @@ ngOnInit(): void {
 
  getTasks(){
   const header=new HttpHeaders({
-    Authorization: `Bearer ${environment.apiToken}`
+    Authorization: 'Bearer '
 })
 let sub=this.http.get<Task[]>(`${this.url}/tasks`, {headers:header}).subscribe({
   next:data=>{
@@ -114,7 +112,7 @@ this.finishedTasks.set(this.filterTasks(this.finishedTasks(), this.chosenFilteri
 
   postData(destination:string, data:any){
     const header=new HttpHeaders({
-      Authorization: `Bearer ${environment.apiToken}` 
+      Authorization: 'Bearer ' 
   })
 
   return  this.http.post<ReceivedEmployee>(`${this.url}/${destination}`,data, {headers:header})
@@ -124,14 +122,14 @@ this.finishedTasks.set(this.filterTasks(this.finishedTasks(), this.chosenFilteri
 
   getItemInfo(id:number){
     const header=new HttpHeaders({
-      Authorization: `Bearer ${environment.apiToken}` 
+      Authorization: 'Bearer '
   })
     return this.http.get<Task>(`${this.url}/tasks/${id}`, {headers:header})
   }
 
   updateTaskstatus(id:number, data:{'status_id':number|undefined}){
     const header=new HttpHeaders({
-      Authorization: `Bearer ${environment.apiToken}`
+      Authorization: 'Bearer '
   })
 
   return this.http.put<Task>(`${this.url}/tasks/${id}`,data,{headers:header})
@@ -139,7 +137,7 @@ this.finishedTasks.set(this.filterTasks(this.finishedTasks(), this.chosenFilteri
 
   getAllcomments(id:number){
     const header=new HttpHeaders({
-      Authorization: `Bearer ${environment.apiToken}`
+      Authorization: 'Bearer '
   })
  let sub= this.http.get<Comment[]>(`${this.url}/tasks/${id}/comments`, {headers:header}).subscribe({
         next:response=> this.comments.set(response),
@@ -154,7 +152,7 @@ this.finishedTasks.set(this.filterTasks(this.finishedTasks(), this.chosenFilteri
 
   addComment(id:number, data:{text:string, parent_id?:number}){
     const header=new HttpHeaders({
-      Authorization: `Bearer ${environment.apiToken}` 
+      Authorization: 'Bearer '
   })
   return this.http.post<{text:string, parent_id?:number}>(`${this.url}/tasks/${id}/comments`,data, {headers:header})
   

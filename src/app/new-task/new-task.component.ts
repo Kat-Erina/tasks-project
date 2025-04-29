@@ -140,7 +140,7 @@ this.filteredEmployees.set(empls)
         })
 
 
- let subs=   this.apiService.getStatuses().subscribe({
+ let statusSub=this.apiService.getStatuses().subscribe({
       next:(response)=>{
         this.statuses.set(response);
         if(fetchedData){
@@ -153,10 +153,10 @@ this.filteredEmployees.set(empls)
     })
 
     this.destroyRef.onDestroy(()=>{
-      subs.unsubscribe()
+      statusSub.unsubscribe()
     })
 
-  let subscribe=  this.apiService.getPriorities().subscribe({
+  let prioritiesSub=  this.apiService.getPriorities().subscribe({
       next:(response)=>{
         this.priorities.set(response);
         if(fetchedData){
@@ -169,7 +169,7 @@ this.filteredEmployees.set(empls)
       })
 
       this.destroyRef.onDestroy(()=>{
-        subscribe.unsubscribe()
+        prioritiesSub.unsubscribe()
       })
       }
 
@@ -184,10 +184,9 @@ this.filteredEmployees.set(empls)
       }
 
       handleDatePick(){
-      const pickedDate = new Date(this.date);
+      const pickedDate = new Date(this.date)
       const tomorrow = new Date();
       tomorrow.setDate(tomorrow.getDate() + 1);
-    
       pickedDate.setHours(0, 0, 0, 0);
       tomorrow.setHours(0, 0, 0, 0);
         if (pickedDate.getTime() < tomorrow.getTime()) {
@@ -204,7 +203,12 @@ localStorage.setItem('taskData',JSON.stringify(this.data));
       return undefined
      }
      else{
-      return  this.tomorrow.getTime() <= this.date.getTime();
+      const pickedDate = new Date(this.date);
+      const tomorrow = new Date();
+      pickedDate.setHours(0, 0, 0, 0);
+      tomorrow.setDate(tomorrow.getDate() + 1);
+      tomorrow.setHours(0, 0, 0, 0);
+      return pickedDate.getTime() >= tomorrow.getTime();
      }
       
     }  
@@ -224,13 +228,9 @@ let data={
   employee_id:this.chosenEmployee()?.id, 
 }
 
-
-
 let sub=this.apiService.postData('tasks', data).subscribe(
-  { next:(response)=>{
-if(response){
+  { next:()=>{
 this.apiService.getTasks()
-
   this.titleValue.set('')
 this.description.set(''), 
   this.chosenDepartment.set(undefined), 
@@ -238,7 +238,7 @@ this.description.set(''),
   this.formSubmitted.set(false)
   localStorage.removeItem('taskData')
   this.router.navigate(['/'])
-}
+
   
   },
 error:error=>console.log(error)

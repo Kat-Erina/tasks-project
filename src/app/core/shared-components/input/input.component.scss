@@ -1,6 +1,8 @@
+@use '../../../../styles/mixins.scss' as *;
+@use '../../../../styles/variables.scss' as *;
+
 :host{
-    display: flex;
-    flex-direction: column;
+    @include column-flex;
     gap:4px;
     label{
         font-size: 12px;
@@ -15,12 +17,11 @@
         height: 34px;
         width: 100%;
         font-size: 10px;
-        color: #0D0F10
+        color: $input-color
 
     }
     .span-container{
-        display: flex;
-        flex-direction: column;
+        @include column-flex;
         span{
         color: #6C757D;
         font-size: 8px;

@@ -1,21 +1,18 @@
+@use '../../../styles/mixins.scss' as *;
+@use '../../../styles/variables.scss' as *;
 
 .card-div{
 border:1px solid;
 padding: 20px;
 border-radius: 15px;
 gap:20px;
-display: flex;
-flex-direction: column;
+@include column-flex;
 margin: 10px 0px;
 .heading{
-    display: flex;
-flex-direction: row;
-   justify-content: space-between;
+    @include row-flex-space;
    text-align: center;
 .status{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+    @include row-flex-space;
     align-items: center;
     text-align: center;
     gap:10px;
@@ -57,8 +54,7 @@ color: white}
 }
 }
 .desc-container{
-    display: flex;
-    flex-direction: column;
+    @include column-flex;
     gap: 12px;
     .desc-heading{
         height: auto; 
@@ -76,21 +72,17 @@ color: white}
     }
 }
 .icons-container{
-    display: flex;
-    flex-direction: row;
+    @include row-flex-space;
     height: 25px;
-    justify-content: space-between;
     align-items: center;
     img{
         width:31px;
         height: 25px;
         border-radius: 50%;
-        object-fit: cover;
-        object-position: top center
+        @include img-fit
     }
     .comments-icons{
-        display: flex;
-        flex-direction: row;
+        @include row-flex;
         gap:4px;
         height: 100%;
         align-items: center;

@@ -1,9 +1,10 @@
+@use '../../../../styles/mixins.scss' as *;
+
 .collapsable-section, .noncollapsable-section{
   
     .header {
-      display: flex;
+      @include flex-center;
       justify-content: space-between;
-      align-items: center;
       color: white;
       padding: 10px;
       cursor: pointer;
@@ -13,8 +14,7 @@
       }
       .content {
         overflow: hidden;
-        display: flex;
-        flex-direction: column;
+        @include column-flex;
         transition: all 0.5s ease-in-out;
         p{
           margin-top: 10px;
@@ -40,8 +40,7 @@ display:none
     display: none;
   }
   .noncollapsable-section{
-    display:flex;
-    flex-direction: column;
+    @include column-flex;
     .header{
       justify-content: center;
       font-size:17px;

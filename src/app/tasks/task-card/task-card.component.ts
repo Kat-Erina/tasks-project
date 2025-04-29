@@ -48,7 +48,5 @@ export class TaskCardComponent {
     }
   }
 
-  ngOnInit(){
-  console.log(this.applyBgc('ადმინისტრაციის დეპარტმანეტი'))  
-  }
+ 
 }

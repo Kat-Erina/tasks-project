@@ -58,11 +58,7 @@ toggleOpen(){
   this.openList.set(!this.openList())
 }
 
-//img functionality 
-
 onFileChange(event: Event) {
-
-
   const input = event.target as HTMLInputElement;
   if (input.files && input.files.length > 0 && input.files[0]) {
     const file = input.files[0];
@@ -106,7 +102,6 @@ handleDepartmentChange(value:{name:string, obj:{name:string, id:number}}){
 
 
 ngOnInit(): void {
-  // localStorage.clear()
   let fetchedData=localStorage.getItem('employeeData');
   if(!fetchedData){
     localStorage.setItem('employeeData', JSON.stringify(this.data));
@@ -128,7 +123,6 @@ ngOnInit(): void {
 
 closeModal(event:Event){
   event.stopPropagation()
-  
   this.sharedState.openEmployeeModal.set(false)
 }
 
@@ -136,7 +130,6 @@ handleSubmit(event:Event){
   this.formSubmitted.set(true)
   event.preventDefault();
 
-  
   if(this.nameValue() && this.imageSrc()&&this.surnameValue() &&this.chosenDepartment()){
     const formData = new FormData();
     formData.append('avatar', this.photo(), this.photo().name);

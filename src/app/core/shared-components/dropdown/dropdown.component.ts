@@ -1,4 +1,4 @@
-import { Component, ElementRef, EventEmitter, inject, Input, Output, signal, ViewChild, viewChild } from '@angular/core';
+import { Component,    EventEmitter, inject, Input, Output, signal } from '@angular/core';
 import { Department, Priority, ReceivedEmployee, Status } from '../../types/models';
 import { CommonModule } from '@angular/common';
 import { SharedStates } from '../../services/sharedStates.service';

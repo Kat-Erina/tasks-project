@@ -1,3 +1,6 @@
+@use './../../styles/variables.scss' as *;
+@use './../../styles/mixins.scss' as *;
+
 :host{
     position: relative;
    
@@ -12,9 +15,7 @@
             ul{
                 padding: 10px;
                 list-style: none;
-                display: flex;
-                flex-direction: row;
-                justify-content: space-between;
+              @include row-flex-space;
                 gap:20px;
             }
         }
@@ -22,17 +23,14 @@
             margin-top: 15px;
             margin-bottom: 15px;
             ul{
-                display: flex;
-                flex-direction: row;
-                justify-content: space-between;
+               @include row-flex-space;
                 gap:10px;
                 list-style: none;
             }
         }
 
         .filters-list{
-            display: flex;
-            flex-direction: row;
+            @include row-flex;
             gap:10px !important;
             width:100%;
             flex-wrap: wrap;
@@ -81,5 +79,5 @@
 
 
 ::ng-deep mat-spinner circle {
-    stroke: #8338EC; 
+    stroke: $primary-color; 
   }

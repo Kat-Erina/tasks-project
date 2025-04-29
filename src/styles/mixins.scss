@@ -1,0 +1,46 @@
+@mixin column-flex {
+    display: flex;
+    flex-direction: column;
+  }
+
+  @mixin row-flex{
+    display: flex;
+        flex-direction: row;
+  }
+
+  @mixin flex-center{
+    display: flex;
+    justify-content: center;
+  }
+
+  @mixin row-flex-space{
+    display: flex;
+    flex-direction: row;
+       justify-content: space-between;
+  }
+
+  @mixin flex-end{
+    display: flex;
+    justify-content: end
+  }
+  @mixin flex-align-items{
+    display: flex;
+    align-items: center;
+  }
+
+  @mixin img-fit{
+    object-fit: cover;
+        object-position: top center
+  }
+
+  @mixin border-padding{
+    padding: 5px;
+        border-radius: 5px;
+  }
+
+  @mixin small-padding{
+    padding: 5px 10px
+  }
+
+  
+ 

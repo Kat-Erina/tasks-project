@@ -1,12 +1,12 @@
+@use './../../styles/variables.scss' as *;
+@use './../../styles/mixins.scss' as *;
 .header-div{
-    display: flex;
-    flex-direction: row;
+    @include row-flex;
     align-items: center;
     gap:12px;
     font-size: 10px;
     .priority-container{
-        display: flex;
-        flex-direction: row;
+        @include row-flex;
         align-items: center;
         gap:2px;
         border:1px solid;
@@ -18,11 +18,9 @@
         
     }
     .department-name{
-             text-align: center;
-            padding: 5px 10px;
+             @include small-padding;
             font-weight: 400;
-            align-items: center;
-            display: flex;
+            @include flex-align-items;
             border-radius: 15px;
             font-size: 10px; 
             text-align: center;
@@ -34,17 +32,14 @@
 .main-container{
     margin-top: 12px;
     position: relative;
-    display: flex;
-    flex-direction: column;
+    @include column-flex;
     gap:35px;
     .task-details{
-        display: flex;
-        flex-direction: column;
+        @include column-flex;
         gap:20px;
 
         .item-desc-container{
-            display: flex;
-            flex-direction: column;
+            @include column-flex;
             gap:15px; 
             h1{
                 font-size: 15px; 
@@ -57,10 +52,7 @@
 
         .task-status, .task-employee, .task-deadline{
             align-items: center;
-            display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-
+            @include row-flex-space;
         .status-p, .empl-p, .deadline-p{
             font-size: 11px ;
             
@@ -82,11 +74,9 @@
                 height: 100%;
                 position: relative;
                 .chosen-status{
-                    display: flex;
-                    flex-direction: row;
-                    justify-content: space-between;
+                    @include row-flex-space;
                     padding: 10px;
-border: 1px solid #CED4DA;
+border: 1px solid $border-color;
 border-radius: 5px;
                     p{
                         font-size: 10px;
@@ -97,7 +87,7 @@ border-radius: 5px;
                 }
             }
             .status-list{
-                border: 1px solid #CED4DA;
+                border: 1px solid $border-color;
                 border-radius: 5px;
                 margin-top: 5px;
                 gap:2px;
@@ -114,8 +104,7 @@ border-radius: 5px;
         }
         .task-employee{
             .employee-details{
-                display: flex;
-                flex-direction: column;
+                @include column-flex;
                 gap:3px;
                 justify-content: flex-start;
 width: 50%;
@@ -125,14 +114,12 @@ width: 50%;
                   
                 }
                 .employee-img-container{
-                    display: flex;
-                    flex-direction: row;
+                    @include row-flex;
                     gap:5px;
                     img{width:16px;
                     height: 16px;
                 border-radius: 50px;
-                object-fit: cover;
-                object-position: top center;
+                @include img-fit
                }
                 }
                 .empoyee-name{
@@ -146,13 +133,11 @@ width: 50%;
     .comments-div{
         width: 100%;
         background-color: #DDD2FF;
-        display: flex;
-        flex-direction: column;
+        @include column-flex;
         gap:30px;
         padding: 25px;
         .all-comments{
-            display: flex;
-            flex-direction: column;
+            @include column-flex;
             gap:15px;
             h4{
                 font-weight: bold;
@@ -160,7 +145,7 @@ width: 50%;
                 margin-right: 4px;
 span{
     padding: 1px 6px;
-    background-color: #8338EC;
+    background-color: $primary-color;
     color: white;
     border-radius: 50%;
 }
@@ -177,8 +162,7 @@ li{
 }
 
 .img-container{
-    display: flex;
-    flex-direction: row;
+    @include row-flex;
     gap:3px;
     font-size: 10px;
     align-items: center;
@@ -194,11 +178,11 @@ li{
         font-size: 12px;
         .priority-container{ 
             img{
-                width: 12px; // es
+                width: 12px; 
             }
         }
         .department-name{
-                font-size: 12px; // es      
+                font-size: 12px;     
         }
     }
     
@@ -297,8 +281,7 @@ span{
                     }
                     .empoyee-name{
                         font-size: 12px;
-                        align-items: center;
-                        display: flex;
+                        @include flex-align-items;
                     }
                 }
             }
@@ -331,8 +314,7 @@ span{
         .task-details{
            width: 50%;
             .item-desc-container{
-                display: flex;
-                flex-direction: column;
+                @include column-flex;
                 gap:20px; 
                 h1{
                     font-size: 24px; 

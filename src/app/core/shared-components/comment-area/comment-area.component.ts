@@ -1,4 +1,4 @@
-import { Component, inject, Input, Signal, WritableSignal } from '@angular/core';
+import { Component, DestroyRef, inject, Input,  WritableSignal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ApiService } from '../../services/api.service';
 
@@ -13,6 +13,7 @@ export class CommentAreaComponent {
   @Input()  childOrParent!:string
   @Input() parentCommentId!:number
   @Input() show!:WritableSignal<boolean>
+  destroyRef=inject(DestroyRef)
   
   apiService=inject(ApiService)
   commentBody=''
@@ -23,10 +24,8 @@ export class CommentAreaComponent {
       alert('გთხოვთ დაწეროთ კომენტარი')
       return
     }
-    if(this.childOrParent==='parent'){
-      console.log('parent','taskId', this.id)
-    
-        this.apiService.addComment(this.id, {text:this.commentBody}).subscribe({
+    if(this.childOrParent==='parent'){    
+     let sub=this.apiService.addComment(this.id, {text:this.commentBody}).subscribe({
     next:response=>{
       if(response){
         this.commentBody='';
@@ -35,11 +34,15 @@ export class CommentAreaComponent {
     },
     error: error=>console.log(error)
   })
+
+  this.destroyRef.onDestroy(()=>{
+    sub.unsubscribe()
+  })
       
       
     }
      else{
-      this.apiService.addComment(this.id, {text:this.commentBody, parent_id:this.parentCommentId}).subscribe({
+     let sub=this.apiService.addComment(this.id, {text:this.commentBody, parent_id:this.parentCommentId}).subscribe({
         next:response=>{
           if(response){
             this.commentBody='';
@@ -50,8 +53,9 @@ export class CommentAreaComponent {
         error: error=>console.log(error)
       })
 
-
-
+      this.destroyRef.onDestroy(()=>{
+        sub.unsubscribe()
+      })
     }
   }
 

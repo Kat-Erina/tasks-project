@@ -1,33 +1,31 @@
+@use './../../styles/variables.scss' as *;
+@use './../../styles/mixins.scss' as *;
+
 .task-container{
     font-family: 'FiraGO', sans-serif;
     padding-top: 5px;
-    display: flex;
-    flex-direction: column;
+    @include column-flex;
     border-radius: 4px;
     gap:15px;
     h1{
         font-size: 16px;
     }
     form{
-        display: flex;
-        flex-direction: column;
+        @include column-flex;
         gap:15px;
         background-color: #DDD2FF;
         padding: 20px 30px;
         .main-container{
-display: flex;
-flex-direction: column;
+            @include column-flex;
 gap:15px;
             .first-sub-container{
-                display: flex;
-        flex-direction: column;
+                @include column-flex;
         gap:15px;
        .title-div{
         width: 100%;
        }
         .desc-div{
-            display: flex;
-            flex-direction: column;
+            @include column-flex;
             gap:4px;
             label{
                 font-size: 12px;
@@ -42,11 +40,10 @@ gap:15px;
                 min-height: 100px;
                 font-size: 10px;
                 line-height: 150%;
-                color: #0D0F10
+                color: $input-color
             }
             .span-container{
-                display: flex;
-                flex-direction: column;
+                @include column-flex;
                 span{
                 color: #6C757D;
                 font-size: 8px;
@@ -54,31 +51,24 @@ gap:15px;
             }
         }
         .status-priority-container{
-            display: flex;
-            flex-direction: row;
-            justify-content: space-between;
+            @include row-flex-space;
             gap:20px;
-         
             .priority, .status{
                 width: 50%;
             }
         }
             }
             .second-sub-container{
-                display: flex;
-                flex-direction: column;
+                @include column-flex;
                 gap:15px;
                 .department-employee-container{
-                    display: flex;
-                    flex-direction: row; 
-                    justify-content: space-between;
+                    @include row-flex-space;
                     gap:20px;
                 }
                 .department-container,.employees-container{ width: 50%;}
                 .deadline-container{
                     position: relative;
-                    display: flex;
-                    flex-direction: column;
+                    @include column-flex;
                     gap:2px;
                     p{
                         font-size: 12px;
@@ -94,12 +84,12 @@ gap:15px;
             justify-content: end;
             margin-top: 40px;
             button{
-                background-color: #8338EC;
+                background-color: $primary-color;
                 color: white;
                 outline: none;
                 border: none;
-                border-radius: 5px;
-                padding: 5px 10px;
+                @include border-padding;
+                @include small-padding;
                 align-items: center;
                 font-family: 'FiraGO', sans-serif;
                 font-size: 12px;
@@ -116,8 +106,7 @@ gap:15px;
             border-radius: 5px;
             padding: 0;
             height: 34px;
-            display: flex;
-            align-items: center;
+            @include flex-align-items;
             .mat-mdc-form-field-flex{
                 background-color: white;
                 border-radius: 5px;
@@ -140,8 +129,7 @@ gap:15px;
                             width:15px;
                             height: 15px;
                             padding: 0;
-                            display: flex;
-                            align-items: center;
+                            @include flex-align-items;
                             border-radius: 0;
                             svg{
                                 width:100%;
@@ -168,7 +156,7 @@ gap:15px;
         outline: none !important;
       }
       .mat-calendar-body-cell[aria-pressed="true"] > .mat-calendar-body-cell-content {
-        background-color: #8338EC !important;
+        background-color: $primary-color !important;
         color: white !important;
         border-radius: 50%;
       }
@@ -264,8 +252,7 @@ gap:15px;
                     .deadline-container{
                         position: relative;
                         width: 50%;
-                        display: flex;
-                        flex-direction: column;
+                        @include column-flex;
                         gap:2px;
                        .deadline-p{
                         margin-bottom: 4px;
@@ -276,7 +263,7 @@ gap:15px;
             .btn-container{
              width: 78.2%;
              button{
-                padding: 5px 10px;
+                @include small-padding;
                 font-size: 15px;
              }
               

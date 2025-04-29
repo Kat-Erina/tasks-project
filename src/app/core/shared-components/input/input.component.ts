@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, effect, EventEmitter, Input, input, OnInit, Output } from '@angular/core';
+import { Component,  EventEmitter, Input, input,  Output } from '@angular/core';
 
 @Component({
   selector: 'app-input',

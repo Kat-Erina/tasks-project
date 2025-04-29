@@ -1,4 +1,4 @@
-import { Component, inject, input,  OnInit, signal,   } from '@angular/core';
+import { Component, DestroyRef, inject, input,  OnInit, signal,   } from '@angular/core';
 import { ApiService } from '../core/services/api.service';
 import {  Status, Task } from '../core/types/models';
 import { CommonModule } from '@angular/common';
@@ -18,6 +18,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 })
 export class TaskComponent implements OnInit {
 apiService=inject(ApiService)
+destroyRef=inject(DestroyRef)
 id=input.required<number>()
 item:Task|undefined=undefined
 statuses=signal<Status[]>([])
@@ -49,7 +50,7 @@ taskError=signal(false)
 
 
  loadData(){
-  this.apiService.getItemInfo(this.id()).subscribe({
+ let sub= this.apiService.getItemInfo(this.id()).subscribe({
     next:response=>{
 this.item=response;
 this.chosenStatus.set(this.item.status)
@@ -63,21 +64,33 @@ this.weekDay.set(this.daysObj[this.date.getDay()])
     error:()=>this.taskError.set(true)
   })
   this.getStatuses()
+
+  this.destroyRef.onDestroy(()=>{
+    sub.unsubscribe()
+  })
 }
 
   getStatuses(){
-    this.apiService.getStatuses().subscribe({
+   let sub=this.apiService.getStatuses().subscribe({
       next:response=>this.statuses.set(response),
       error:error=>console.log(error)
+    })
+
+    this.destroyRef.onDestroy(()=>{
+      sub.unsubscribe()
     })
 }
 
 chooseStatus(status:Status){
 this.chosenStatus.set(status)
-this.apiService.updateTaskstatus(this.id(), {'status_id':this.chosenStatus()?.id}).subscribe({
+let sub=this.apiService.updateTaskstatus(this.id(), {'status_id':this.chosenStatus()?.id}).subscribe({
     next:response=>{if(response)this.isVisible.set(false)
     },
     error:error=>console.log(error)
+  })
+
+  this.destroyRef.onDestroy(()=>{
+    sub.unsubscribe()
   })
 }
 
@@ -104,7 +117,6 @@ getPriorityClass(priority: string): string {
 }
 
 applyBorder(priority: string): string {
-  console.log(priority)
   switch (priority.toLowerCase()) {
     case 'დასაწყები': return '#FFBE0B';
     case 'პროგრესში': return '#FB5607';

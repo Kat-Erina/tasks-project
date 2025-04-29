@@ -1,47 +1,45 @@
+@use './../../styles/variables.scss' as *;
+@use './../../styles/mixins.scss' as *;
+
+
 header{
-    padding: 5px 10px;
-    display: flex;
-    flex-direction: column;
+    @include small-padding;
+   @include column-flex;
     img{
         width:120px;
         height: 20px;
     }
     .btn-div{
         margin-top: 5px;
-        display: flex;
-        flex-direction: row;
+       @include row-flex;
         justify-content: flex-end;
 
     }
     .add-employee{
-        border:1px solid #8338EC;
+        border:1px solid $primary-color;
         background-color: white;
         font-size: 10px;
         letter-spacing: 0.2px;
         margin-right: 10px;
-        padding: 5px;
-        border-radius: 5px;
+       @include border-padding;
         text-decoration: none;
     }
     .add-employee:hover, .add-task:hover{
         cursor: pointer;
     }
     .add-task{
-        background-color: #8338EC;
+        background-color: $primary-color;
         color: white;
         font-size: 10px;
         letter-spacing: 0.2px; 
-        padding:5px;
-        display: flex;
-        align-items: center;
-        border-radius: 5px;
+        @include border-padding;
+        @include flex-align-items;
         text-align: center;
         gap:2px;
         text-decoration: none;
         span{
-            align-items: center;
+            @include flex-align-items;
             text-align: center;
-            display: flex;
         }
     }
 }
@@ -49,8 +47,7 @@ header{
 
 @media screen and (min-width:500px) {
     header{
-        flex-direction: row;
-        justify-content: space-between;
+        @include row-flex-space;
         img{
             width:150px;
             height: 25px;

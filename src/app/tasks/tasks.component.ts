@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Component, DestroyRef, inject, OnInit, signal } from '@angular/core';
 import { LiComponent } from '../core/shared-components/li/li.component';
 import { SharedStates } from '../core/services/sharedStates.service';
 import { FilteringCriteriasComponent } from '../core/shared-components/filtering-criterias/filtering-criterias.component';
@@ -24,7 +24,8 @@ chosenDepartment:Department[]|undefined=[]
 toBeStartedTasks=this.apiService.toBeStartedTasks
 toBeTestedTasks=this.apiService.toBeTestedTasks
 inProgressTasks=this.apiService.inProgressTasks
-finishedTasks=this.apiService.finishedTasks
+finishedTasks=this.apiService.finishedTasks;
+destroyRef=inject(DestroyRef)
 
 statuses=[{name:'დასაწყები', 
   color: '#F7BC30'
@@ -50,20 +51,26 @@ tasksAreLoading = this.apiService.tasksAreLoading;
 taskLoadingHasError = this.apiService.taskLoadingHasError;
 
 ngOnInit(): void {
-  // localStorage.clear()
   this.apiService.getAllDepartments()
   this.apiService.getTasks()
-  this.apiService.getPriorities().subscribe({
+ let sub=this.apiService.getPriorities().subscribe({
     next:response=>{
       this.priorities.set(response)
     },
     error:error=>console.log(error)
   })
-  this.apiService.getEmployees().subscribe({
+
+  this.destroyRef.onDestroy(()=>{
+    sub.unsubscribe()
+  })
+ let emplSub=this.apiService.getEmployees().subscribe({
     next:response=>{
       this.employees.set(response)
     },
     error:error=>console.log(error)
+  })
+  this.destroyRef.onDestroy(()=>{
+    emplSub.unsubscribe()
   })
 
 

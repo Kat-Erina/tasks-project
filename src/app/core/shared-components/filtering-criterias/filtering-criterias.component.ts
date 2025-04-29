@@ -1,5 +1,5 @@
-import { Component, EventEmitter, inject, Input, OnInit, Output, signal } from '@angular/core';
-import { Department, Employee, Priority, ReceivedEmployee } from '../../types/models';
+import { Component, EventEmitter, inject, Input,  Output, signal } from '@angular/core';
+import { Department,  Priority, ReceivedEmployee } from '../../types/models';
 import { SharedStates } from '../../services/sharedStates.service';
 import { ApiService } from '../../services/api.service';
 

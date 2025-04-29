@@ -1,5 +1,5 @@
 import { computed, Injectable, signal } from "@angular/core";
-import { Department,  Priority,  ReceivedEmployee, Task } from "../types/models";
+import { Department,  Priority,  ReceivedEmployee } from "../types/models";
 
 @Injectable({
     'providedIn':'root'
