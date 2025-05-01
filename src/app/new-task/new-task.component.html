@@ -31,11 +31,11 @@
             <div class="status-priority-container">
  <div class="priority">
      <app-dropdown [data]="priorities()" [chosenValue]="chosenPriority()" [classifier]="'priority'" (getchosenValue)="handleDropDownChange($event)"
-     [title]="'პრიორიტეტი*'" ></app-dropdown>
+     [title]="'პრიორიტეტი*'" [isOpen]="isOpen('priority')" (toggle)="toggleDropdown($event)"></app-dropdown>
  </div>
  <div class="status">
      <app-dropdown [data]="statuses()" [chosenValue]="chosenstatus()" [classifier]="'statuses'" (getchosenValue)="handleDropDownChange($event)"
-     [title]="'სტატუსი*'" ></app-dropdown>
+     [title]="'სტატუსი*'" [isOpen]="isOpen('statuses')" (toggle)="toggleDropdown($event)"></app-dropdown>
  </div>
             </div>
 
@@ -47,12 +47,12 @@
             <div class="department-employee-container">
              <div class="department-container">
                  <app-dropdown [data]="apiService.departments()" [chosenValue]="chosenDepartment()" [classifier]="'department'" (getchosenValue)="handleDropDownChange($event)"
-                 [title]="'დეპარტამენტი*'" [formSubmitted]="formSubmitted"></app-dropdown>
+                 [title]="'დეპარტამენტი*'" [formSubmitted]="formSubmitted" [isOpen]="isOpen('department')" (toggle)="toggleDropdown($event)"></app-dropdown>
              </div>
              @if(chosenDepartment()){
                  <div class="employees-container">
                      <app-dropdown  [data]="filteredEmployees()" [chosenValue]="chosenEmployee()" [classifier]="'employee'" (getchosenValue)="handleDropDownChange($event)"
-                     [title]="'თანამშრომელი*'" [formSubmitted]="formSubmitted"></app-dropdown>
+                     [title]="'თანამშრომელი*'" [formSubmitted]="formSubmitted" [isOpen]="isOpen('employee')" (toggle)="toggleDropdown($event)"></app-dropdown>
                  </div>
              }
             

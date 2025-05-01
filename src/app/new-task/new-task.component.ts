@@ -55,6 +55,26 @@ filteredEmployees=this.sharedStates.filteredEmployees
 destroyRef=inject(DestroyRef)
 
 
+openDropdownId: string | null = null;
+
+
+  toggleDropdown(clickedId: string) {
+   
+    if (this.openDropdownId === clickedId) {
+      this.openDropdownId = null;
+    } else {
+      this.openDropdownId = clickedId;
+    }
+
+  }
+
+  isOpen(id: string): boolean {
+    return this.openDropdownId === id;
+  }
+
+
+
+
 handleNameChange(value:string){
     this.titleValue.set(value)
    this.minimumLengthValid.set(this.regexforMinimumLength.test(this.titleValue()));

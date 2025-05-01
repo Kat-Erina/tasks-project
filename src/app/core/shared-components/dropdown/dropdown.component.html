@@ -1,5 +1,5 @@
 <p class="title">{{title}}</p>
-<div [ngClass]="{'invalid-border':formSubmitted() && !chosenValue}" class="selected-option" (click)="toggleOpen()">
+<div [ngClass]="{'invalid-border':formSubmitted() && !chosenValue}" class="selected-option" (click)="onToggle()">
     <section class="img-container">
         @if(chosenValue?.icon)
   {
@@ -8,14 +8,15 @@
 }
     <p>{{chosenValue?.surname?( chosenValue?.name+' '+ chosenValue?.surname ): chosenValue?.name}}</p>
     </section>
-    <i class="fa-solid" [ngClass]="openList()?'fa-angle-up':'fa-angle-down'"></i>
+    <i class="fa-solid" [ngClass]="isOpen?'fa-angle-up':'fa-angle-down'"></i>
 </div>
-@if(openList()){
+@if(isOpen){
 <ul >
     @if(classifier==='employee'){<li class="add-empl" (click)="SharedStates.openEmployeeModal.set(true)">
         <img src="images/Frame 1000006008.svg" alt="symbol">
         დაამატე თანამშრომელი
     </li>}
+ 
     @for(item of data; track item.id){
         <li (click)="setValue(item)">
             @if(item?.icon){<img [alt]="item.name" [src]="item?.icon">}
@@ -26,6 +27,7 @@
             @else{<p>{{item.name}}</p>}
         </li>
     }
+   
     
 </ul>
 }

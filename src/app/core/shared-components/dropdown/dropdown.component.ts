@@ -14,19 +14,21 @@ export class DropdownComponent {
 @Input() chosenValue!:Priority| Status |Department |ReceivedEmployee |undefined;
 @Input() classifier!:string
 @Input() formSubmitted=signal(false)
+@Input() isOpen: boolean = false;
 @Output() getchosenValue=new EventEmitter();
-openList=signal(false);
+@Output() toggle = new EventEmitter<string>();
 chosenItem=signal({})
 SharedStates=inject(SharedStates)
 
 
-toggleOpen(){
-  this.openList.set(!this.openList())
 
+onToggle() {
+  this.toggle.emit(this.classifier);
 }
 
+
 setValue(value:{id:number, name:string, icon?:string, surname?:string, avatar?:string, department?:Department}){
-this.openList.set(false)
+this.onToggle()
   this.chosenItem.set(value)
   if(this.classifier==='priority'){
     this.getchosenValue.emit({name:'priority',obj:value })
