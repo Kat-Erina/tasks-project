@@ -25,6 +25,7 @@ statuses=signal<Status[]>([])
 isVisible=signal(false)
 chosenStatus=signal<Status|null>(null)
 comments=this.apiService.comments;
+commentsLoadingHAsError=this.apiService.commentsLoadingHAsError
 date:Date|string=''
  day = signal('');
  month =signal('');

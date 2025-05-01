@@ -74,6 +74,12 @@
 
     <!-- //comments section -->
     <div class="comments-div">
+        @if(commentsLoadingHAsError()){
+            <div class="error-div">
+                <p>სამწუხაროდ კომენტარების ჩატვირთვა ვერ მოხერხდა. 😢</p>
+            </div>
+        }
+        @else {
       <app-comment-area [id]="id()" [childOrParent]="'parent'"></app-comment-area>
 
         <div class="all-comments">
@@ -89,5 +95,6 @@
 
             </ul>
         </div>
+    }
     </div>
 </div>

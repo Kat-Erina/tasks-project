@@ -21,7 +21,9 @@ chosenFilteringCriterias=this.sharedStatesService.chosenFilteringCriterias;
 comments=signal<Comment[]>([])
 tasksAreLoading = signal(true);
 taskLoadingHasError = signal(false);
+commentsLoadingHAsError=signal(false)
 destroyRef=inject(DestroyRef)
+token="9ec85ffd-5c66-4ca1-83f7-0ce049174b69"
 
     
 
@@ -47,7 +49,7 @@ ngOnInit(): void {
 
    getEmployees(){
     const header=new HttpHeaders({
-        Authorization: 'Bearer '
+        Authorization: `Bearer ${this.token}`
     })
     return  this.http.get<ReceivedEmployee[]>(`${this.url}/employees`, {headers:header})
    }
@@ -68,7 +70,7 @@ ngOnInit(): void {
 
  getTasks(){
   const header=new HttpHeaders({
-    Authorization: 'Bearer '
+    Authorization: `Bearer ${this.token}`
 })
 let sub=this.http.get<Task[]>(`${this.url}/tasks`, {headers:header}).subscribe({
   next:data=>{
@@ -112,7 +114,7 @@ this.finishedTasks.set(this.filterTasks(this.finishedTasks(), this.chosenFilteri
 
   postData(destination:string, data:any){
     const header=new HttpHeaders({
-      Authorization: 'Bearer ' 
+      Authorization: `Bearer ${this.token}` 
   })
 
   return  this.http.post<ReceivedEmployee>(`${this.url}/${destination}`,data, {headers:header})
@@ -122,14 +124,14 @@ this.finishedTasks.set(this.filterTasks(this.finishedTasks(), this.chosenFilteri
 
   getItemInfo(id:number){
     const header=new HttpHeaders({
-      Authorization: 'Bearer '
+      Authorization: `Bearer ${this.token}`
   })
     return this.http.get<Task>(`${this.url}/tasks/${id}`, {headers:header})
   }
 
   updateTaskstatus(id:number, data:{'status_id':number|undefined}){
     const header=new HttpHeaders({
-      Authorization: 'Bearer '
+      Authorization: `Bearer ${this.token}`
   })
 
   return this.http.put<Task>(`${this.url}/tasks/${id}`,data,{headers:header})
@@ -137,11 +139,15 @@ this.finishedTasks.set(this.filterTasks(this.finishedTasks(), this.chosenFilteri
 
   getAllcomments(id:number){
     const header=new HttpHeaders({
-      Authorization: 'Bearer '
+      Authorization: `Bearer ${this.token}`
   })
  let sub= this.http.get<Comment[]>(`${this.url}/tasks/${id}/comments`, {headers:header}).subscribe({
-        next:response=> this.comments.set(response),
-        error:error=>console.log(error)
+        next:response=> {
+          this.commentsLoadingHAsError.set(false)
+          this.comments.set(response)},
+        error:error=>{console.log(error);
+          this.commentsLoadingHAsError.set(true)
+        }
       })
 
       this.destroyRef.onDestroy(()=>{
@@ -152,7 +158,7 @@ this.finishedTasks.set(this.filterTasks(this.finishedTasks(), this.chosenFilteri
 
   addComment(id:number, data:{text:string, parent_id?:number}){
     const header=new HttpHeaders({
-      Authorization: 'Bearer '
+      Authorization: `Bearer ${this.token}`
   })
   return this.http.post<{text:string, parent_id?:number}>(`${this.url}/tasks/${id}/comments`,data, {headers:header})
   

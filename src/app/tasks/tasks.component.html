@@ -7,6 +7,13 @@
 }
 
 @else{
+
+  @if(tasks().length===0){
+    <div class="error-div">
+      <p>დავალებები არ არსებობს</p>
+  </div>
+  }
+  @else{
 <h1>დავალებების გვერდი</h1>
 <div class="filters">
     <ul>
@@ -46,6 +53,7 @@
     <app-task-column [header]="status.name" [color]="status.color" [data]="getTasksByStatus(status.name)"></app-task-column>
   }
 </div>}
+}
 }
 @if(taskLoadingHasError()){
   <div class="error-div">
